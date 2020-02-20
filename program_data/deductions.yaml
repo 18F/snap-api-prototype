@@ -1,0 +1,47 @@
+# SOURCES:
+#
+# https://www.fns.usda.gov/snap/allotment/COLA
+#
+# https://fns-prod.azureedge.net/sites/default/files/media/file/FY20-Maximum-Allotments-Deductions.pdf
+
+standard_deduction:
+    DEFAULT:
+        2020:
+          1: 167
+          2: 167
+          3: 167
+          4: 178
+          5: 209
+          6: 240
+    AK:
+        2020:
+          1: 286
+          2: 286
+          3: 286
+          4: 286
+          5: 286
+          6: 300
+    HI:
+        2020:
+          1: 236
+          2: 236
+          3: 236
+          4: 236
+          5: 240
+          6: 275
+    GUAM:
+        2020:
+          1: 336
+          2: 336
+          3: 336
+          4: 357
+          5: 418
+          6: 479
+    VIRGIN_ISLANDS:
+        2020:
+          1: 147
+          2: 147
+          3: 148
+          4: 178
+          5: 209
+          6: 240

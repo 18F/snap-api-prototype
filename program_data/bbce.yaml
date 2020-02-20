@@ -1,0 +1,45 @@
+# SOURCE:
+# https://fns-prod.azureedge.net/sites/default/files/resource-files/BBCE2019%28December%29.pdf
+
+# NOTE: This YAML file is currently incomplete and is being written by hand based on sources from SNAP.
+
+AZ:
+    2020:
+        uses_bbce: True
+        gross_income_limit_factor: 1.85
+        resource_limit_elderly_or_disabled: NULL
+        resource_limit_elderly_or_disabled_income_twice_fpl: NULL
+        resource_limit_non_elderly_or_disabled: NULL
+
+CA:
+    2020:
+        uses_bbce: True
+        gross_income_limit_factor: 2
+        resource_limit_elderly_or_disabled: NULL
+        resource_limit_elderly_or_disabled_income_twice_fpl: NULL
+        resource_limit_non_elderly_or_disabled: NULL
+
+ID:
+    2020:
+        uses_bbce: False
+        gross_income_limit_factor: 1.3
+        resource_limit_elderly_or_disabled: 5000
+        resource_limit_elderly_or_disabled_income_twice_fpl: 5000
+        resource_limit_non_elderly_or_disabled: 5000
+IL:
+    2020:
+        uses_bbce: True
+        gross_income_limit_factor: 1.65
+        resource_limit_elderly_or_disabled: NULL
+        resource_limit_elderly_or_disabled_income_twice_fpl: 3500
+        resource_limit_non_elderly_or_disabled: NULL
+MA:
+    2020:
+        uses_bbce: True
+        gross_income_limit_factor: 2
+        resource_limit_elderly_or_disabled: NULL
+        resource_limit_elderly_or_disabled_income_twice_fpl: 3500
+        resource_limit_non_elderly_or_disabled: NULL
+UT:
+    2020:
+        uses_bbce: False

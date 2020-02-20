@@ -1,0 +1,11 @@
+{
+    "description": "IL, 1-person household, has a monthly income of $1,250 and no savings or deductions beyond the standard deduction.",
+    "state_or_territory": "IL",
+    "monthly_income": 1250,
+    "household_size": 1,
+    "deductions_beyond_standard": [],
+    "household_includes_elderly_or_disabled": false,
+    "all_members_receiving_tanf_or_ssi":  false,
+    "resources": 0,
+    "retirement_savings": 0
+}

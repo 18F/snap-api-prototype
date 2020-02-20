@@ -1,0 +1,75 @@
+# SOURCE:
+#
+# https://fns-prod.azureedge.net/sites/default/files/media/file/FY20-Income-Eligibility-Standards.pdf
+#
+# NOTE: Hand written; should be double-checked.
+
+net_monthly_income_limits:
+    DEFAULT:
+        2020:
+            1: 1_041
+            2: 1_410
+            3: 1_778
+            4: 2_146
+            5: 2_515
+            6: 2_883
+            7: 3_251
+            8: 3_620
+            each_additional: 369
+    AK:
+        2020:
+            1: 1_300
+            2: 1_761
+            3: 2_222
+            4: 2_683
+            5: 3_144
+            6: 3_605
+            7: 4_065
+            8: 4_526
+            each_additional: 461
+    HI:
+        2020:
+            1: 1_199
+            2: 1_622
+            3: 2_045
+            4: 2_469
+            5: 2_892
+            6: 3_315
+            7: 3_739
+            8: 4_162
+            each_additional: 424
+
+gross_monthly_income_limits:
+    DEFAULT:
+        2020:
+            1: 1_354
+            2: 1_832
+            3: 2_311
+            4: 2_790
+            5: 3_269
+            6: 3_748
+            7: 4_227
+            8: 4_705
+            each_additional: 479
+    AK:
+        2020:
+            1: 1_690
+            2: 2_290
+            3: 2_889
+            4: 3_488
+            5: 4_087
+            6: 4_686
+            7: 5_285
+            8: 5_884
+            each_additional: 600
+    HI:
+        2020:
+            1: 1_558
+            2: 2_109
+            3: 2_659
+            4: 3_209
+            5: 3_760
+            6: 4_310
+            7: 4_860
+            8: 5_411
+            each_additional: 551

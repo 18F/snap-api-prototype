@@ -1,0 +1,9 @@
+# Python builds
+
+*.pyc
+build
+dist
+
+.DS_Store
+
+sketch

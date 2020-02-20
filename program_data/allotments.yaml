@@ -1,0 +1,85 @@
+# SOURCES:
+#
+# https://www.fns.usda.gov/snap/allotment/COLA
+#
+# https://fns-prod.azureedge.net/sites/default/files/media/file/FY20-Maximum-Allotments-Deductions.pdf
+#
+# https://fns-prod.azureedge.net/sites/default/files/media/file/FY20-Allotments-AKHIGUVI.pdf
+
+DEFAULT:
+    2020:
+        1: 194
+        2: 355
+        3: 509
+        4: 646
+        5: 768
+        6: 921
+        7: 1018
+        8: 1164
+        each_additional: 146
+AK_URBAN:
+    2020:
+        1: NULL
+        2: NULL
+        3: NULL
+        4: NULL
+        5: NULL
+        6: NULL
+        7: NULL
+        8: NULL
+        each_additional: NULL
+AK_RURAL_1:
+    2020:
+        1: NULL
+        2: NULL
+        3: NULL
+        4: NULL
+        5: NULL
+        6: NULL
+        7: NULL
+        8: NULL
+        each_additional: NULL
+AK_RURAL_2:
+    2020:
+        1: NULL
+        2: NULL
+        3: NULL
+        4: NULL
+        5: NULL
+        6: NULL
+        7: NULL
+        8: NULL
+        each_additional: NULL
+HI:
+    2020:
+        1: NULL
+        2: NULL
+        3: NULL
+        4: NULL
+        5: NULL
+        6: NULL
+        7: NULL
+        8: NULL
+        each_additional: NULL
+GUAM:
+    2020:
+        1: NULL
+        2: NULL
+        3: NULL
+        4: NULL
+        5: NULL
+        6: NULL
+        7: NULL
+        8: NULL
+        each_additional: NULL
+VIRGIN_ISLANDS:
+    2020:
+        1: NULL
+        2: NULL
+        3: NULL
+        4: NULL
+        5: NULL
+        6: NULL
+        7: NULL
+        8: NULL
+        each_additional: NULL
