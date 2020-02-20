@@ -1,11 +1,14 @@
 import yaml
-from snap_financial_factors.fetch_income_limits import FetchIncomeLimits
-from snap_financial_factors.fetch_deductions import FetchDeductions
+from snap_financial_factors.tests.asset_test import AssetTest
+from snap_financial_factors.tests.gross_income_test import GrossIncomeTest
+from snap_financial_factors.tests.net_income_test import NetIncomeTest
 from snap_financial_factors.fetch_allotments import FetchAllotments
+from snap_financial_factors.fetch_income_limits import FetchIncomeLimits
 
 class BenefitEstimate:
     def __init__(self, input_data):
         # Load user input data
+        self.input_data = input_data
         self.state_or_territory = input_data['state_or_territory']
         self.monthly_income = input_data['monthly_income']
         self.household_size = input_data['household_size']
@@ -58,63 +61,43 @@ class BenefitEstimate:
             resource_limit_elderly_or_disabled,
             resource_limit_elderly_or_disabled_income_twice_fpl,
             resource_limit_non_elderly_or_disabled):
+
         income_limits = FetchIncomeLimits(self.state_or_territory, self.household_size, self.income_limit_data)
+        net_income_test = NetIncomeTest(self.input_data,
+                                        self.deductions_data,
+                                        income_limits)
 
-        # TODO (ARS): Confirm we can remove the gross monthly income table
-        # and replace it with 1.3 (or the state multiplier) of the net
-        # income table.
-        gross_monthly_income_limit = gross_income_limit_factor * income_limits.net_monthly_income_limit()
-        below_gross_income_limit = (gross_monthly_income_limit > self.monthly_income)
+        tests = [ net_income_test ]
 
-        print('\033[1mGross monthly income limit: \033[0m')
-        print('Gross monthly income limit for state and household size: ${}'.format(gross_monthly_income_limit))
-        print('Monthly income submitted to API: ${}'.format(self.monthly_income))
-        print('Eligibility factor -- Is household monthly income below gross monthly income limit? {}.'.format(below_gross_income_limit))
-        print('')
+        if not self.household_includes_elderly_or_disabled:
+            gross_income_test = GrossIncomeTest(self.input_data,
+                                                income_limits,
+                                                gross_income_limit_factor)
+            tests.append(gross_income_test)
 
-        # TODO (ARS): Deductions beyond the standard deduction.
+        has_asset_test = resource_limit_elderly_or_disabled or \
+            resource_limit_elderly_or_disabled_income_twice_fpl or \
+            resource_limit_non_elderly_or_disabled
 
-        deductions = FetchDeductions(self.state_or_territory, self.household_size, self.deductions_data)
-        standard_deduction = deductions.standard_deduction()
-        net_monthly_income_limit = income_limits.net_monthly_income_limit()
-        below_net_income_limit = (net_monthly_income_limit) > (self.monthly_income - standard_deduction)
+        if has_asset_test:
+            asset_test = AssetTest(self.input_data,
+                                   resource_limit_elderly_or_disabled,
+                                   resource_limit_non_elderly_or_disabled)
+            tests.append(asset_test)
 
-        print('\033[1mNet monthly income limit: \033[0m')
-        print('Net monthly income limit for state and household size: ${}'.format(net_monthly_income_limit))
-        print('Standard deduction for state and household size: ${}'.format(standard_deduction))
-        print('Monthly income submitted to API: ${}'.format(self.monthly_income))
-        print('Eligibility factor -- Is household income (minus deductions) below net monthly income limit? {}.'.format(below_net_income_limit))
-        print('')
+        test_results = list(map(self.calculate_test_result, tests))
 
-        # TODO (ARS): Handle resource_limit_elderly_or_disabled_income_twice_fpl.
-        print('\033[1mResources: \033[0m')
-        if self.household_includes_elderly_or_disabled:
-            resource_limit = resource_limit_elderly_or_disabled
-            print('Since the household includes an elderly or disabled member, the resource limit is ${}'.format(resource_limit))
-        else:
-            resource_limit = resource_limit_non_elderly_or_disabled
-            print('Since the household does not include an elderly or disabled member, the resource limit is ${}.'.format(resource_limit))
-
-        if resource_limit:
-            below_resource_limit = (self.resources <= resource_limit)
-            print('Eligibility factor -- Are household resources below the asset limit? {}'.format(below_resource_limit))
-            print('')
-        else:
-            print('No asset test / resource limit because of state BBCE.')
-            below_resource_limit = True # Hack for now
-
-        print('\033[1mOverall: \033[0m')
-        if self.household_includes_elderly_or_disabled:
-            print('Since the household includes an elderly or disabled member, overall eligibility is determined by: net income limit + resource limit, depending on the state.')
-            overall_eligibility = below_net_income_limit and below_resource_limit
-        else:
-            print('Since the household does not include an elderly or disabled member, overall eligibility is determined by: net income limit + gross income limit + resource limit, depending on the state.')
-            overall_eligibility = below_net_income_limit and below_gross_income_limit and below_resource_limit
+        overall_eligibility = all(test_results)
 
         print('')
         print('\033[1mEligible?: {}\033[0m'.format(overall_eligibility))
         print('')
+
         return overall_eligibility
+
+    @staticmethod
+    def calculate_test_result(test):
+        return test.calculate()
 
     def estimated_monthly_benefit(self, eligible):
         if not eligible:
