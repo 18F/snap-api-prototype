@@ -7,6 +7,8 @@ verify_ssl = true
 
 [packages]
 flask = "~=1.1.1"
+flask-httpauth = "*"
+python-dotenv = "*"
 
 [requires]
 python_version = "3.7"
