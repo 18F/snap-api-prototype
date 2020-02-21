@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template
 from flask_httpauth import HTTPBasicAuth
 from os import path
 
@@ -32,10 +32,27 @@ def verify_password(username, password):
 
 @app.route('/')
 def get_root():
-    return jsonify(bbce_data), 300
+    return jsonify('welcome'), 300
 
 @app.route('/calculate', methods=['POST', 'GET'])
-def calculate():
+def calculate_from_json():
     input_data = request.get_json()
     benefit_estimate = BenefitEstimate(input_data)
     return jsonify(benefit_estimate.calculate()), 200
+
+@app.route('/calculate_from_form', methods=['POST', 'GET'])
+def calculate_from_form():
+    input_data = request.form.to_dict()
+    input_data['household_size'] = int(input_data['household_size'])
+    input_data['monthly_income'] = int(input_data['monthly_income'])
+
+    input_data['household_includes_elderly_or_disabled'] = (
+        input_data['household_includes_elderly_or_disabled'] == 'True'
+    )
+
+    benefit_estimate = BenefitEstimate(input_data)
+    return jsonify(benefit_estimate.calculate()), 200
+
+@app.route('/prescreener')
+def prescreener():
+    return render_template('prescreener.html')
