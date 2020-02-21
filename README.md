@@ -4,13 +4,25 @@ This is a sketchpad prototyping repo being used by 18F's [Eligibility APIs Initi
 
 :warning: ***None of the eligibility rules expressed in this repository should be considered official interpretations of SNAP rules or policy. This is a sketchpad prototyping repo only.*** :warning:
 
+## Environment
+
+To run the project locally, you will need:
+
+* [Python 3.7](https://www.python.org/downloads/).
+* [Pipenv](https://pipenv.kennethreitz.org/en/latest/), for installing and managing dependencies.
+* [Pyenv](https://github.com/pyenv/pyenv), for managing Python versions. (Optional but recommended.)
+
+## Install the dependencies
+
+```
+pipenv install
+```
+
 ## Run locally
 
 ```
 env FLASK_APP=app.py FLASK_ENV=development flask run
 ```
-
-
 
 ## Test the Web API
 
