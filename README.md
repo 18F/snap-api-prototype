@@ -1,6 +1,18 @@
+# Prototype: SNAP Financial Factors
+
+This is a sketchpad prototyping repo being used by 18F's [Eligibility APIs Initiative](https://github.com/18F/eligibility-rules-service/blob/master/README.md) to explore the financial factors of SNAP eligibility.
+
+:warning: ***None of the eligibility rules expressed in this repository should be considered official interpretations of SNAP rules or policy. This is a sketchpad prototyping repo only.*** :warning:
+
+## Run locally
+
 ```
 env FLASK_APP=app.py FLASK_ENV=development flask run
 ```
+
+
+
+## Test the Web API
 
 ```sh
 ###################
