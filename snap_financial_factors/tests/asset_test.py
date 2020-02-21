@@ -13,20 +13,28 @@ class AssetTest:
 
     def calculate(self):
         # TODO (ARS): Handle resource_limit_elderly_or_disabled_income_twice_fpl.
-        print('\033[1mResources: \033[0m')
-        if self.household_includes_elderly_or_disabled:
-            resource_limit = self.resource_limit_elderly_or_disabled
-            print('Since the household includes an elderly or disabled member, the resource limit is ${}'.format(resource_limit))
-        else:
-            resource_limit = self.resource_limit_non_elderly_or_disabled
-            print('Since the household does not include an elderly or disabled member, the resource limit is ${}.'.format(resource_limit))
+        has_resource_limit = (self.household_includes_elderly_or_disabled or \
+                              self.resource_limit_non_elderly_or_disabled)
 
-        if resource_limit:
+        if has_resource_limit:
+            if self.household_includes_elderly_or_disabled:
+                resource_limit = self.resource_limit_elderly_or_disabled
+                description = ['Since the household includes an elderly or disabled member, the resource limit is ${}'.format(resource_limit)]
+            else:
+                resource_limit = self.resource_limit_non_elderly_or_disabled
+                description = ['Since the household does not include an elderly or disabled member, the resource limit is ${}.'.format(resource_limit)]
+
             below_resource_limit = (self.resources <= resource_limit)
-            print('Eligibility factor -- Are household resources below the asset limit? {}'.format(below_resource_limit))
-            print('')
+            description.append('Eligibility factor -- Are household resources below the asset limit? {}'.format(below_resource_limit))
         else:
-            print('No asset test / resource limit because of state BBCE.')
-            below_resource_limit = True # Hack for now
+            description = 'This state does not have a resource limit.'
+            below_resource_limit = True
 
-        return below_resource_limit
+        return {
+            'result': below_resource_limit,
+            'reason': {
+                'test_name': 'Asset Test',
+                'test_passed?': below_resource_limit,
+                'description': description
+            },
+        }

@@ -21,11 +21,16 @@ class NetIncomeTest:
         net_monthly_income_limit = self.income_limits.net_monthly_income_limit()
         below_net_income_limit = (net_monthly_income_limit) > (self.monthly_income - standard_deduction)
 
-        print('\033[1mNet monthly income limit: \033[0m')
-        print('Net monthly income limit for state and household size: ${}'.format(net_monthly_income_limit))
-        print('Standard deduction for state and household size: ${}'.format(standard_deduction))
-        print('Monthly income submitted to API: ${}'.format(self.monthly_income))
-        print('Eligibility factor -- Is household income (minus deductions) below net monthly income limit? {}.'.format(below_net_income_limit))
-        print('')
+        description = ['Net monthly income limit for state and household size: ${}'.format(net_monthly_income_limit)]
+        description.append('Standard deduction for state and household size: ${}'.format(standard_deduction))
+        description.append('Monthly income submitted to API: ${}'.format(self.monthly_income))
+        description.append('Eligibility factor -- Is household income (minus deductions) below net monthly income limit? {}.'.format(below_net_income_limit))
 
-        return below_net_income_limit
+        return {
+            'result': below_net_income_limit,
+            'reason': {
+                'test_name': 'Net Income Test',
+                'test_passed?': below_net_income_limit,
+                'description': description
+            }
+        }

@@ -18,10 +18,16 @@ class GrossIncomeTest:
         gross_monthly_income_limit = self.gross_income_limit_factor * self.income_limits.net_monthly_income_limit()
         below_gross_income_limit = (gross_monthly_income_limit > self.monthly_income)
 
-        print('\033[1mGross monthly income limit: \033[0m')
-        print('Gross monthly income limit for state and household size: ${}'.format(gross_monthly_income_limit))
-        print('Monthly income submitted to API: ${}'.format(self.monthly_income))
-        print('Eligibility factor -- Is household monthly income below gross monthly income limit? {}.'.format(below_gross_income_limit))
-        print('')
+        description = []
+        description.append('Gross monthly income limit for state and household size: ${}'.format(gross_monthly_income_limit))
+        description.append('Monthly income submitted to API: ${}'.format(self.monthly_income))
+        description.append('Eligibility factor -- Is household monthly income below gross monthly income limit? {}.'.format(below_gross_income_limit))
 
-        return below_gross_income_limit
+        return {
+            'result': below_gross_income_limit,
+            'reason': {
+                'test_name': 'Gross Income Test',
+                'test_passed?': below_gross_income_limit,
+                'description': description
+            }
+        }

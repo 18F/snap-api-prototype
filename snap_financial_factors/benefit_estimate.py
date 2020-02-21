@@ -22,12 +22,15 @@ class BenefitEstimate:
         self.allotments_data = yaml.safe_load(open('./program_data/allotments.yaml', 'r'))
 
     def calculate(self):
-        eligible = self.eligible() # bool
+        eligibility_calculation = self.eligible() # bool
+        eligible = eligibility_calculation['eligible']
+        reasons = eligibility_calculation['reasons']
         estimated_monthly_benefit = self.estimated_monthly_benefit(eligible) # dollar amount int
 
         return {
             'eligible': eligible,
-            'estimated_monthly_benefit': estimated_monthly_benefit
+            'estimated_monthly_benefit': estimated_monthly_benefit,
+            'reasons': reasons
             }
 
     def eligible(self):
@@ -85,19 +88,16 @@ class BenefitEstimate:
                                    resource_limit_non_elderly_or_disabled)
             tests.append(asset_test)
 
-        test_results = list(map(self.calculate_test_result, tests))
-
+        test_calculations = [test.calculate() for test in tests]
+        test_results = [calculation['result'] for calculation in test_calculations]
+        reasons = [calculation['reason'] for calculation in test_calculations]
         overall_eligibility = all(test_results)
 
-        print('')
-        print('\033[1mEligible?: {}\033[0m'.format(overall_eligibility))
-        print('')
+        return {
+            'eligible': overall_eligibility,
+            'reasons': reasons,
+        }
 
-        return overall_eligibility
-
-    @staticmethod
-    def calculate_test_result(test):
-        return test.calculate()
 
     def estimated_monthly_benefit(self, eligible):
         if not eligible:
