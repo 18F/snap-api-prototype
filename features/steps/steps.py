@@ -58,4 +58,4 @@ def step_impl(context, number):
         print('expected_result:')
         print(expected_result)
 
-    assert(api_result == number)
+    assert(api_result == expected_result)
