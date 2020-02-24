@@ -126,9 +126,13 @@
   <script type="text/javascript">
       function toggleReasons () {
           var reasons = document.getElementById('reasons');
+          var why = document.getElementById('why');
 
           if (reasons) {
               reasons.classList.toggle('hidden');
+          }
+          if (why) {
+              why.classList.toggle('hidden');
           }
       }
 
@@ -140,17 +144,17 @@
               html += '<div class="result-headline">Your benefit could be as much as $' + response.estimated_monthly_benefit + ' per month.</div>';
               html += '<div class="result-headline">Apply here: <a href="' + response.state_website + '">' + response.state_website + '</a>.</div>';
           } else {
-              html += '<h2>You may not be eligible for SNAP benefits.</h2>'
+              html += '<div class="result-headline">You may not be eligible for SNAP benefits.</div>'
           }
 
-          html += '<br/><a class="result-headline why" onclick="toggleReasons()">Why did I get these results?</a>';
+          html += '<br/><a class="result-headline why" id="why" onclick="toggleReasons()">Why did I get these results?</a>';
 
           html += '<div id="reasons" class="hidden">';
 
           var reasons = response.reasons;
           for (var i = 0; i < reasons.length; i++) {
               var reason = reasons[i];
-              html += ('<h3>' + reason.test_name + '</h3>')
+              html += ('<h3>' + reason.test_name + ':</h3>')
 
               html += '<ul>';
               for (var j = 0; j < reason.description.length; j++) {
