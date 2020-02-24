@@ -3,7 +3,6 @@ class AssetTest:
         # Load user input data
         self.input_data = input_data
         self.state_or_territory = input_data['state_or_territory']
-        self.monthly_income = input_data['monthly_income']
         self.household_size = input_data['household_size']
         self.household_includes_elderly_or_disabled = input_data['household_includes_elderly_or_disabled']
         self.resources = input_data['resources']

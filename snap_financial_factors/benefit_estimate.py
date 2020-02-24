@@ -12,7 +12,7 @@ class BenefitEstimate:
         self.state_or_territory = input_data['state_or_territory']
         self.monthly_earned_income = input_data['monthly_earned_income']
         self.monthly_other_income = input_data['monthly_other_income']
-        self.monthly_income = monthly_earned_income + monthly_other_income
+        self.monthly_income = self.monthly_earned_income + self.monthly_other_income
         self.household_size = input_data['household_size']
         self.household_includes_elderly_or_disabled = input_data['household_includes_elderly_or_disabled']
         self.resources = input_data['resources']
