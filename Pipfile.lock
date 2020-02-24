@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "34677b7e453c9092cad107c87885efd914fb3af90e489e037b2235f206f3531f"
+            "sha256": "af51f0bdff2bc9a37d2cdc4648f538d36322fd37748497d41da3cba0a868ffd8"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -16,6 +16,14 @@
         ]
     },
     "default": {
+        "behave": {
+            "hashes": [
+                "sha256:b9662327aa53294c1351b0a9c369093ccec1d21026f050c3bd9b3e5cccf81a86",
+                "sha256:ebda1a6c9e5bfe95c5f9f0a2794e01c7098b3dde86c10a95d8621c5907ff6f1c"
+            ],
+            "index": "pypi",
+            "version": "==1.2.6"
+        },
         "click": {
             "hashes": [
                 "sha256:2335065e6395b9e67ca716de5f7526736bfa6ceead690adf616d925bdc622b13",
@@ -91,6 +99,19 @@
             ],
             "version": "==1.1.1"
         },
+        "parse": {
+            "hashes": [
+                "sha256:95a4f4469e37c57b5e924629ac99926f28bee7da59515dc5b8078c4c3e779249"
+            ],
+            "version": "==1.14.0"
+        },
+        "parse-type": {
+            "hashes": [
+                "sha256:089a471b06327103865dfec2dd844230c3c658a4a1b5b4c8b6c16c8f77577f9e",
+                "sha256:7f690b18d35048c15438d6d0571f9045cffbec5907e0b1ccf006f889e3a38c0b"
+            ],
+            "version": "==0.5.2"
+        },
         "pyyaml": {
             "hashes": [
                 "sha256:059b2ee3194d718896c0ad077dd8c043e5e909d9180f387ce42012662a4946d6",
@@ -108,6 +129,13 @@
             "index": "pypi",
             "version": "==5.3"
         },
+        "six": {
+            "hashes": [
+                "sha256:236bdbdce46e6e6a3d61a337c0f8b763ca1e8717c03b369e87a7ec7ce1319c0a",
+                "sha256:8f3cd2e254d8f793e7f3d6d9df77b92252b52637291d0f0da013c76ea2724b6c"
+            ],
+            "version": "==1.14.0"
+        },
         "werkzeug": {
             "hashes": [
                 "sha256:169ba8a33788476292d04186ab33b01d6add475033dfc07215e6d219cc077096",
@@ -117,10 +145,6 @@
         }
     },
     "develop": {
-        "behave": {
-            "git": "https://github.com/behave/behave",
-            "ref": "121e61c5598b7967fd8a2eb1833235b282dc3ca6"
-        },
         "python-dotenv": {
             "hashes": [
                 "sha256:8429f459fc041237d98c9ff32e1938e7e5535b5ff24388876315a098027c3a57",
