@@ -14,5 +14,5 @@
 | NFF: Citizenship (OS)       | 2/24/2020    |                          |                       |
 | NFF: Students (OS)          | 2/24/2020    |                          |                       |
 
-* NFF = "Non-financial factor"
-* OS == "Out of scope for now, but noting for completeness purposes."
+* NFF = "Non-financial factor."
+* OS = "Out of scope for now, but noting for completeness purposes."
