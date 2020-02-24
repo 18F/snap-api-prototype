@@ -21,6 +21,12 @@ pipenv install
 ## Run locally
 
 ```
+# Shortcut:
+
+./start-local.sh
+
+# Full command:
+
 env FLASK_APP=app.py FLASK_ENV=development flask run
 ```
 
