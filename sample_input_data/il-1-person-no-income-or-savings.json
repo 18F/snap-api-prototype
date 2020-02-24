@@ -1,6 +1,7 @@
 {
     "state_or_territory": "IL",
-    "monthly_income": 0,
+    "monthly_earned_income": 0,
+    "monthly_other_income": 0,
     "household_size": 1,
     "household_includes_elderly_or_disabled": false,
     "resources": 0
