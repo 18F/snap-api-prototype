@@ -20,6 +20,7 @@ class BenefitEstimate:
         self.income_limit_data = yaml.safe_load(open('./program_data/income_limits.yaml', 'r'))
         self.deductions_data = yaml.safe_load(open('./program_data/deductions.yaml', 'r'))
         self.allotments_data = yaml.safe_load(open('./program_data/allotments.yaml', 'r'))
+        self.state_websites = yaml.safe_load(open('./program_data/state_websites.yaml', 'r'))
 
     def calculate(self):
         eligibility_calculation = self.eligible() # bool
@@ -29,21 +30,18 @@ class BenefitEstimate:
         estimated_monthly_benefit_amount = estimated_monthly_benefit['amount']
         estimated_monthly_benefit_reason = estimated_monthly_benefit['reason']
         reasons.append(estimated_monthly_benefit_reason)
+        state_website = self.state_websites[self.state_or_territory]
 
         return {
             'eligible': eligible,
             'estimated_monthly_benefit': estimated_monthly_benefit_amount,
-            'reasons': reasons
+            'reasons': reasons,
+            'state_website': state_website
             }
 
     def eligible(self):
-        print('\033[1m💻 Estimating SNAP eligibility and benefit, please hold... \033[0m')
-
         state_bbce_data = self.bbce_data[self.state_or_territory][2020]
         state_uses_bbce = state_bbce_data['uses_bbce']
-
-        print('State: {}'.format(self.state_or_territory))
-        print('Uses BBCE in 2020?: {}'.format(state_uses_bbce))
 
         if state_uses_bbce:
             return self.calculate_eligibility(

@@ -5,22 +5,6 @@
   text-align: center;
 }
 
-.card {
-  border: 2px solid #97d4ea;
-  min-height: 80px;
-  margin-right: 12px;
-  padding: 8px 12px;
-
-  /* Vertical centering */
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-}
-
-.card-tall {
-  min-height: 120px;
-}
-
 h1 {
   font-size: 38px;
   margin-bottom: 38px;
@@ -30,4 +14,20 @@ h2 {
   font-weight: normal;
   font-family: 'Merriweather';
   font-size: 20px;
+}
+
+.result-headline {
+  font-size: 20px;
+  margin: 10px 0;
+}
+
+.hidden {
+  display: none;
+}
+
+.why {
+  text-decoration: underline;
+  cursor: pointer;
+  color: blue;
+  font-style: italic;
 }

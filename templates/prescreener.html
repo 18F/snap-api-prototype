@@ -124,20 +124,28 @@
     </div>
   </body>
   <script type="text/javascript">
+      function toggleReasons () {
+          var reasons = document.getElementById('reasons');
+
+          if (reasons) {
+              reasons.classList.toggle('hidden');
+          }
+      }
+
       function responseToHTML (response) {
-          html = '<h1>Results</h1>';
+          html = '<h1>Results:</h1>';
 
           if (response.eligible) {
-              html += '<div>You may be <b>eligible</b> for SNAP benefits.</div>';
-              html += '<br/>';
-              html += '<div>Your estimated benefit: $' + response.estimated_monthly_benefit + ' per month.</div>';
-              html += '<br/>';
+              html += '<div class="result-headline">You may be <b>eligible</b> for SNAP benefits.</div>';
+              html += '<div class="result-headline">Your benefit could be as much as $' + response.estimated_monthly_benefit + ' per month.</div>';
+              html += '<div class="result-headline">Apply here: <a href="' + response.state_website + '">' + response.state_website + '</a>.</div>';
           } else {
-              html += '<div>You may not be <b>eligible</b> for SNAP benefits.</div>'
-              html += '<br/>';
+              html += '<h2>You may not be eligible for SNAP benefits.</h2>'
           }
 
-          html += '<h2>Why did I get these results?</h2>';
+          html += '<br/><a class="result-headline why" onclick="toggleReasons()">Why did I get these results?</a>';
+
+          html += '<div id="reasons" class="hidden">';
 
           var reasons = response.reasons;
           for (var i = 0; i < reasons.length; i++) {
@@ -151,6 +159,7 @@
               }
               html += '</ul>';
           }
+          html += '</div>';
 
           return html;
       }
