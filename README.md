@@ -109,3 +109,7 @@ curl -X POST -H "Content-Type: application/json" \
   -d @./sample_input_data/ut-3-person-no-income-meets-resource-limit-elderly.json \
   http://127.0.0.1:5000/calculate
 ```
+
+# Modeling notes
+
++ [notes/modeling_progress.md](/notes/modeling_progress.md)
