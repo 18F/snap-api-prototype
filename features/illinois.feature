@@ -28,4 +28,4 @@ Feature: Testing SNAP Financial Factors Web API for Illinois
     Given the household has assets of $0 monthly
      When we run the benefit estimator
      Then we find the family is likely eligible
-     Then we find the estimated benefit is $355 per month
+     Then we find the estimated benefit is $509 per month
