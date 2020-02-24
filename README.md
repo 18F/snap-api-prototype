@@ -34,6 +34,7 @@ make serve-local
 
 ```sh
 # IL, 1 person, no income or savings:
+
 curl -X POST -H "Content-Type: application/json" \
   -d @./sample_input_data/il-1-person-no-income-or-savings.json \
   http://127.0.0.1:5000/calculate
@@ -41,4 +42,4 @@ curl -X POST -H "Content-Type: application/json" \
 
 # Modeling notes
 
-+ [notes/modeling_progress.md](/notes/modeling_progress.md)
++ See [notes/modeling_progress.md](/notes/modeling_progress.md).
