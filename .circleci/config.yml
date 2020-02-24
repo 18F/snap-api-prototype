@@ -1,0 +1,27 @@
+version: 2.1
+
+jobs:
+
+  build:
+
+    docker:
+      - image: circleci/python:3.7.4
+
+    steps:
+      - checkout
+
+      - restore_cache:
+          key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+
+      - run: |
+          sudo pip install pipenv
+          pipenv install
+
+      - run: python3 -m pipenv run behave
+
+      - save_cache:
+          key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+          paths:
+            - ".venv"
+            - "/usr/local/bin"
+            - "/usr/local/lib/python3.6/site-packages"

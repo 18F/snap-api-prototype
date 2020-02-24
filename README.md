@@ -18,15 +18,31 @@ To run the project locally, you will need:
 pipenv install
 ```
 
-## Run locally
+## Run tests
+
+Shortcut:
 
 ```
-# Shortcut:
+./run-tests.sh
+```
 
+Full command:
+
+```
+python3 -m pipenv run behave
+```
+
+## Run locally
+
+Shortcut:
+
+```
 ./start-local.sh
+```
 
-# Full command:
+Full command:
 
+```
 env FLASK_APP=app.py FLASK_ENV=development flask run
 ```
 
