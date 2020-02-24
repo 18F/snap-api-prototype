@@ -1,6 +1,6 @@
 from snap_financial_factors.fetch_deductions import FetchDeductions
 
-class NetIncomeTest:
+class NetIncome:
     def __init__(self, input_data, deductions_data, monthly_income, income_limits):
         # Load user input data
         self.input_data = input_data

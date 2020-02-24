@@ -1,4 +1,5 @@
 import yaml
+from snap_financial_factors.net_income import NetIncome
 from snap_financial_factors.tests.asset_test import AssetTest
 from snap_financial_factors.tests.gross_income_test import GrossIncomeTest
 from snap_financial_factors.tests.net_income_test import NetIncomeTest
@@ -25,12 +26,14 @@ class BenefitEstimate:
         self.state_websites = yaml.safe_load(open('./program_data/state_websites.yaml', 'r'))
 
     def calculate(self):
-        eligibility_calculation = self.eligible() # bool
+        eligibility_calculation = self.__eligibility_calculation()
         eligible = eligibility_calculation['eligible']
         reasons = eligibility_calculation['reasons']
+
         estimated_monthly_benefit = self.estimated_monthly_benefit(eligible)
         estimated_monthly_benefit_amount = estimated_monthly_benefit['amount']
         estimated_monthly_benefit_reason = estimated_monthly_benefit['reason']
+
         reasons.append(estimated_monthly_benefit_reason)
         state_website = self.state_websites[self.state_or_territory]
 
@@ -41,7 +44,15 @@ class BenefitEstimate:
             'state_website': state_website
             }
 
-    def eligible(self):
+    def __eligibility_calculation(self):
+        """Returns estimated SNAP eligibility plus reasons behind the calculation.
+
+        Returns a dictionary shaped like this:
+        {
+            'eligible': <bool>,
+            'reasons': <array of dictionaries>,
+        }
+        """
         state_bbce_data = self.bbce_data[self.state_or_territory][2020]
         state_uses_bbce = state_bbce_data['uses_bbce']
 
@@ -68,6 +79,11 @@ class BenefitEstimate:
             resource_limit_non_elderly_or_disabled):
 
         income_limits = FetchIncomeLimits(self.state_or_territory, self.household_size, self.income_limit_data)
+
+        net_income = NetIncome(self.input_data,
+                               self.deductions_data,
+                               self.monthly_income,
+                               income_limits)
 
         net_income_test = NetIncomeTest(self.input_data,
                                         self.deductions_data,

@@ -32,15 +32,30 @@ def step_impl(context, number):
 @when('we run the benefit estimator...')
 def step_impl(context):
     benefit_estimate = BenefitEstimate(context.input_data)
-    context.result = benefit_estimate.calculate()
+    context.api_result = benefit_estimate.calculate()
 
 @then('we find the family is likely {eligible}')
 def step_impl(context, eligible):
-    feature_result = (eligible == 'eligible')
-    api_result = context.result['eligible']
-    assert(api_result == feature_result)
+    expected_result = (eligible == 'eligible')
+    api_result = context.api_result['eligible']
+
+    if (api_result != expected_result):
+        print('api_result:')
+        print(api_result)
+        print('expected_result:')
+        print(expected_result)
+
+    assert(api_result == expected_result)
 
 @then('we find the estimated benefit is ${number:d} per month')
 def step_impl(context, number):
-    result = context.result
-    assert(result['estimated_monthly_benefit'] == number)
+    expected_result = number
+    api_result = context.api_result['estimated_monthly_benefit']
+
+    if (api_result != expected_result):
+        print('api_result:')
+        print(api_result)
+        print('expected_result:')
+        print(expected_result)
+
+    assert(api_result == number)
