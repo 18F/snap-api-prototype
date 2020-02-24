@@ -13,14 +13,11 @@ jobs:
       - restore_cache:
           key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
 
-      - run:
-          command: |
-            sudo pip install pipenv
-            pipenv install
+      - run: |
+          sudo pip install pipenv
+          pipenv install
 
-      - run:
-        command: |
-          python3 -m pipenv run behave
+      - run: python3 -m pipenv run behave
 
       - save_cache:
           key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
