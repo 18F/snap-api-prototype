@@ -18,6 +18,20 @@ To run the project locally, you will need:
 pipenv install
 ```
 
+## Run tests
+
+Shortcut:
+
+```
+./run-tests.sh
+```
+
+Full command:
+
+```
+python3 -m pipenv run behave
+```
+
 ## Run locally
 
 Shortcut:

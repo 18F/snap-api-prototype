@@ -4,11 +4,13 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
+behave = {git = "https://github.com/behave/behave",ref = "v1.2.6"}
+python-dotenv = "*"
 
 [packages]
 flask = "~=1.1.1"
 flask-httpauth = "*"
-python-dotenv = "*"
+pyyaml = "*"
 
 [requires]
 python_version = "3.7"
