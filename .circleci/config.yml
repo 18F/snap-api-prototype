@@ -17,6 +17,8 @@ jobs:
           sudo pip install pipenv
           pipenv install
 
+      - run: pipenv install behave
+
       - run: python3 -m pipenv run behave
 
       - save_cache:
