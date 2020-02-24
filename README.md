@@ -15,35 +15,19 @@ To run the project locally, you will need:
 ## Install the dependencies
 
 ```
-pipenv install
+make install
 ```
 
 ## Run tests
 
-Shortcut:
-
 ```
-./run-tests.sh
-```
-
-Full command:
-
-```
-python3 -m pipenv run behave
+make test
 ```
 
 ## Run locally
 
-Shortcut:
-
 ```
-./start-local.sh
-```
-
-Full command:
-
-```
-env FLASK_APP=app.py FLASK_ENV=development flask run
+make serve-local
 ```
 
 ## Test the Web API
