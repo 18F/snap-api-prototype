@@ -45,6 +45,7 @@ def calculate_from_form():
     input_data = request.form.to_dict()
     input_data['household_size'] = int(input_data['household_size'])
     input_data['monthly_income'] = int(input_data['monthly_income'])
+    input_data['resources'] = int(input_data['resources'])
 
     input_data['household_includes_elderly_or_disabled'] = (
         input_data['household_includes_elderly_or_disabled'] == 'True'

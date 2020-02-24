@@ -79,7 +79,6 @@ class BenefitEstimate:
             tests.append(gross_income_test)
 
         has_asset_test = resource_limit_elderly_or_disabled or \
-            resource_limit_elderly_or_disabled_income_twice_fpl or \
             resource_limit_non_elderly_or_disabled
 
         if has_asset_test:
