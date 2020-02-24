@@ -23,13 +23,26 @@ class BenefitEstimate:
         self.state_websites = yaml.safe_load(open('./program_data/state_websites.yaml', 'r'))
 
     def calculate(self):
-        eligibility_calculation = self.eligible() # bool
+        """Only public method for this class. Returns eligibility information, estimated monthly benefits, and reasons behind the output.
+
+        Returns a dictionary shaped like this:
+        {
+            'eligible': <bool>,
+            'estimated_monthly_benefit': <decimal> (U.S. dollar),
+            'reasons': <array of dictionaries>,
+            'state_webiste': <str> (U.S. state website URL for referral)
+        }
+        """
+
+        eligibility_calculation = self.__eligibility_calculation()
         eligible = eligibility_calculation['eligible']
         reasons = eligibility_calculation['reasons']
-        estimated_monthly_benefit = self.estimated_monthly_benefit(eligible)
+
+        estimated_monthly_benefit = self.__estimated_monthly_benefit(eligible)
         estimated_monthly_benefit_amount = estimated_monthly_benefit['amount']
         estimated_monthly_benefit_reason = estimated_monthly_benefit['reason']
         reasons.append(estimated_monthly_benefit_reason)
+
         state_website = self.state_websites[self.state_or_territory]
 
         return {
@@ -39,12 +52,23 @@ class BenefitEstimate:
             'state_website': state_website
             }
 
-    def eligible(self):
+    def __eligibility_calculation(self):
+        """Private method. Returns estimated SNAP eligibility plus reasons behind the calculation.
+
+        Mostly responsible for reading in parameters that differ by U.S. state, or passing in default federal parameters in some cases.
+
+        Returns a dictionary shaped like this:
+        {
+            'eligible': <bool>,
+            'reasons': <array of dictionaries>,
+        }
+        """
+
         state_bbce_data = self.bbce_data[self.state_or_territory][2020]
         state_uses_bbce = state_bbce_data['uses_bbce']
 
         if state_uses_bbce:
-            return self.calculate_eligibility(
+            return self.__eligibility_calculation_with_params(
                 state_bbce_data['gross_income_limit_factor'],
                 state_bbce_data['resource_limit_elderly_or_disabled'],
                 state_bbce_data['resource_limit_elderly_or_disabled_income_twice_fpl'],
@@ -52,18 +76,19 @@ class BenefitEstimate:
             )
         else:
             # SNAP federal policy defaults
-            return self.calculate_eligibility(
+            return self.__eligibility_calculation_with_params(
                 gross_income_limit_factor=1.3,
                 resource_limit_elderly_or_disabled=3500,
                 resource_limit_elderly_or_disabled_income_twice_fpl=3500,
                 resource_limit_non_elderly_or_disabled=2250,
             )
 
-    def calculate_eligibility(self,
+    def __eligibility_calculation_with_params(self,
             gross_income_limit_factor,
             resource_limit_elderly_or_disabled,
             resource_limit_elderly_or_disabled_income_twice_fpl,
             resource_limit_non_elderly_or_disabled):
+        """Private method. Breaks eligibility determiniation into its component classes; asks each of those classes to run calculations and return reasons."""
 
         income_limits = FetchIncomeLimits(self.state_or_territory, self.household_size, self.income_limit_data)
 
@@ -92,7 +117,9 @@ class BenefitEstimate:
         }
 
 
-    def estimated_monthly_benefit(self, eligible):
+    def __estimated_monthly_benefit(self, eligible):
+        """Private method. Returns estimate of monthly benefit based on input data plus reasons behind its decision."""
+
         if not eligible:
             return {
                 'amount': 0,
