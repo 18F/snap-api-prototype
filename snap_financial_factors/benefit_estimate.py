@@ -10,7 +10,9 @@ class BenefitEstimate:
         # Load user input data
         self.input_data = input_data
         self.state_or_territory = input_data['state_or_territory']
-        self.monthly_income = input_data['monthly_income']
+        self.monthly_earned_income = input_data['monthly_earned_income']
+        self.monthly_other_income = input_data['monthly_other_income']
+        self.monthly_income = monthly_earned_income + monthly_other_income
         self.household_size = input_data['household_size']
         self.household_includes_elderly_or_disabled = input_data['household_includes_elderly_or_disabled']
         self.resources = input_data['resources']
@@ -69,15 +71,17 @@ class BenefitEstimate:
 
         net_income_test = NetIncomeTest(self.input_data,
                                         self.deductions_data,
+                                        self.monthly_income,
                                         income_limits)
+
+        gross_income_test = GrossIncomeTest(self.input_data,
+                                            self.monthly_income,
+                                            income_limits,
+                                            gross_income_limit_factor)
 
         asset_test = AssetTest(self.input_data,
                                resource_limit_elderly_or_disabled,
                                resource_limit_non_elderly_or_disabled)
-
-        gross_income_test = GrossIncomeTest(self.input_data,
-                                            income_limits,
-                                            gross_income_limit_factor)
 
         tests = [ net_income_test, asset_test, gross_income_test ]
 

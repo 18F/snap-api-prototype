@@ -1,9 +1,9 @@
 class GrossIncomeTest:
-    def __init__(self, input_data, income_limits, gross_income_limit_factor):
+    def __init__(self, input_data, monthly_income, income_limits, gross_income_limit_factor):
         # Load user input data
         self.input_data = input_data
+        self.monthly_income = monthly_income
         self.state_or_territory = input_data['state_or_territory']
-        self.monthly_income = input_data['monthly_income']
         self.household_size = input_data['household_size']
         self.household_includes_elderly_or_disabled = input_data['household_includes_elderly_or_disabled']
         self.resources = input_data['resources']

@@ -3,11 +3,13 @@ from snap_financial_factors.fetch_deductions import FetchDeductions
 class NetIncomeTest:
     # TODO (ARS): Deductions beyond the standard deduction.
 
-    def __init__(self, input_data, deductions_data, income_limits):
+    def __init__(self, input_data, deductions_data, monthly_income, income_limits):
         # Load user input data
         self.input_data = input_data
+        self.monthly_income = monthly_income
+        self.monthly_earned_income = input_data['monthly_earned_income']
+        self.monthly_other_income = input_data['monthly_other_income']
         self.state_or_territory = input_data['state_or_territory']
-        self.monthly_income = input_data['monthly_income']
         self.household_size = input_data['household_size']
         self.household_includes_elderly_or_disabled = input_data['household_includes_elderly_or_disabled']
         self.resources = input_data['resources']
