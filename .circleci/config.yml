@@ -10,18 +10,8 @@ jobs:
     steps:
       - checkout
 
-      - restore_cache:
-          key: deps1-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
-
       - run: sudo pip install pipenv
 
       - run: make install
 
       - run: make test
-
-      - save_cache:
-          key: deps1-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
-          paths:
-            - ".venv"
-            - "/usr/local/bin"
-            - "/usr/local/lib/python3.6/site-packages"
