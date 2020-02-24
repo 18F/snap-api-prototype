@@ -13,6 +13,17 @@ class AssetTest:
 
     def calculate(self):
         # TODO (ARS): Handle resource_limit_elderly_or_disabled_income_twice_fpl.
+
+        if (self.resource_limit_elderly_or_disabled is None) and (self.resource_limit_non_elderly_or_disabled is None):
+            return {
+                'result': True,
+                'reason': {
+                    'test_name': 'Asset Test',
+                    'test_passed?': True,
+                    'description': ['State does not have an asset test.']
+                }
+            }
+
         has_resource_limit = (self.household_includes_elderly_or_disabled or \
                               self.resource_limit_non_elderly_or_disabled)
 

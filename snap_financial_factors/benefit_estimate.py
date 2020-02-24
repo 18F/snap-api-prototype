@@ -25,16 +25,18 @@ class BenefitEstimate:
         eligibility_calculation = self.eligible() # bool
         eligible = eligibility_calculation['eligible']
         reasons = eligibility_calculation['reasons']
-        estimated_monthly_benefit = self.estimated_monthly_benefit(eligible) # dollar amount int
+        estimated_monthly_benefit = self.estimated_monthly_benefit(eligible)
+        estimated_monthly_benefit_amount = estimated_monthly_benefit['amount']
+        estimated_monthly_benefit_reason = estimated_monthly_benefit['reason']
+        reasons.append(estimated_monthly_benefit_reason)
 
         return {
             'eligible': eligible,
-            'estimated_monthly_benefit': estimated_monthly_benefit,
+            'estimated_monthly_benefit': estimated_monthly_benefit_amount,
             'reasons': reasons
             }
 
     def eligible(self):
-        print('')
         print('\033[1m💻 Estimating SNAP eligibility and benefit, please hold... \033[0m')
 
         state_bbce_data = self.bbce_data[self.state_or_territory][2020]
@@ -66,26 +68,20 @@ class BenefitEstimate:
             resource_limit_non_elderly_or_disabled):
 
         income_limits = FetchIncomeLimits(self.state_or_territory, self.household_size, self.income_limit_data)
+
         net_income_test = NetIncomeTest(self.input_data,
                                         self.deductions_data,
                                         income_limits)
 
-        tests = [ net_income_test ]
+        asset_test = AssetTest(self.input_data,
+                               resource_limit_elderly_or_disabled,
+                               resource_limit_non_elderly_or_disabled)
 
-        if not self.household_includes_elderly_or_disabled:
-            gross_income_test = GrossIncomeTest(self.input_data,
-                                                income_limits,
-                                                gross_income_limit_factor)
-            tests.append(gross_income_test)
+        gross_income_test = GrossIncomeTest(self.input_data,
+                                            income_limits,
+                                            gross_income_limit_factor)
 
-        has_asset_test = resource_limit_elderly_or_disabled or \
-            resource_limit_non_elderly_or_disabled
-
-        if has_asset_test:
-            asset_test = AssetTest(self.input_data,
-                                   resource_limit_elderly_or_disabled,
-                                   resource_limit_non_elderly_or_disabled)
-            tests.append(asset_test)
+        tests = [ net_income_test, asset_test, gross_income_test ]
 
         test_calculations = [test.calculate() for test in tests]
         test_results = [calculation['result'] for calculation in test_calculations]
@@ -100,23 +96,33 @@ class BenefitEstimate:
 
     def estimated_monthly_benefit(self, eligible):
         if not eligible:
-            return 0
+            return {
+                'amount': 0,
+                'reason': {
+                    'test_name': 'Estimated Benefit Calculation',
+                    'description': ['Not Eligible']
+                }
+            }
 
-        print('\033[1m💻 Estimating monthly benefit... \033[0m')
+        description = []
 
         max_monthly_allotment = FetchAllotments(self.state_or_territory, self.household_size, self.allotments_data).max_allotment()
         estimated_benefit = max_monthly_allotment - (self.monthly_income * 0.3)
 
-        print('Max monthly allotment for state and household size: ${}.'.format(max_monthly_allotment))
-        print('Subtract 30 percent of monthly income to determine estimated benefit.')
-        print('Monthly income submitted to API: ${}.'.format(self.monthly_income))
-        print('')
+        description.append('Max monthly allotment for state and household size: ${}.'.format(max_monthly_allotment))
+        description.append('Subtract 30 percent of monthly income to determine estimated benefit.')
+        description.append('Monthly income submitted to API: ${}.'.format(self.monthly_income))
 
         if 0 > estimated_benefit:
-            print("\033[1mEligibile, but monthly income results in zero benefit.\033[0m")
+            description.append("Eligibile, but monthly income results in zero benefit.")
             estimated_benefit = 0
 
-        print('\033[1mEstimated monthly benefit: ${}. \033[0m'.format(estimated_benefit))
-        print('')
+        description.append('Estimated monthly benefit: ${}.'.format(estimated_benefit))
 
-        return estimated_benefit
+        return {
+            'amount': estimated_benefit,
+            'reason': {
+                'test_name': 'Estimated Benefit Calculation',
+                'description': description
+            }
+        }

@@ -12,6 +12,16 @@ class GrossIncomeTest:
         self.gross_income_limit_factor = gross_income_limit_factor
 
     def calculate(self):
+        if self.household_includes_elderly_or_disabled:
+            return {
+                'result': True,
+                'reason': {
+                    'test_name': 'Gross Income Test',
+                    'test_passed?': True,
+                    'description': ['Households with an elderly or disabled member do not need to meet a gross income test.']
+                }
+            }
+
         # TODO (ARS): Confirm we can remove the gross monthly income table
         # and replace it with 1.3 (or the state multiplier) of the net
         # income table.
