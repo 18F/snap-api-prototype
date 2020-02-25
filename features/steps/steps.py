@@ -17,9 +17,13 @@ def step_impl(context, does_or_does_not):
     result = (does_or_does_not == 'does')
     context.input_data['household_includes_elderly_or_disabled'] = result
 
-@given('the household has income of ${number:d} monthly')
+@given('the household has earned income of ${number:d} monthly')
 def step_impl(context, number):
-    context.input_data['monthly_income'] = number
+    context.input_data['monthly_earned_income'] = number
+
+@given('the household has other income of ${number:d} monthly')
+def step_impl(context, number):
+    context.input_data['monthly_other_income'] = number
 
 @given('the household has assets of ${number:d} monthly')
 def step_impl(context, number):
