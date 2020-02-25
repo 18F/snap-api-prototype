@@ -5,13 +5,7 @@ class NetIncomeTest:
     Evaluates net income against the appropriate net income threshold.
     '''
 
-    def __init__(self, input_data, net_income, income_limits):
-        self.input_data = input_data
-        self.state_or_territory = input_data['state_or_territory']
-        self.monthly_income = input_data['monthly_income']
-        self.household_size = input_data['household_size']
-        self.household_includes_elderly_or_disabled = input_data['household_includes_elderly_or_disabled']
-        self.resources = input_data['resources']
+    def __init__(self, net_income, income_limits):
         self.net_income = net_income
         self.income_limits = income_limits
 

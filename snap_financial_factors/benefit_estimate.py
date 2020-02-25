@@ -109,7 +109,7 @@ class BenefitEstimate:
 
         net_income = NetIncome(input_data, deductions_data).calculate()
 
-        net_income_test = NetIncomeTest(input_data, net_income, income_limits)
+        net_income_test = NetIncomeTest(net_income, income_limits)
 
         asset_test = AssetTest(input_data,
                                resource_limit_elderly_or_disabled,

@@ -9,10 +9,8 @@ class NetIncome:
         # Load user input data
         self.input_data = input_data
         self.state_or_territory = input_data['state_or_territory']
-        self.monthly_income = input_data['monthly_income']
         self.household_size = input_data['household_size']
-        self.household_includes_elderly_or_disabled = input_data['household_includes_elderly_or_disabled']
-        self.resources = input_data['resources']
+        self.monthly_income = input_data['monthly_income']
 
         self.deductions_data = deductions_data
 
@@ -20,11 +18,12 @@ class NetIncome:
         state_or_territory = self.state_or_territory
         household_size = self.household_size
         deductions_data = self.deductions_data
+        monthly_income = self.monthly_income
 
         deductions = FetchDeductions(state_or_territory, household_size, deductions_data)
         standard_deduction = deductions.standard_deduction()
 
-        income_minus_deductions = self.monthly_income - standard_deduction
+        income_minus_deductions = monthly_income - standard_deduction
 
         # Adjusted net income can't be negative
         if income_minus_deductions >= 0:
