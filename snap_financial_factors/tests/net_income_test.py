@@ -1,5 +1,3 @@
-from snap_financial_factors.fetch_deductions import FetchDeductions
-
 class NetIncomeTest:
     '''
     Evaluates net income against the appropriate net income threshold.
@@ -10,12 +8,13 @@ class NetIncomeTest:
         self.income_limits = income_limits
 
     def calculate(self):
+        net_income = self.net_income
         net_monthly_income_limit = self.income_limits.net_monthly_income_limit()
-        below_net_income_limit = net_monthly_income_limit > self.net_income
+        below_net_income_limit = net_monthly_income_limit > net_income
 
-        description = ['Net monthly income limit for state and household size: ${}'.format(net_monthly_income_limit)]
-        description.append('Net monthly income : ${}'.format(self.net_income))
-        description.append('Eligibility factor -- Is household income (minus deductions) below net monthly income limit? {}.'.format(below_net_income_limit))
+        description = ['Net monthly income limit for state and household size: ${}.'.format(net_monthly_income_limit)]
+        description.append('Net monthly income: ${}.'.format(net_income))
+        description.append('Meets eligibility test? {}.'.format(below_net_income_limit))
 
         return {
             'result': below_net_income_limit,
