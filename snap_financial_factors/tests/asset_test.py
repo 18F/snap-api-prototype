@@ -33,7 +33,9 @@ class AssetTest:
                 description = ['Since the household does not include an elderly or disabled member, the resource limit is ${}.'.format(resource_limit)]
 
             below_resource_limit = (self.resources <= resource_limit)
-            description.append('Eligibility factor -- Are household resources below the asset limit? {}'.format(below_resource_limit))
+
+            description.append('Assets: {}.'.format(self.resources))
+            description.append('Meets eligibility test? {}.'.format(below_resource_limit))
         else:
             description = 'This state does not have a resource limit.'
             below_resource_limit = True
