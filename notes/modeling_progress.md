@@ -10,6 +10,8 @@
 | Standard Shelter Deduction  | 2/24/2020    |                          |                       |
 | Excess Shelter Costs        | 2/24/2020    |                          |                       |
 | Elderly/Disabled 2x FPL     | 2/24/2020    |                          |                       |
+| Expedited Benefits          | 2/25/2020    |                          |                       |
+| Minimum Allotments          | 2/25/2020    |                          |                       |
 | AK Rural/Urban Allotments   | 2/24/2020    |                          |                       |
 | NFF: Citizenship (OS)       | 2/24/2020    |                          |                       |
 | NFF: Students (OS)          | 2/24/2020    |                          |                       |
