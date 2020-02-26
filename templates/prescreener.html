@@ -88,8 +88,20 @@
                 <option value="9">9 people</option>
                 <option value="10">10 people</option>
               </select>
-              <label class="usa-label" for="monthly_income">Monthly income</label>
-              <input required id="monthly_income" name="monthly_income" class="usa-input" />
+              <label class="usa-label" for="monthly_job_income">
+                Monthly income from a job or from self-employment
+              </label>
+              <input id="monthly_job_income"
+                     name="monthly_job_income"
+                     class="usa-input"
+                     required />
+              <label class="usa-label" for="monthly_non_job_income">
+                Monthly income from other sources (Social Security, disability, child support, worker's comp...)
+              </label>
+              <input id="monthly_non_job_income"
+                     name="monthly_non_job_income"
+                     class="usa-input"
+                     required />
               <label class="usa-label" for="resources">Total assets</label>
               <input required id="resources" name="resources" class="usa-input" />
               <fieldset class="usa-fieldset">
