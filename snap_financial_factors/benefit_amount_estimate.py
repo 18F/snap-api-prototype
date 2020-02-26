@@ -44,8 +44,10 @@ class BenefitAmountEstimate:
         description.append('Max monthly allotment for state and household size: ${}.'.format(max_allotment))
         if min_allotment:
             description.append('Min monthly allotment for state and household size: ${}.'.format(min_allotment))
-        description.append('Subtract 30 percent of net monthly income to determine estimated benefit.')
+
         description.append('Net monthly income: ${}.'.format(self.net_income))
+        description.append('30% of net monthly income: ${}.'.format(round(self.net_income * 0.3)))
+        description.append('Subtract 30 percent of net income from max allotment.')
 
         if 0 > estimated_benefit:
             description.append("Eligibile, but monthly income results in zero benefit.")
