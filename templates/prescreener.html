@@ -17,7 +17,9 @@
     <div class="grid-container margin-y-5">
       <div class="grid-row">
         <div class="tablet:grid-col-6">
-          <form id="prescreener-form" class="usa-form">
+          <h1>Could you be eligible for help with your food budget?</h1>
+          <form id="prescreener-form" class="usa-form usa-form--large">
+            <em>Answer a few questions to find out if you may be eligible and how many dollars per month you may qualify for.</em>
             <fieldset class="usa-fieldset">
               <label class="usa-label" for="state_or_territory">State</label>
               <select required class="usa-select" id="state_or_territory" name="state_or_territory">
@@ -96,8 +98,11 @@
                      class="usa-input"
                      required />
               <label class="usa-label" for="monthly_non_job_income">
-                Monthly income from other sources (Social Security, disability, child support, worker's comp...)
+                Monthly income from other sources
               </label>
+              <em class="label-sub-text">
+                (Social Security, disability, child support, worker's comp...)
+              </em>
               <input id="monthly_non_job_income"
                      name="monthly_non_job_income"
                      class="usa-input"

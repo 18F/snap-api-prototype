@@ -35,3 +35,8 @@ h2 {
 fieldset legend {
   margin-bottom: 12px;
 }
+
+.label-sub-text {
+  color: #2F4F4F;
+  font-size: 14px;
+}
