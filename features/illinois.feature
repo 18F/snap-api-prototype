@@ -1,3 +1,12 @@
+# Results checked against the Illinois Department of Human Services
+# Potential SNAP Eligibility calculator:
+#
+# http://fscalc.dhs.illinois.gov/FSCalc/calculateFS.do
+#
+# Some calculations result in small differences, which may be due
+# to rounding differences or slightly different data sets being used.
+
+
 Feature: Testing SNAP Financial Factors Web API for IL
 
   Scenario:
