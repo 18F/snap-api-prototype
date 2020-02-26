@@ -1,6 +1,7 @@
 from snap_financial_factors.allotments.fetch_max_allotments import FetchMaxAllotments
 from snap_financial_factors.allotments.fetch_min_allotments import FetchMinAllotments
 
+
 class BenefitAmountEstimate:
     def __init__(self,
                  state_or_territory,
