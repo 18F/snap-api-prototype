@@ -45,16 +45,6 @@ def calculate_from_json():
     return jsonify(benefit_estimate.calculate()), 200
 
 
-@app.route('/calculate_from_form', methods=['POST', 'GET'])
-def calculate_from_form():
-    input_data = request.form.to_dict()
-
-    # The BenefitEstimate class should be able to handle both JSON data and
-    # form-style data; e.g. integers and booleans sent in as strings.
-    benefit_estimate = BenefitEstimate(input_data)
-    return jsonify(benefit_estimate.calculate()), 200
-
-
 @app.route('/prescreener')
 def prescreener():
     return render_template('prescreener.html')

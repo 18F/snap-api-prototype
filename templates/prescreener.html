@@ -195,29 +195,33 @@
       function sendData() {
           var XHR = new XMLHttpRequest();
 
-          // Bind the FormData object and the form element
-          var formData = new FormData(form);
-
-          // Define what happens on successful data submission
+          // Define what happens on successful data submission.
           XHR.addEventListener("load", function(event) {
               response = JSON.parse(event.target.responseText);
-              console.log(response);
               resultHTML = responseToHTML(response);
 
               var results = document.getElementById('results');
               results.innerHTML = resultHTML;
           });
 
-          // Define what happens in case of error
+          // Define what happens in case of error.
           XHR.addEventListener("error", function( event ) {
             console.log('Oops! Something went wrong.');
           });
 
-          // Set up our request
-          XHR.open("POST", "/calculate_from_form");
+          // Set up our request.
+          XHR.open("POST", "/calculate");
+          XHR.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
-          // The data sent is what the user provided in the form
-          XHR.send(formData);
+          // Send form data as JSON.
+          var formData = new FormData(form);
+          var jsonData = {};
+          formData.forEach(function(value, key) {
+              jsonData[key] = value;
+          });
+          var json = JSON.stringify(jsonData);
+
+          XHR.send(json);
       }
 
       var form = document.getElementById('prescreener-form');
