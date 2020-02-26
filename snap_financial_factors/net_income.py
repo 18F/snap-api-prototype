@@ -13,8 +13,7 @@ class NetIncome:
         self.household_size = input_data['household_size']
         self.monthly_job_income = input_data['monthly_job_income']
         self.monthly_non_job_income = input_data['monthly_non_job_income']
-
-        self.dependent_care_costs = input_data.get('dependent_care_costs', 0)
+        self.dependent_care_costs = input_data['dependent_care_costs']
 
         self.deductions_data = deductions_data
 

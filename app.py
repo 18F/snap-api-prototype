@@ -45,23 +45,6 @@ def calculate_from_json():
     return jsonify(benefit_estimate.calculate()), 200
 
 
-@app.route('/calculate_from_form', methods=['POST', 'GET'])
-def calculate_from_form():
-    input_data = request.form.to_dict()
-
-    input_data['household_size'] = int(input_data['household_size'])
-    input_data['monthly_job_income'] = int(input_data['monthly_job_income'])
-    input_data['monthly_non_job_income'] = int(input_data['monthly_non_job_income'])
-    input_data['resources'] = int(input_data['resources'])
-
-    input_data['household_includes_elderly_or_disabled'] = (
-        input_data['household_includes_elderly_or_disabled'] == 'True'
-    )
-
-    benefit_estimate = BenefitEstimate(input_data)
-    return jsonify(benefit_estimate.calculate()), 200
-
-
 @app.route('/prescreener')
 def prescreener():
     return render_template('prescreener.html')
