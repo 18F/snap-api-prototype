@@ -34,7 +34,7 @@ class BenefitAmountEstimate:
                                            self.household_size,
                                            self.min_allotments).calculate()
 
-        estimated_benefit = max_allotment - (self.net_income * 0.3)
+        estimated_benefit = round(max_allotment - (self.net_income * 0.3))
 
         if min_allotment and (min_allotment > estimated_benefit):
             estimated_benefit = min_allotment
