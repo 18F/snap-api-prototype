@@ -1,0 +1,34 @@
+# SOURCES:
+#
+# https://www.fns.usda.gov/snap/allotment/COLA
+#
+# https://fns-prod.azureedge.net/sites/default/files/media/file/FY20-Minimum-Allotments.pdf
+
+DEFAULT:
+    2020:
+        1: 16
+        2: 16
+AK_URBAN:
+    2020:
+        1: 19
+        2: 19
+AK_RURAL_1:
+    2020:
+        1: 24
+        2: 24
+AK_RURAL_2:
+    2020:
+        1: 30
+        2: 30
+HI:
+    2020:
+        1: 29
+        2: 29
+GUAM:
+    2020:
+        1: 23
+        2: 23
+VIRGIN_ISLANDS:
+    2020:
+        1: 20
+        2: 20
