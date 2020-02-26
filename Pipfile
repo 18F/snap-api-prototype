@@ -11,6 +11,7 @@ behave = "~=1.2.6"
 flask = "~=1.1.1"
 flask-httpauth = "~=3.3.0"
 pyyaml = "~=5.3"
+flake8 = "~=3.7.9"
 
 [requires]
 python_version = "3.7"

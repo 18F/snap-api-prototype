@@ -1,5 +1,6 @@
 from snap_financial_factors.fetch_deductions import FetchDeductions
 
+
 class NetIncome:
     '''
     Returns the adjusted net income (gross income minus deductions).

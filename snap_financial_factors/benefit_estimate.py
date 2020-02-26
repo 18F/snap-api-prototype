@@ -6,6 +6,7 @@ from snap_financial_factors.tests.gross_income_test import GrossIncomeTest
 from snap_financial_factors.tests.net_income_test import NetIncomeTest
 from snap_financial_factors.fetch_income_limits import FetchIncomeLimits
 
+
 class BenefitEstimate:
     def __init__(self, input_data):
         # Load user input data
@@ -91,10 +92,10 @@ class BenefitEstimate:
             )
 
     def __eligibility_calculation_with_params(self,
-            gross_income_limit_factor,
-            resource_limit_elderly_or_disabled,
-            resource_limit_elderly_or_disabled_income_twice_fpl,
-            resource_limit_non_elderly_or_disabled):
+                                              gross_income_limit_factor,
+                                              resource_limit_elderly_or_disabled,
+                                              resource_limit_elderly_or_disabled_income_twice_fpl,
+                                              resource_limit_non_elderly_or_disabled):
         """
         Private method. Breaks eligibility determiniation into component
         classes; asks each of those classes to run calculations and return
@@ -120,7 +121,7 @@ class BenefitEstimate:
                                             income_limits,
                                             gross_income_limit_factor)
 
-        tests = [ net_income_test, asset_test, gross_income_test ]
+        tests = [net_income_test, asset_test, gross_income_test]
 
         test_calculations = [test.calculate() for test in tests]
         test_results = [calculation['result'] for calculation in test_calculations]
@@ -132,7 +133,6 @@ class BenefitEstimate:
             'reasons': reasons,
             'net_income': net_income,
         }
-
 
     def __estimated_monthly_benefit(self, is_eligible, net_income):
         """
