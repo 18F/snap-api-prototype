@@ -21,6 +21,7 @@ class NetIncomeTest:
             'reason': {
                 'test_name': 'Net Income Test',
                 'test_passed?': below_net_income_limit,
-                'description': description
+                'description': description,
+                'sort_order': 1
             }
         }

@@ -3,7 +3,6 @@ class AssetTest:
         # Load user input data
         self.input_data = input_data
         self.state_or_territory = input_data['state_or_territory']
-        self.monthly_income = input_data['monthly_income']
         self.household_size = input_data['household_size']
         self.household_includes_elderly_or_disabled = input_data['household_includes_elderly_or_disabled']
         self.resources = input_data['resources']
@@ -12,8 +11,6 @@ class AssetTest:
         self.resource_limit_non_elderly_or_disabled = resource_limit_non_elderly_or_disabled
 
     def calculate(self):
-        # TODO (ARS): Handle resource_limit_elderly_or_disabled_income_twice_fpl.
-
         if (self.resource_limit_elderly_or_disabled is None) and (self.resource_limit_non_elderly_or_disabled is None):
             return {
                 'result': True,
@@ -36,7 +33,9 @@ class AssetTest:
                 description = ['Since the household does not include an elderly or disabled member, the resource limit is ${}.'.format(resource_limit)]
 
             below_resource_limit = (self.resources <= resource_limit)
-            description.append('Eligibility factor -- Are household resources below the asset limit? {}'.format(below_resource_limit))
+
+            description.append('Assets: {}.'.format(self.resources))
+            description.append('Meets eligibility test? {}.'.format(below_resource_limit))
         else:
             description = 'This state does not have a resource limit.'
             below_resource_limit = True
@@ -46,6 +45,7 @@ class AssetTest:
             'reason': {
                 'test_name': 'Asset Test',
                 'test_passed?': below_resource_limit,
-                'description': description
+                'description': description,
+                'sort_order': 3,
             },
         }
