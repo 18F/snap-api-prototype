@@ -1,9 +1,14 @@
-class FetchAllotments:
+class FetchMaxAllotments:
+    '''
+    Uses a state or territory and a household size to fetch the max allotment,
+    using arithmetic to add an additional amount to the allotment for each
+    household member beyond eight.
+    '''
 
-    def __init__(self, state_or_territory, household_size, allotments_data):
+    def __init__(self, state_or_territory, household_size, max_allotments):
         self.state_or_territory = state_or_territory
         self.household_size = household_size
-        self.allotments_data = allotments_data
+        self.max_allotments = max_allotments
 
     def state_lookup_key(self):
         return {
@@ -15,8 +20,8 @@ class FetchAllotments:
             'VIRGIN_ISLANDS': 'VIRGIN_ISLANDS'
         }.get(self.state_or_territory, 'DEFAULT')
 
-    def max_allotment(self):
-        scale = self.allotments_data[self.state_lookup_key()][2020]
+    def calculate(self):
+        scale = self.max_allotments[self.state_lookup_key()][2020]
 
         if (0 < self.household_size < 9):
             return scale[self.household_size]

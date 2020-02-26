@@ -1,9 +1,9 @@
 import yaml
 from snap_financial_factors.net_income import NetIncome
+from snap_financial_factors.benefit_amount_estimate import BenefitAmountEstimate
 from snap_financial_factors.tests.asset_test import AssetTest
 from snap_financial_factors.tests.gross_income_test import GrossIncomeTest
 from snap_financial_factors.tests.net_income_test import NetIncomeTest
-from snap_financial_factors.fetch_allotments import FetchAllotments
 from snap_financial_factors.fetch_income_limits import FetchIncomeLimits
 
 class BenefitEstimate:
@@ -20,7 +20,8 @@ class BenefitEstimate:
         self.bbce_data = yaml.safe_load(open('./program_data/bbce.yaml', 'r'))
         self.income_limit_data = yaml.safe_load(open('./program_data/income_limits.yaml', 'r'))
         self.deductions_data = yaml.safe_load(open('./program_data/deductions.yaml', 'r'))
-        self.allotments_data = yaml.safe_load(open('./program_data/allotments.yaml', 'r'))
+        self.max_allotments = yaml.safe_load(open('./program_data/max_allotments.yaml', 'r'))
+        self.min_allotments = yaml.safe_load(open('./program_data/min_allotments.yaml', 'r'))
         self.state_websites = yaml.safe_load(open('./program_data/state_websites.yaml', 'r'))
 
     def calculate(self):
@@ -136,43 +137,15 @@ class BenefitEstimate:
     def __estimated_monthly_benefit(self, is_eligible, net_income):
         """
         Returns estimate of monthly benefit, plus reasons behind its decision.
+
+        Delegates to BenefitAmountEstimate class.
         """
 
-        if not is_eligible:
-            return {
-                'amount': 0,
-                'reason': {
-                    'test_name': 'Estimated Benefit Calculation',
-                    'description': ['Not Eligible']
-                }
-            }
+        amount_estimate = BenefitAmountEstimate(self.state_or_territory,
+                                                self.household_size,
+                                                self.max_allotments,
+                                                self.min_allotments,
+                                                is_eligible,
+                                                net_income)
 
-        description = []
-        state_or_territory = self.state_or_territory
-        household_size = self.household_size
-        allotments_data = self.allotments_data
-
-        fetch_allotments = FetchAllotments(state_or_territory,
-                                           household_size,
-                                           allotments_data)
-        max_monthly_allotment = fetch_allotments.max_allotment()
-
-        estimated_benefit = max_monthly_allotment - (net_income * 0.3)
-
-        description.append('Max monthly allotment for state and household size: ${}.'.format(max_monthly_allotment))
-        description.append('Subtract 30 percent of net monthly income to determine estimated benefit.')
-        description.append('Net monthly income: ${}.'.format(net_income))
-
-        if 0 > estimated_benefit:
-            description.append("Eligibile, but monthly income results in zero benefit.")
-            estimated_benefit = 0
-
-        description.append('Estimated monthly benefit: ${}.'.format(estimated_benefit))
-
-        return {
-            'amount': estimated_benefit,
-            'reason': {
-                'test_name': 'Estimated Benefit Calculation',
-                'description': description
-            }
-        }
+        return amount_estimate.calculate()
