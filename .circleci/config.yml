@@ -10,10 +10,18 @@ jobs:
     steps:
       - checkout
 
-      - run: sudo pip install pipenv
+      - run:
+          name: Install Pipenv
+          command: sudo pip install pipenv
 
-      - run: make install
+      - run:
+          name: Install Python dependencies
+          command: make install
 
-      - run: make check-style
+      - run:
+          name: Python style check
+          command: make check-style
 
-      - run: make test
+      - run:
+          name: Feature tests
+          command: make test
