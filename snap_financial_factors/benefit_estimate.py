@@ -110,7 +110,9 @@ class BenefitEstimate:
 
         income_limits = FetchIncomeLimits(state_or_territory, household_size, income_limit_data)
 
-        net_income = NetIncome(input_data, deductions_data).calculate()
+        net_income_calculation = NetIncome(input_data, deductions_data).calculate()
+        net_income = net_income_calculation['result']
+        net_income_reason = net_income_calculation['reason']
 
         net_income_test = NetIncomeTest(net_income, income_limits)
 
@@ -127,11 +129,14 @@ class BenefitEstimate:
         test_calculations = [test.calculate() for test in tests]
         test_results = [calculation['result'] for calculation in test_calculations]
         reasons = [calculation['reason'] for calculation in test_calculations]
+        reasons.append(net_income_reason)
         overall_eligibility = all(test_results)
+
+        sorted_reasons = sorted(reasons, key=lambda reason: reason.get('sort_order', 10))
 
         return {
             'eligible': overall_eligibility,
-            'reasons': reasons,
+            'reasons': sorted_reasons,
             'net_income': net_income,
         }
 

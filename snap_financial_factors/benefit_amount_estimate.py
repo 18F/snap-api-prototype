@@ -56,6 +56,7 @@ class BenefitAmountEstimate:
             'amount': estimated_benefit,
             'reason': {
                 'test_name': 'Estimated Benefit Calculation',
-                'description': description
+                'description': description,
+                'sort_order': 4
             }
         }

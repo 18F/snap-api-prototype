@@ -22,6 +22,7 @@ class NetIncome:
         deductions_data = self.deductions_data
         monthly_job_income = self.monthly_job_income
         monthly_non_job_income = self.monthly_non_job_income
+        description = []
 
         # Add up income
         total_income = monthly_job_income + monthly_non_job_income
@@ -29,13 +30,28 @@ class NetIncome:
         # Add up deductions
         deductions = FetchDeductions(state_or_territory, household_size, deductions_data)
         standard_deduction = deductions.standard_deduction()
-        earned_income_deduction = 0.2 * monthly_job_income
-        total_deductions = standard_deduction + earned_income_deduction
+        description.append('Standard deduction: ${}.'.format(standard_deduction))
 
-        income_minus_deductions = total_income - total_deductions
+        earned_income_deduction = 0.2 * monthly_job_income
+        description.append('Earned income deduction: ${}.'.format(earned_income_deduction))
+
+        total_deductions = standard_deduction + earned_income_deduction
+        description.append('Total deductions: ${}.'.format(total_deductions))
+
+        net_income = total_income - total_deductions
+        description.append('Total income: ${}.'.format(total_income))
 
         # Adjusted net income can't be negative
-        if income_minus_deductions >= 0:
-            return income_minus_deductions
-        else:
-            return 0
+        if 0 > net_income:
+            net_income = 0
+
+        description.append('Net income (total income minus deductions): ${}.'.format(net_income))
+
+        return {
+            'result': net_income,
+            'reason': {
+                'test_name': 'Net Income',
+                'description': description,
+                'sort_order': 0,
+            }
+        }

@@ -43,6 +43,7 @@ class AssetTest:
             'reason': {
                 'test_name': 'Asset Test',
                 'test_passed?': below_resource_limit,
-                'description': description
+                'description': description,
+                'sort_order': 3,
             },
         }

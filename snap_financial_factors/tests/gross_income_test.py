@@ -40,6 +40,7 @@ class GrossIncomeTest:
             'reason': {
                 'test_name': 'Gross Income Test',
                 'test_passed?': below_gross_income_limit,
-                'description': description
+                'description': description,
+                'sort_order': 2,
             }
         }
