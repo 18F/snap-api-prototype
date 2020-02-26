@@ -9,7 +9,7 @@ from snap_financial_factors.fetch_income_limits import FetchIncomeLimits
 
 class BenefitEstimate:
     def __init__(self, input_data):
-        # Load user input data
+        # Load user input data: required fields
         self.input_data = input_data
         self.state_or_territory = input_data['state_or_territory']
         self.monthly_job_income = input_data['monthly_job_income']
@@ -17,6 +17,9 @@ class BenefitEstimate:
         self.household_size = input_data['household_size']
         self.household_includes_elderly_or_disabled = input_data['household_includes_elderly_or_disabled']
         self.resources = input_data['resources']
+
+        # Load user input data: optional fields
+        self.dependent_care_costs = input_data.get('dependent_care_costs', 0)
 
         # Load SNAP program data as YAML
         self.bbce_data = yaml.safe_load(open('./program_data/bbce.yaml', 'r'))

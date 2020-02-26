@@ -30,6 +30,10 @@ def step_impl(context, number):
 def step_impl(context, number):
     context.input_data['resources'] = number
 
+@given('the household has dependent care costs of ${number:d} monthly')
+def step_impl(context, number):
+    context.input_data['dependent_care_costs'] = number
+
 @when('we run the benefit estimator...')
 def step_impl(context):
     benefit_estimate = BenefitEstimate(context.input_data)
