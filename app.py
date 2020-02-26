@@ -48,6 +48,7 @@ def calculate_from_json():
 @app.route('/calculate_from_form', methods=['POST', 'GET'])
 def calculate_from_form():
     input_data = request.form.to_dict()
+
     input_data['household_size'] = int(input_data['household_size'])
     input_data['monthly_job_income'] = int(input_data['monthly_job_income'])
     input_data['monthly_non_job_income'] = int(input_data['monthly_non_job_income'])

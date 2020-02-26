@@ -14,6 +14,8 @@ class NetIncome:
         self.monthly_job_income = input_data['monthly_job_income']
         self.monthly_non_job_income = input_data['monthly_non_job_income']
 
+        self.dependent_care_costs = input_data.get('dependent_care_costs', 0)
+
         self.deductions_data = deductions_data
 
     def calculate(self):
@@ -35,7 +37,12 @@ class NetIncome:
         earned_income_deduction = 0.2 * monthly_job_income
         description.append('Earned income deduction: ${}.'.format(earned_income_deduction))
 
-        total_deductions = standard_deduction + earned_income_deduction
+        dependent_care_deduction = self.dependent_care_costs
+        description.append('Dependent care deduction: ${}.'.format(dependent_care_deduction))
+
+        total_deductions = (standard_deduction +
+                            earned_income_deduction +
+                            dependent_care_deduction)
         description.append('Total deductions: ${}.'.format(total_deductions))
 
         net_income = total_income - total_deductions
