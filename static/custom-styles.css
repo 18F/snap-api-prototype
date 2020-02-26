@@ -31,3 +31,7 @@ h2 {
   color: blue;
   font-style: italic;
 }
+
+fieldset legend {
+  margin-bottom: 12px;
+}
