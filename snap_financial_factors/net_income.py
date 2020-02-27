@@ -25,10 +25,13 @@ class NetIncome:
         deductions_data = self.deductions_data
         monthly_job_income = self.monthly_job_income
         monthly_non_job_income = self.monthly_non_job_income
-        explanation = [
-            ('To find out if this household is eligible for SNAP and estimate ' +
-            'the benefit amount, we start by calculating net income.')
-        ]
+
+        explanation = []
+        explanation_intro = (
+            'To find out if this household is eligible for SNAP and estimate ' +
+            'the benefit amount, we start by calculating net income.'
+        )
+        explanation.append(explanation_intro)
 
         # Add up income.
         total_income = monthly_job_income + monthly_non_job_income
