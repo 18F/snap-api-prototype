@@ -6,6 +6,10 @@
 # Some calculations result in small differences, which may be due
 # to rounding differences or slightly different data sets being used.
 
+# A few surprising results from the Illinois calculator:
+# * Standard deduction listed as $160 instead of $167.
+# * Family of 3 with an elderly or disabled household member, medical expenses
+#   of $135 lists Medical Deduction as $165 instead of $100.
 
 Feature: Testing SNAP Financial Factors Web API for IL
 
