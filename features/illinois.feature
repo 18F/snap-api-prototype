@@ -6,6 +6,10 @@
 # Some calculations result in small differences, which may be due
 # to rounding differences or slightly different data sets being used.
 
+# A few surprising results from the Illinois calculator:
+# * Standard deduction listed as $160 instead of $167.
+# * Family of 3 with an elderly or disabled household member, medical expenses
+#   of $135 lists Medical Deduction as $165 instead of $100.
 
 Feature: Testing SNAP Financial Factors Web API for IL
 
@@ -108,3 +112,51 @@ Feature: Testing SNAP Financial Factors Web API for IL
     When we run the benefit estimator...
       Then we find the family is likely eligible
       And we find the estimated benefit is $319 per month
+
+  Scenario: Medical expenses of $0 do not affect benefit amount
+    Given the household is in IL
+    And a 3-person household
+    And the household does include an elderly or disabled member
+    And the household has earned income of $400 monthly
+    And the household has other income of $400 monthly
+    And the household has assets of $0 monthly
+    And the household has medical expenses for elderly or disabled members of $0 monthly
+    When we run the benefit estimator...
+      Then we find the family is likely eligible
+      And we find the estimated benefit is $343 per month
+
+  Scenario: Medical expenses of $35 do not affect benefit amount
+    Given the household is in IL
+    And a 3-person household
+    And the household does include an elderly or disabled member
+    And the household has earned income of $400 monthly
+    And the household has other income of $400 monthly
+    And the household has assets of $0 monthly
+    And the household has medical expenses for elderly or disabled members of $35 monthly
+    When we run the benefit estimator...
+      Then we find the family is likely eligible
+      And we find the estimated benefit is $343 per month
+
+  Scenario: Medical expenses of $135 increase benefit by $30
+    Given the household is in IL
+    And a 3-person household
+    And the household does include an elderly or disabled member
+    And the household has earned income of $400 monthly
+    And the household has other income of $400 monthly
+    And the household has assets of $0 monthly
+    And the household has medical expenses for elderly or disabled members of $135 monthly
+    When we run the benefit estimator...
+      Then we find the family is likely eligible
+      And we find the estimated benefit is $373 per month
+
+  Scenario: Medical expenses do not affect benefit if household does not include an elderly or disabled member
+    Given the household is in IL
+    And a 3-person household
+    And the household does not include an elderly or disabled member
+    And the household has earned income of $400 monthly
+    And the household has other income of $400 monthly
+    And the household has assets of $0 monthly
+    And the household has medical expenses for elderly or disabled members of $135 monthly
+    When we run the benefit estimator...
+      Then we find the family is likely eligible
+      And we find the estimated benefit is $343 per month

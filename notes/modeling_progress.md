@@ -5,7 +5,7 @@
 | Asset Test                  | 2/24/2020    | :ballot_box_with_check:  | 2/21/2020             |
 | Earned Income Deduction     | 2/24/2020    | :ballot_box_with_check:  | 2/26/2020             |
 | Dependent Care Deduction    | 2/24/2020    | :ballot_box_with_check:  | 2/26/2020             |
-| Medical Expenses Deduction  | 2/24/2020    |                          |                       |
+| Medical Expenses Deduction  | 2/24/2020    | :ballot_box_with_check:  | 2/27/2020             |
 | Child Support Payments      | 2/24/2020    |                          |                       |
 | Standard Shelter Deduction  | 2/24/2020    |                          |                       |
 | Excess Shelter Costs        | 2/24/2020    |                          |                       |

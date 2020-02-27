@@ -15,7 +15,7 @@
       Do not enter any private or personal data.
     </div>
     <div class="grid-container margin-y-5">
-      <div class="grid-row">
+      <div class="grid-row grid-gap-lg">
         <div class="tablet:grid-col-6">
           <h1>Could you be eligible for help with your food budget?</h1>
           <form id="prescreener-form" class="usa-form usa-form--large">
@@ -119,28 +119,43 @@
               </label>
               <input id="dependent_care_costs"
                      name="dependent_care_costs"
-                     class="usa-input"
-                     required />
+                     class="usa-input" />
               <br/>
               <fieldset class="usa-fieldset">
                 <legend>Does household include someone who is 60 or older, or someone who is disabled?</legend>
                 <div class="usa-radio">
                   <input class="usa-radio__input"
-                         id="true"
+                         id="input__household_includes_elderly_or_disabled_true"
                          type="radio"
                          name="household_includes_elderly_or_disabled"
                          value="true">
-                  <label class="usa-radio__label" for="true">Yes</label>
+                  <label id="label__household_includes_elderly_or_disabled_true"
+                         class="usa-radio__label"
+                         for="input__household_includes_elderly_or_disabled_true">
+                    Yes
+                  </label>
                 </div>
                 <div class="usa-radio">
                   <input class="usa-radio__input"
-                         id="false"
+                         id="input__household_includes_elderly_or_disabled_false"
                          type="radio"
                          name="household_includes_elderly_or_disabled"
                          value="false">
-                  <label class="usa-radio__label" for="false">No</label>
+                  <label id="label__household_includes_elderly_or_disabled_false"
+                         class="usa-radio__label"
+                         for="input__household_includes_elderly_or_disabled_false">
+                    No
+                  </label>
                 </div>
               </fieldset>
+              <div id="medical_expenses_for_elderly_or_disabled_question" class="hidden">
+                <label class="usa-label" for="medical_expenses_for_elderly_or_disabled">
+                  Monthly out of pocket medical expenses for household members who are age 60 or older or disabled:
+                </label>
+                <input id="medical_expenses_for_elderly_or_disabled"
+                       name="medical_expenses_for_elderly_or_disabled"
+                       class="usa-input" />
+              </div>
               <input id="prescreener-form-submit"
                      class="usa-button"
                      type="submit"
@@ -163,6 +178,26 @@
           }
           if (why) {
               why.classList.toggle('hidden');
+          }
+      }
+
+      function showMedicalExpensesForElderlyOrDisabled () {
+          var elem = document.getElementById('medical_expenses_for_elderly_or_disabled_question');
+
+          if (elem) {
+              if (elem.classList.contains('hidden')) {
+                  elem.classList.remove('hidden');
+              }
+          }
+      }
+
+      function hideMedicalExpensesForElderlyOrDisabled () {
+          var elem = document.getElementById('medical_expenses_for_elderly_or_disabled_question');
+
+          if (elem) {
+              if (!elem.classList.contains('hidden')) {
+                  elem.classList.add('hidden');
+              }
           }
       }
 
@@ -235,6 +270,17 @@
       form.addEventListener('submit', function (event) {
           event.preventDefault();
           sendData();
+      });
+
+      var elderlyOrDisabledTrue = document.getElementById('input__household_includes_elderly_or_disabled_true');
+      var elderlyOrDisabledFalse = document.getElementById('input__household_includes_elderly_or_disabled_false');
+
+      elderlyOrDisabledTrue.addEventListener('change', function (event) {
+          showMedicalExpensesForElderlyOrDisabled();
+      });
+
+      elderlyOrDisabledFalse.addEventListener('change', function (event) {
+          hideMedicalExpensesForElderlyOrDisabled();
       });
   </script>
 </html>
