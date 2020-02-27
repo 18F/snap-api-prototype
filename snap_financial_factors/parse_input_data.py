@@ -35,7 +35,6 @@ class ParseInputData:
         else:
             input_data['medical_expenses_for_elderly_or_disabled'] = 0
 
-
         # Parse booleans sent in as strings:
         includes_elderly_or_disabled = input_data['household_includes_elderly_or_disabled']
         if isinstance(includes_elderly_or_disabled, str):
