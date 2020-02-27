@@ -66,7 +66,7 @@ class NetIncome:
         # Dependent care deduction
         dependent_care_deduction = self.dependent_care_costs
         dependent_care_deduction_explanation = (
-            f"Next, we add deduct dependent care costs: ${dependent_care_deduction}."
+            f"Next, we deduct dependent care costs: ${dependent_care_deduction}."
         )
         explanation.append(dependent_care_deduction_explanation)
 
