@@ -17,11 +17,17 @@ class ParseInputData:
         input_data['monthly_non_job_income'] = int(input_data['monthly_non_job_income'])
         input_data['resources'] = int(input_data['resources'])
 
-        # Set defaults; convert to int when value supplied:
+        # Optional value. Set default; convert to int when value supplied:
         if 'dependent_care_costs' in input_data:
             input_data['dependent_care_costs'] = int(input_data['dependent_care_costs'])
         else:
             input_data['dependent_care_costs'] = 0
+
+        # Optional value. Set default; convert to int when value supplied:
+        if 'medical_expenses_for_elderly_or_disabled' is in input_data:
+            input_data['medical_expenses_for_elderly_or_disabled'] = int(input_data['medical_expenses_for_elderly_or_disabled'])
+        else:
+            input_data['medical_expenses_for_elderly_or_disabled'] = 0
 
         # Parse booleans sent in as strings:
         includes_elderly_or_disabled = input_data['household_includes_elderly_or_disabled']
