@@ -24,7 +24,7 @@ class ParseInputData:
             input_data['dependent_care_costs'] = 0
 
         # Optional value. Set default; convert to int when value supplied:
-        if 'medical_expenses_for_elderly_or_disabled' is in input_data:
+        if 'medical_expenses_for_elderly_or_disabled' in input_data:
             input_data['medical_expenses_for_elderly_or_disabled'] = int(input_data['medical_expenses_for_elderly_or_disabled'])
         else:
             input_data['medical_expenses_for_elderly_or_disabled'] = 0
