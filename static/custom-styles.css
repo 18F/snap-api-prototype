@@ -32,6 +32,10 @@ h2 {
   font-style: italic;
 }
 
+.why-small {
+  font-size: 12px;
+}
+
 fieldset legend {
   margin-bottom: 12px;
 }

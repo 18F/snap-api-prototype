@@ -25,7 +25,10 @@ class NetIncome:
         deductions_data = self.deductions_data
         monthly_job_income = self.monthly_job_income
         monthly_non_job_income = self.monthly_non_job_income
-        explanation = []
+        explanation = [
+            ('To find out if this household is eligible for SNAP and estimate ' +
+            'the benefit amount, we start by calculating net income.')
+        ]
 
         # Add up income.
         total_income = monthly_job_income + monthly_non_job_income
@@ -33,7 +36,7 @@ class NetIncome:
             "Let's start with total household income. " +
             f"This household reports monthly earned income of ${monthly_job_income} " +
             f"and additional monthly income of ${monthly_non_job_income}, " +
-            f"for a total income of ${total_income}."
+            f"for a total income of <strong>${total_income}.</strong>"
         )
         explanation.append(income_explanation)
 
@@ -47,23 +50,23 @@ class NetIncome:
         standard_deduction_explanation = (
             "\nNext, we need to take into account deductions. " +
             f"We start with a standard deduction of ${standard_deduction}. " +
-            f"<a class='why-link' href='{standard_deduction_pdf_url}'>why?</a>"
+            f"<a class='why why-small' href='{standard_deduction_pdf_url}' target='_blank'>why?</a>"
         )
         explanation.append(standard_deduction_explanation)
 
         # Earned income deduction
-        earned_income_deduction = 0.2 * monthly_job_income
+        earned_income_deduction = round(0.2 * monthly_job_income)
         earned_income_deduction_explanation = (
             "Next, we add the earned income deduction. " +
-            "This is equal to 20% of income from jobs or self-employment, " +
-            f"and comes to ${earned_income_deduction}."
+            f"This is equal to 20% of income from jobs or self-employment (${monthly_job_income}). " +
+            f"Earned income deduction: ${earned_income_deduction}."
         )
         explanation.append(earned_income_deduction_explanation)
 
         # Dependent care deduction
         dependent_care_deduction = self.dependent_care_costs
         dependent_care_deduction_explanation = (
-            f"Next, we add a deduction for dependent care costs: ${dependent_care_deduction}."
+            f"Next, we add deduct dependent care costs: ${dependent_care_deduction}."
         )
         explanation.append(dependent_care_deduction_explanation)
 
@@ -87,7 +90,11 @@ class NetIncome:
                             dependent_care_deduction +
                             medical_expenses_deduction)
 
-        explanation.append(f"The total of all deductions is ${total_deductions}. ")
+        total_deductions_explanation = (
+            f"The total of all deductions is <strong>${total_deductions}</strong>. " +
+            f"(${standard_deduction} + ${earned_income_deduction} + ${dependent_care_deduction} + ${medical_expenses_deduction}.)"
+        )
+        explanation.append(total_deductions_explanation)
 
         net_income = total_income - total_deductions
 
@@ -96,8 +103,9 @@ class NetIncome:
             net_income = 0
 
         calculation_explanation = (
-            f"Total income ${total_income} minus total deductions {total_deductions} ." +
-            "equals net income: ${net_income}."
+            f"Total income (<strong>${total_income}</strong>) minus " +
+            f"total deductions (<strong>${total_deductions}</strong>) " +
+            f"equals net income: <strong>${net_income}.</strong>"
         )
         explanation.append(calculation_explanation)
 
@@ -105,7 +113,7 @@ class NetIncome:
             'result': net_income,
             'reason': {
                 'test_name': 'Net Income',
-                'description': description,
+                'description': explanation,
                 'sort_order': 0,
             }
         }
