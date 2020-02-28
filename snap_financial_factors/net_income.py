@@ -63,8 +63,9 @@ class NetIncome:
         earned_income_deduction_calculator = EarnedIncomeDeduction(self.monthly_job_income)
         earned_income_deduction_calculation = earned_income_deduction_calculator.calculate()
         earned_income_deduction = earned_income_deduction_calculation['result']
-        earned_income_deduction_reason = earned_income_deduction_calculation['explanation']
-        explanation.append(earned_income_deduction_reason)
+        earned_income_deduction_explanations = earned_income_deduction_calculation['explanation']
+        for earned_income_deduction_explanation in earned_income_deduction_explanations:
+            explanation.append(earned_income_deduction_explanation)
 
         # Dependent care deduction
         dependent_care_deduction = self.dependent_care_costs
