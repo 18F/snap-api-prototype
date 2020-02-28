@@ -1,11 +1,14 @@
+from snap_financial_factors.input_data.input_data import InputData
+
+
 class AssetTest:
-    def __init__(self, input_data, resource_limit_elderly_or_disabled, resource_limit_non_elderly_or_disabled):
+    def __init__(self, input_data: InputData, resource_limit_elderly_or_disabled, resource_limit_non_elderly_or_disabled):
         # Load user input data
         self.input_data = input_data
-        self.state_or_territory = input_data['state_or_territory']
-        self.household_size = input_data['household_size']
-        self.household_includes_elderly_or_disabled = input_data['household_includes_elderly_or_disabled']
-        self.resources = input_data['resources']
+        self.state_or_territory = input_data.state_or_territory
+        self.household_size = input_data.household_size
+        self.household_includes_elderly_or_disabled = input_data.household_includes_elderly_or_disabled
+        self.resources = input_data.resources
 
         self.resource_limit_elderly_or_disabled = resource_limit_elderly_or_disabled
         self.resource_limit_non_elderly_or_disabled = resource_limit_non_elderly_or_disabled

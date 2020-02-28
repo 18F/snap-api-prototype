@@ -1,3 +1,6 @@
+from typing import Dict
+from snap_financial_factors.input_data.input_data import InputData
+
 class ParseInputData:
     '''
     Cleans up input data sent to API:
@@ -5,10 +8,10 @@ class ParseInputData:
     * Sets defaults
     '''
 
-    def __init__(self, input_data):
+    def __init__(self, input_data: Dict) -> None:
         self.input_data = input_data
 
-    def parse(self):
+    def parse(self) -> InputData:
         input_data = self.input_data
 
         # Convert strings to integers as needed:
@@ -42,4 +45,4 @@ class ParseInputData:
                 includes_elderly_or_disabled == 'true'
             )
 
-        return input_data
+        return InputData(input_data)
