@@ -25,5 +25,6 @@ class EarnedIncomeDeduction:
 
         return {
             'result': earned_income_deduction,
-            'explanation': explanation
+            'explanation': explanation,
+            'applies?': (self.monthly_job_income > 0)
         }

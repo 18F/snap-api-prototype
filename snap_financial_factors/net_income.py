@@ -1,5 +1,6 @@
 from snap_financial_factors.fetch_deductions import FetchDeductions
 from snap_financial_factors.deductions.earned_income_deduction import EarnedIncomeDeduction
+from snap_financial_factors.deductions.dependent_care_deduction import DependentCareDeduction
 
 
 class NetIncome:
@@ -68,11 +69,11 @@ class NetIncome:
             explanation.append(earned_income_deduction_explanation)
 
         # Dependent care deduction
-        dependent_care_deduction = self.dependent_care_costs
-        if self.dependent_care_costs > 0:
-            dependent_care_deduction_explanation = (
-                f"Next, we deduct dependent care costs: ${dependent_care_deduction}."
-            )
+        dependent_care_deduction_calculator = DependentCareDeduction(self.dependent_care_costs)
+        dependent_care_deduction_calculation = dependent_care_deduction_calculator.calculate()
+        dependent_care_deduction = dependent_care_deduction_calculation['result']
+        dependent_care_deduction_explanations = earned_income_deduction_calculation['explanation']
+        for dependent_care_deduction_explanation in dependent_care_deduction_explanations:
             explanation.append(dependent_care_deduction_explanation)
 
         # Medical expenses deduction
