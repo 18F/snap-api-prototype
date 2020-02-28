@@ -27,7 +27,7 @@ class NetIncomeTest:
         explanation.append(net_monthly_income_limit_explanation)
 
         result_to_words = {
-            True: 'does meet',
+            True: 'passes',
             False: 'does not meet'
         }
         result_in_words = result_to_words[below_net_income_limit]

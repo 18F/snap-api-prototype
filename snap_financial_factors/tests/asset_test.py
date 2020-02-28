@@ -17,7 +17,7 @@ class AssetTest:
                 'reason': {
                     'test_name': 'Asset Test',
                     'test_passed?': True,
-                    'description': ['State does not have an asset test.']
+                    'description': [f"{self.state_or_territory} does not have an asset test for SNAP eligibility."]
                 }
             }
 
