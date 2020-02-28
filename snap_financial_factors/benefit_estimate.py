@@ -1,6 +1,6 @@
 import yaml
-from snap_financial_factors.net_income import NetIncome
-from snap_financial_factors.benefit_amount_estimate import BenefitAmountEstimate
+from snap_financial_factors.calculations.net_income import NetIncome
+from snap_financial_factors.calculations.benefit_amount_estimate import BenefitAmountEstimate
 from snap_financial_factors.tests.asset_test import AssetTest
 from snap_financial_factors.tests.gross_income_test import GrossIncomeTest
 from snap_financial_factors.tests.net_income_test import NetIncomeTest
