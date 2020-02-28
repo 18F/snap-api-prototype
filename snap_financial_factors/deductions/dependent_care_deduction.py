@@ -1,4 +1,4 @@
-from typing import Dict
+from snap_financial_factors.deductions.deduction_result import DeductionResult
 
 
 class DependentCareDeduction:
@@ -9,13 +9,13 @@ class DependentCareDeduction:
     def __init__(self, dependent_care_costs: int) -> None:
         self.dependent_care_costs = dependent_care_costs
 
-    def calculate(self) -> Dict:
+    def calculate(self) -> DeductionResult:
         explanation = [
             f"Next, we deduct dependent care costs: ${self.dependent_care_costs}."
         ]
 
-        return {
-            'result': self.dependent_care_costs,
-            'explanation': explanation,
-            'applies?': (self.dependent_care_costs > 0)
-        }
+        return DeductionResult(
+            result = self.dependent_care_costs,
+            is_applicable = (self.dependent_care_costs > 0),
+            explanation = explanation
+        )

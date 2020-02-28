@@ -1,4 +1,4 @@
-from typing import Dict
+from snap_financial_factors.deductions.deduction_result import DeductionResult
 
 
 class EarnedIncomeDeduction:
@@ -9,7 +9,7 @@ class EarnedIncomeDeduction:
     def __init__(self, monthly_job_income: int) -> None:
         self.monthly_job_income = monthly_job_income
 
-    def calculate(self) -> Dict:
+    def calculate(self) -> DeductionResult:
         earned_income_deduction = round(0.2 * self.monthly_job_income)
         explanation = [
             (
@@ -23,8 +23,8 @@ class EarnedIncomeDeduction:
             )
         ]
 
-        return {
-            'result': earned_income_deduction,
-            'explanation': explanation,
-            'applies?': (self.monthly_job_income > 0)
-        }
+        return DeductionResult(
+            result = earned_income_deduction,
+            is_applicable = (self.monthly_job_income > 0),
+            explanation = explanation
+        )

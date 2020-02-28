@@ -1,3 +1,6 @@
+from snap_financial_factors.deductions.deduction_result import DeductionResult
+
+
 class MedicalExpensesDeduction:
     '''
     Calculates medical expenses deduction for households that include a member
@@ -20,31 +23,35 @@ class MedicalExpensesDeduction:
                 "In this case, there are no elderly or disabled members of " +
                 "the household, so the deduction does not apply. "
             )
-            return {
-                'result': 0,
-                'explanation': explanation,
-                'applies?': False
-            }
+
+            return DeductionResult(
+                result = 0,
+                is_applicable = False,
+                explanation = explanation
+            )
 
         if self.medical_expenses_for_elderly_or_disabled == 0:
             explanation.append(
                 "In this case, there are no monthly medical expenses to deduct. "
             )
-            return {
-                'result': 0,
-                'explanation': explanation,
-                'applies?': False
-            }
+
+            return DeductionResult(
+                result = 0,
+                is_applicable = False,
+                explanation = explanation
+            )
+
 
         if 35 > self.medical_expenses_for_elderly_or_disabled:
             explanation.append(
                 "In this case, medical expenses are below the $35 monthly threshold for deduction. "
             )
-            return {
-                'result': 0,
-                'explanation': explanation,
-                'applies?': False
-            }
+
+            return DeductionResult(
+                result = 0,
+                is_applicable = False,
+                explanation = explanation
+            )
 
         medical_expenses_deduction = self.medical_expenses_for_elderly_or_disabled - 35
         explanation.append(
@@ -57,8 +64,8 @@ class MedicalExpensesDeduction:
             f"${medical_expenses_deduction} medical expenses deduction"
         )
 
-        return {
-            'result': medical_expenses_deduction,
-            'explanation': explanation,
-            'applies?': True
-        }
+        return DeductionResult(
+            result = medical_expenses_deduction,
+            is_applicable = True,
+            explanation = explanation
+        )

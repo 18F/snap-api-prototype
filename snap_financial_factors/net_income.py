@@ -64,16 +64,16 @@ class NetIncome:
         # Earned income deduction
         earned_income_deduction_calculator = EarnedIncomeDeduction(self.monthly_job_income)
         earned_income_deduction_calculation = earned_income_deduction_calculator.calculate()
-        earned_income_deduction = earned_income_deduction_calculation['result']
-        earned_income_deduction_explanations = earned_income_deduction_calculation['explanation']
+        earned_income_deduction = earned_income_deduction_calculation.result
+        earned_income_deduction_explanations = earned_income_deduction_calculation.explanation
         for earned_income_deduction_explanation in earned_income_deduction_explanations:
             explanation.append(earned_income_deduction_explanation)
 
         # Dependent care deduction
         dependent_care_deduction_calculator = DependentCareDeduction(self.dependent_care_costs)
         dependent_care_deduction_calculation = dependent_care_deduction_calculator.calculate()
-        dependent_care_deduction = dependent_care_deduction_calculation['result']
-        dependent_care_deduction_explanations = dependent_care_deduction_calculation['explanation']
+        dependent_care_deduction = dependent_care_deduction_calculation.result
+        dependent_care_deduction_explanations = dependent_care_deduction_calculation.explanation
         for dependent_care_deduction_explanation in dependent_care_deduction_explanations:
             explanation.append(dependent_care_deduction_explanation)
 
@@ -81,8 +81,8 @@ class NetIncome:
         medical_expenses_deduction_calculator = MedicalExpensesDeduction(self.household_includes_elderly_or_disabled,
                                                                          self.medical_expenses_for_elderly_or_disabled)
         medical_expenses_deduction_calculation = medical_expenses_deduction_calculator.calculate()
-        medical_expenses_deduction = medical_expenses_deduction_calculation['result']
-        medical_expenses_deduction_explanations = medical_expenses_deduction_calculation['explanation']
+        medical_expenses_deduction = medical_expenses_deduction_calculation.result
+        medical_expenses_deduction_explanations = medical_expenses_deduction_calculation.explanation
         for medical_expenses_deduction_explanation in medical_expenses_deduction_explanations:
             explanation.append(medical_expenses_deduction_explanation)
 
