@@ -1,5 +1,5 @@
-from snap_financial_factors.allotments.fetch_max_allotments import FetchMaxAllotments
-from snap_financial_factors.allotments.fetch_min_allotments import FetchMinAllotments
+from snap_financial_factors.program_data_api.fetch_max_allotments import FetchMaxAllotments
+from snap_financial_factors.program_data_api.fetch_min_allotments import FetchMinAllotments
 
 
 class BenefitAmountEstimate:

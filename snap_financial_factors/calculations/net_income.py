@@ -1,7 +1,8 @@
-from snap_financial_factors.fetch_deductions import FetchDeductions
+from snap_financial_factors.program_data_api.fetch_deductions import FetchDeductions
 from snap_financial_factors.deductions.earned_income_deduction import EarnedIncomeDeduction
 from snap_financial_factors.deductions.dependent_care_deduction import DependentCareDeduction
 from snap_financial_factors.deductions.medical_expenses_deduction import MedicalExpensesDeduction
+from snap_financial_factors.input_data.input_data import InputData
 
 
 class NetIncome:
@@ -9,16 +10,16 @@ class NetIncome:
     Returns the adjusted net income (gross income minus deductions).
     '''
 
-    def __init__(self, input_data, deductions_data):
+    def __init__(self, input_data: InputData, deductions_data):
         # Load user input data
         self.input_data = input_data
-        self.state_or_territory = input_data['state_or_territory']
-        self.household_size = input_data['household_size']
-        self.monthly_job_income = input_data['monthly_job_income']
-        self.monthly_non_job_income = input_data['monthly_non_job_income']
-        self.dependent_care_costs = input_data['dependent_care_costs']
-        self.household_includes_elderly_or_disabled = input_data['household_includes_elderly_or_disabled']
-        self.medical_expenses_for_elderly_or_disabled = input_data['medical_expenses_for_elderly_or_disabled']
+        self.state_or_territory = input_data.state_or_territory
+        self.household_size = input_data.household_size
+        self.monthly_job_income = input_data.monthly_job_income
+        self.monthly_non_job_income = input_data.monthly_non_job_income
+        self.dependent_care_costs = input_data.dependent_care_costs
+        self.household_includes_elderly_or_disabled = input_data.household_includes_elderly_or_disabled
+        self.medical_expenses_for_elderly_or_disabled = input_data.medical_expenses_for_elderly_or_disabled
 
         self.deductions_data = deductions_data
 

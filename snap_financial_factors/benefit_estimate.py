@@ -1,26 +1,24 @@
 import yaml
-from snap_financial_factors.net_income import NetIncome
-from snap_financial_factors.benefit_amount_estimate import BenefitAmountEstimate
+from snap_financial_factors.calculations.net_income import NetIncome
+from snap_financial_factors.calculations.benefit_amount_estimate import BenefitAmountEstimate
 from snap_financial_factors.tests.asset_test import AssetTest
 from snap_financial_factors.tests.gross_income_test import GrossIncomeTest
 from snap_financial_factors.tests.net_income_test import NetIncomeTest
-from snap_financial_factors.fetch_income_limits import FetchIncomeLimits
-from snap_financial_factors.parse_input_data import ParseInputData
+from snap_financial_factors.program_data_api.fetch_income_limits import FetchIncomeLimits
+from snap_financial_factors.input_data.parse_input_data import ParseInputData
 
 
 class BenefitEstimate:
     def __init__(self, input_data):
         # Load and parse user input data
-        parsed_input_data = ParseInputData(input_data).parse()
-
-        self.input_data = parsed_input_data
-        self.state_or_territory = self.input_data['state_or_territory']
-        self.monthly_job_income = self.input_data['monthly_job_income']
-        self.monthly_non_job_income = self.input_data['monthly_non_job_income']
-        self.household_size = self.input_data['household_size']
-        self.household_includes_elderly_or_disabled = self.input_data['household_includes_elderly_or_disabled']
-        self.resources = self.input_data['resources']
-        self.dependent_care_costs = self.input_data['dependent_care_costs']
+        self.input_data = ParseInputData(input_data).parse()
+        self.state_or_territory = self.input_data.state_or_territory
+        self.monthly_job_income = self.input_data.monthly_job_income
+        self.monthly_non_job_income = self.input_data.monthly_non_job_income
+        self.household_size = self.input_data.household_size
+        self.household_includes_elderly_or_disabled = self.input_data.household_includes_elderly_or_disabled
+        self.resources = self.input_data.resources
+        self.dependent_care_costs = self.input_data.dependent_care_costs
 
         # Load SNAP program data as YAML
         self.bbce_data = yaml.safe_load(open('./program_data/bbce.yaml', 'r'))
