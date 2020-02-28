@@ -25,9 +25,9 @@ class MedicalExpensesDeduction:
             )
 
             return DeductionResult(
-                result = 0,
-                is_applicable = False,
-                explanation = explanation
+                result=0,
+                is_applicable=False,
+                explanation=explanation
             )
 
         if self.medical_expenses_for_elderly_or_disabled == 0:
@@ -36,9 +36,9 @@ class MedicalExpensesDeduction:
             )
 
             return DeductionResult(
-                result = 0,
-                is_applicable = False,
-                explanation = explanation
+                result=0,
+                is_applicable=False,
+                explanation=explanation
             )
 
 
@@ -48,9 +48,9 @@ class MedicalExpensesDeduction:
             )
 
             return DeductionResult(
-                result = 0,
-                is_applicable = False,
-                explanation = explanation
+                result=0,
+                is_applicable=False,
+                explanation=explanation
             )
 
         medical_expenses_deduction = self.medical_expenses_for_elderly_or_disabled - 35
@@ -65,7 +65,7 @@ class MedicalExpensesDeduction:
         )
 
         return DeductionResult(
-            result = medical_expenses_deduction,
-            is_applicable = True,
-            explanation = explanation
+            result=medical_expenses_deduction,
+            is_applicable=True,
+            explanation=explanation
         )
