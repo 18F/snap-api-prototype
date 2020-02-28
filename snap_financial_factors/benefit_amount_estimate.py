@@ -27,39 +27,76 @@ class BenefitAmountEstimate:
                 }
             }
 
+        explanation_intro = (
+            'To determine the estimated amount of SNAP benefit, we start ' +
+            'with the maximum allotment and then subtract 30% of net income ' +
+            '(income minus deductions).'
+        )
+        explanation = [explanation_intro]
+
         max_allotment = FetchMaxAllotments(self.state_or_territory,
                                            self.household_size,
                                            self.max_allotments).calculate()
 
+        max_allotment_pdf_url = 'https://fns-prod.azureedge.net/sites/default/files/media/file/FY20-Maximum-Allotments-Deductions.pdf'
+        max_allotment_explanation = (
+            f"The maximum allotment for this household is ${max_allotment}. " +
+            f"<a class='why why-small' href='{max_allotment_pdf_url}' target='_blank'>why?</a>"
+        )
+        explanation.append(max_allotment_explanation)
+
         min_allotment = FetchMinAllotments(self.state_or_territory,
                                            self.household_size,
                                            self.min_allotments).calculate()
+        if min_allotment:
+            min_allotment_pdf_url = 'https://fns-prod.azureedge.net/sites/default/files/media/file/FY20-Minimum-Allotments.pdf'
+            min_allotment_explanation = (
+                f"There is also a minimum monthly allotmnet for this household of ${min_allotment}. " +
+                f"<a class='why why-small' href='{min_allotment_pdf_url}' target='_blank'>why?</a>"
+            )
+            explanation.append(min_allotment_explanation)
 
-        estimated_benefit = round(max_allotment - (self.net_income * 0.3))
+        thirty_percent_net_income = round(self.net_income * 0.3)
+        estimated_benefit = max_allotment - thirty_percent_net_income
+
+        calculation_explanation = (
+            f"The household net monthly income is ${self.net_income}. " +
+            f"Thirty percent of ${self.net_income} is ${thirty_percent_net_income}. " +
+            "So to calculate the estimated benefit, take the following:"
+        )
+        explanation.append(calculation_explanation)
+        explanation.append('')
+        calcuation_math_explanation = (
+            f"${max_allotment} - ${thirty_percent_net_income} = ${estimated_benefit} estimated benefit"
+        )
+        explanation.append(calcuation_math_explanation)
 
         if min_allotment and (min_allotment > estimated_benefit):
             estimated_benefit = min_allotment
-
-        description = []
-        description.append('Max monthly allotment for state and household size: ${}.'.format(max_allotment))
-        if min_allotment:
-            description.append('Min monthly allotment for state and household size: ${}.'.format(min_allotment))
-
-        description.append('Net monthly income: ${}.'.format(self.net_income))
-        description.append('30% of net monthly income: ${}.'.format(round(self.net_income * 0.3)))
-        description.append('Subtract 30 percent of net income from max allotment.')
+            min_allotment_applied_explanation = (
+                'Since this is below the minimum allotment, apply the minimum ' +
+                f"allotment amount of ${min_allotment} instead."
+            )
+            explanation.append(min_allotment_applied_explanation)
 
         if 0 > estimated_benefit:
-            description.append("Eligibile, but monthly income results in zero benefit.")
             estimated_benefit = 0
+            zero_benefit_explanation = (
+                "In this case, although the household is eligible, because of " +
+                "their income the calcuation results in zero estimated monthly benefit."
+            )
+            explanation.append(zero_benefit_explanation)
 
-        description.append('Estimated monthly benefit: ${}.'.format(estimated_benefit))
+        final_amount_explanation = (
+            f"This gives us an estimated monthly benefit of <strong>${estimated_benefit}</strong>."
+        )
+        explanation.append(final_amount_explanation)
 
         return {
             'amount': estimated_benefit,
             'reason': {
                 'test_name': 'Estimated Benefit Calculation',
-                'description': description,
+                'description': explanation,
                 'sort_order': 4
             }
         }

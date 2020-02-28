@@ -12,16 +12,37 @@ class NetIncomeTest:
         net_monthly_income_limit = self.income_limits.net_monthly_income_limit()
         below_net_income_limit = net_monthly_income_limit > net_income
 
-        description = ['Net monthly income limit for state and household size: ${}.'.format(net_monthly_income_limit)]
-        description.append('Net monthly income: ${}.'.format(net_income))
-        description.append('Meets eligibility test? {}.'.format(below_net_income_limit))
+        explanation = []
+        explanation_intro = (
+            "To be eligible for SNAP, a household's net income needs to be below " +
+            "the net monthly income limit."
+        )
+        explanation.append(explanation_intro)
+
+        income_limits_pdf_url = 'https://fns-prod.azureedge.net/sites/default/files/media/file/FY20-Income-Eligibility-Standards.pdf'
+        net_monthly_income_limit_explanation = (
+            f"The net monthly income limit is ${net_monthly_income_limit}. " +
+            f"<a class='why why-small' href='{income_limits_pdf_url}' target='_blank'>why?</a>"
+        )
+        explanation.append(net_monthly_income_limit_explanation)
+
+        result_to_words = {
+            True: 'passes',
+            False: 'does not meet'
+        }
+        result_in_words = result_to_words[below_net_income_limit]
+        result_explanation = (
+            f"Since the household net income is ${net_income}, " +
+            f"this household <strong>{result_in_words}</strong> the net income test."
+        )
+        explanation.append(result_explanation)
 
         return {
             'result': below_net_income_limit,
             'reason': {
                 'test_name': 'Net Income Test',
                 'test_passed?': below_net_income_limit,
-                'description': description,
+                'description': explanation,
                 'sort_order': 1
             }
         }
