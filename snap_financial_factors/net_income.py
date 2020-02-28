@@ -1,4 +1,7 @@
 from snap_financial_factors.fetch_deductions import FetchDeductions
+from snap_financial_factors.deductions.earned_income_deduction import EarnedIncomeDeduction
+from snap_financial_factors.deductions.dependent_care_deduction import DependentCareDeduction
+from snap_financial_factors.deductions.medical_expenses_deduction import MedicalExpensesDeduction
 
 
 class NetIncome:
@@ -59,40 +62,29 @@ class NetIncome:
         explanation.append(standard_deduction_explanation)
 
         # Earned income deduction
-        earned_income_deduction = round(0.2 * monthly_job_income)
-        earned_income_deduction_explanation = (
-            "Next, we add the earned income deduction. " +
-            f"This is equal to 20% of income from jobs or self-employment: "
-        )
-        explanation.append(earned_income_deduction_explanation)
-        explanation.append('')
-        earned_income_deduction_math_explanation = (
-            f"${monthly_job_income} x 0.2 = ${earned_income_deduction} earned income deduction"
-        )
-        explanation.append(earned_income_deduction_math_explanation)
+        earned_income_deduction_calculator = EarnedIncomeDeduction(self.monthly_job_income)
+        earned_income_deduction_calculation = earned_income_deduction_calculator.calculate()
+        earned_income_deduction = earned_income_deduction_calculation.result
+        earned_income_deduction_explanations = earned_income_deduction_calculation.explanation
+        for earned_income_deduction_explanation in earned_income_deduction_explanations:
+            explanation.append(earned_income_deduction_explanation)
 
         # Dependent care deduction
-        dependent_care_deduction = self.dependent_care_costs
-        if self.dependent_care_costs > 0:
-            dependent_care_deduction_explanation = (
-                f"Next, we deduct dependent care costs: ${dependent_care_deduction}."
-            )
+        dependent_care_deduction_calculator = DependentCareDeduction(self.dependent_care_costs)
+        dependent_care_deduction_calculation = dependent_care_deduction_calculator.calculate()
+        dependent_care_deduction = dependent_care_deduction_calculation.result
+        dependent_care_deduction_explanations = dependent_care_deduction_calculation.explanation
+        for dependent_care_deduction_explanation in dependent_care_deduction_explanations:
             explanation.append(dependent_care_deduction_explanation)
 
         # Medical expenses deduction
-        medical_expenses_deduction = 0  # Set default
-        if self.household_includes_elderly_or_disabled:
-            medical_deduction_explanation = "Next, deduct monthly medical expenses for elderly or disabled household members beyond $35. "
-            if self.medical_expenses_for_elderly_or_disabled > 0:
-                if self.medical_expenses_for_elderly_or_disabled > 35:
-                    medical_expenses_deduction = self.medical_expenses_for_elderly_or_disabled - 35
-                    medical_deduction_explanation += f"Medical expenses deduction: ${medical_expenses_deduction}. "
-                else:
-                    medical_deduction_explanation += "In this case, medical expenses are below the $35 monthly threshold for deduction. "
-            else:
-                medical_deduction_explanation += "In this case, there are no monthly medical expenses to deduct. "
-
-            explanation.append(medical_deduction_explanation)
+        medical_expenses_deduction_calculator = MedicalExpensesDeduction(self.household_includes_elderly_or_disabled,
+                                                                         self.medical_expenses_for_elderly_or_disabled)
+        medical_expenses_deduction_calculation = medical_expenses_deduction_calculator.calculate()
+        medical_expenses_deduction = medical_expenses_deduction_calculation.result
+        medical_expenses_deduction_explanations = medical_expenses_deduction_calculation.explanation
+        for medical_expenses_deduction_explanation in medical_expenses_deduction_explanations:
+            explanation.append(medical_expenses_deduction_explanation)
 
         total_deductions = (standard_deduction +
                             earned_income_deduction +
