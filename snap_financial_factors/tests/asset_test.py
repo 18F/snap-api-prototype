@@ -47,5 +47,5 @@ class AssetTest:
                 'test_passed?': below_resource_limit,
                 'description': description,
                 'sort_order': 3,
-            },
+            }
         }

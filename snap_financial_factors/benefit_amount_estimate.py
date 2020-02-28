@@ -67,7 +67,7 @@ class BenefitAmountEstimate:
         explanation.append(calculation_explanation)
         explanation.append('')
         calcuation_math_explanation = (
-            f"${max_allotment} - ${thirty_percent_net_income} = ${estimated_benefit}"
+            f"${max_allotment} - ${thirty_percent_net_income} = ${estimated_benefit} estimated benefit"
         )
         explanation.append(calcuation_math_explanation)
 
@@ -87,7 +87,10 @@ class BenefitAmountEstimate:
             )
             explanation.append(zero_benefit_explanation)
 
-        explanation.append(f"Estimated monthly benefit: ${estimated_benefit}.")
+        final_amount_explanation = (
+            f"This gives us an estimated monthly benefit of <strong>${estimated_benefit}</strong>."
+        )
+        explanation.append(final_amount_explanation)
 
         return {
             'amount': estimated_benefit,
