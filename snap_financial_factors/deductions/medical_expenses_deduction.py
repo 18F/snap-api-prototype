@@ -13,7 +13,7 @@ class MedicalExpensesDeduction:
         self.household_includes_elderly_or_disabled = household_includes_elderly_or_disabled
         self.medical_expenses_for_elderly_or_disabled = medical_expenses_for_elderly_or_disabled
 
-    def calculate(self):
+    def calculate(self) -> DeductionResult:
         explanation = [
             "Next, deduct monthly medical expenses for elderly or disabled household members beyond $35. "
         ]
