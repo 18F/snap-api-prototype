@@ -1,4 +1,5 @@
 from snap_financial_factors.fetch_deductions import FetchDeductions
+from snap_financial_factors.deductions.earned_income_deduction import EarnedIncomeDeduction
 
 
 class NetIncome:
@@ -59,17 +60,11 @@ class NetIncome:
         explanation.append(standard_deduction_explanation)
 
         # Earned income deduction
-        earned_income_deduction = round(0.2 * monthly_job_income)
-        earned_income_deduction_explanation = (
-            "Next, we add the earned income deduction. " +
-            f"This is equal to 20% of income from jobs or self-employment: "
-        )
-        explanation.append(earned_income_deduction_explanation)
-        explanation.append('')
-        earned_income_deduction_math_explanation = (
-            f"${monthly_job_income} x 0.2 = ${earned_income_deduction} earned income deduction"
-        )
-        explanation.append(earned_income_deduction_math_explanation)
+        earned_income_deduction_calculator = EarnedIncomeDeduction(self.monthly_job_income)
+        earned_income_deduction_calculation = earned_income_deduction_calculator.calculate()
+        earned_income_deduction = earned_income_deduction_calculation['result']
+        earned_income_deduction_reason = earned_income_deduction_calculation['explanation']
+        explanation.append(earned_income_deduction_reason)
 
         # Dependent care deduction
         dependent_care_deduction = self.dependent_care_costs
