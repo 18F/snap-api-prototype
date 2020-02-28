@@ -1,6 +1,7 @@
 from typing import Dict
 from snap_financial_factors.input_data.input_data import InputData
 
+
 class ParseInputData:
     '''
     Cleans up input data sent to API:

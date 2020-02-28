@@ -6,7 +6,6 @@ from snap_financial_factors.tests.gross_income_test import GrossIncomeTest
 from snap_financial_factors.tests.net_income_test import NetIncomeTest
 from snap_financial_factors.program_data_api.fetch_income_limits import FetchIncomeLimits
 from snap_financial_factors.input_data.parse_input_data import ParseInputData
-from snap_financial_factors.input_data.input_data import InputData
 
 
 class BenefitEstimate:
