@@ -1,5 +1,6 @@
 from typing import List
 
+
 class DeductionResult:
     '''
     Expresses the result of a deduction calculation.
