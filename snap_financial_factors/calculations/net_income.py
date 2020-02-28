@@ -1,4 +1,4 @@
-from snap_financial_factors.fetch_deductions import FetchDeductions
+from snap_financial_factors.program_data_api.fetch_deductions import FetchDeductions
 from snap_financial_factors.deductions.earned_income_deduction import EarnedIncomeDeduction
 from snap_financial_factors.deductions.dependent_care_deduction import DependentCareDeduction
 from snap_financial_factors.deductions.medical_expenses_deduction import MedicalExpensesDeduction
