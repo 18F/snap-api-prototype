@@ -7,6 +7,8 @@ class ParseInputData:
     Cleans up input data sent to API:
     * Converts strings to integers as needed
     * Sets defaults
+
+    Any new input factors must be handled here and in the InputData class.
     '''
 
     def __init__(self, input_data: Dict) -> None:

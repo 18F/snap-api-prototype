@@ -4,6 +4,8 @@ from typing import Dict
 class InputData:
     '''
     Holds input data to API.
+
+    Any new input factors must be handled here and in the ParseInputData class.
     '''
 
     def __init__(self, input_data: Dict) -> None:
