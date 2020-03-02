@@ -1,9 +1,9 @@
 from typing import Dict
-from snap_financial_factors.program_data_api.fetch_deductions import FetchDeductions
 from snap_financial_factors.deductions.earned_income_deduction import EarnedIncomeDeduction
 from snap_financial_factors.deductions.dependent_care_deduction import DependentCareDeduction
 from snap_financial_factors.deductions.medical_expenses_deduction import MedicalExpensesDeduction
 from snap_financial_factors.deductions.child_support_payments_deduction import ChildSupportPaymentsDeduction
+from snap_financial_factors.deductions.standard_deduction import StandardDeduction
 from snap_financial_factors.input_data.input_data import InputData
 
 
@@ -59,16 +59,16 @@ class NetIncome:
         # Add up deductions:
 
         # Standard deduction
-        deductions = FetchDeductions(state_or_territory, household_size, deductions_data)
-        standard_deduction = deductions.standard_deduction()
-
-        standard_deduction_pdf_url = 'https://fns-prod.azureedge.net/sites/default/files/media/file/FY20-Maximum-Allotments-Deductions.pdf'
-        standard_deduction_explanation = (
-            "\nNext, we need to take into account deductions. " +
-            f"We start with a standard deduction of ${standard_deduction}. " +
-            f"<a class='why why-small' href='{standard_deduction_pdf_url}' target='_blank'>why?</a>"
+        standard_deduction_calculator = StandardDeduction(
+            state_or_territory=state_or_territory,
+            household_size=household_size,
+            deductions_data=deductions_data
         )
-        explanation.append(standard_deduction_explanation)
+        standard_deduction_calculation = standard_deduction_calculator.calculate()
+        standard_deduction = standard_deduction_calculation.result
+        standard_deduction_explanations = standard_deduction_calculation.explanation
+        for standard_deduction_explanation in standard_deduction_explanations:
+            explanation.append(standard_deduction_explanation)
 
         # Earned income deduction
         earned_income_deduction_calculator = EarnedIncomeDeduction(self.monthly_job_income)
@@ -113,7 +113,7 @@ class NetIncome:
                             child_support_payments_deduction)
 
         total_deductions_explanation = (
-            f"Next, we add all the deductions together: "
+            f"Next, we add all applicable deductions together: "
         )
         explanation.append(total_deductions_explanation)
         explanation.append('')
