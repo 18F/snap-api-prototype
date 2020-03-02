@@ -93,9 +93,12 @@ class NetIncome:
 
         # Construct math explanation for total deductions:
         total_deductions_math_explanation = ''
-        deduction_results_length = len(deduction_results)
-        for index, deduction_value in enumerate(deduction_results):
-            if index == (deduction_results_length - 1):
+        applicable_deductions = [
+            deduction for deduction in deduction_results if deduction > 0
+        ]
+        applicable_deductions_len = len(applicable_deductions)
+        for index, deduction_value in enumerate(applicable_deductions):
+            if index == (applicable_deductions_len - 1):
                 total_deductions_math_explanation += f"${deduction_value} = "
             else:
                 total_deductions_math_explanation += f"${deduction_value} + "
