@@ -37,7 +37,7 @@ class ChildSupportPaymentsDeduction:
             result=(self.court_ordered_child_support_payments),
             is_applicable=True,
             explanation=[
-                "Next, we deduct the monthly cost of court-ordered: " +
+                "Next, we deduct the monthly cost of court-ordered " +
                 f"child support payments: ${self.court_ordered_child_support_payments}."
             ]
         )
