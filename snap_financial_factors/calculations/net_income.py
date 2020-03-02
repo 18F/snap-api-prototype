@@ -37,7 +37,6 @@ class NetIncome:
         deductions_data = self.deductions_data
         monthly_job_income = self.monthly_job_income
         monthly_non_job_income = self.monthly_non_job_income
-        child_support_payments_deductible = self.child_support_payments_deductible
 
         explanation = []
         explanation_intro = (
@@ -110,7 +109,8 @@ class NetIncome:
         total_deductions = (standard_deduction +
                             earned_income_deduction +
                             dependent_care_deduction +
-                            medical_expenses_deduction)
+                            medical_expenses_deduction +
+                            child_support_payments_deduction)
 
         total_deductions_explanation = (
             f"Next, we add all the deductions together: "

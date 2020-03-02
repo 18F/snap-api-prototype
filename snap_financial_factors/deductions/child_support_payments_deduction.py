@@ -13,7 +13,7 @@ class ChildSupportPaymentsDeduction:
         self.court_ordered_child_support_payments = court_ordered_child_support_payments
 
     def calculate(self) -> DeductionResult:
-        if self.child_support_payments_deductible == False:
+        if self.child_support_payments_deductible is False:
             return DeductionResult(
                 is_applicable=False,
                 result=0,
