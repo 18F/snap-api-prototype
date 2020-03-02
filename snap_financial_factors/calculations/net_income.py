@@ -32,12 +32,6 @@ class NetIncome:
         self.child_support_payments_deductible = child_support_payments_deductible
 
     def calculate(self):
-        state_or_territory = self.state_or_territory
-        household_size = self.household_size
-        deductions_data = self.deductions_data
-        monthly_job_income = self.monthly_job_income
-        monthly_non_job_income = self.monthly_non_job_income
-
         explanation = []
         explanation_intro = (
             'To find out if this household is eligible for SNAP and estimate ' +
@@ -47,11 +41,11 @@ class NetIncome:
         explanation.append(explanation_intro)
 
         # Add up income.
-        total_income = monthly_job_income + monthly_non_job_income
+        total_income = self.monthly_job_income + self.monthly_non_job_income
         income_explanation = (
             "Let's start with total household income. " +
-            f"This household reports monthly earned income of ${monthly_job_income} " +
-            f"and additional monthly income of ${monthly_non_job_income}, " +
+            f"This household reports monthly earned income of ${self.monthly_job_income} " +
+            f"and additional monthly income of ${self.monthly_non_job_income}, " +
             f"for a total income of <strong>${total_income}.</strong>"
         )
         explanation.append(income_explanation)
@@ -59,58 +53,37 @@ class NetIncome:
         # Add up deductions:
 
         # Standard deduction
-        standard_deduction_calculator = StandardDeduction(
-            state_or_territory=state_or_territory,
-            household_size=household_size,
-            deductions_data=deductions_data
-        )
-        standard_deduction_calculation = standard_deduction_calculator.calculate()
-        standard_deduction = standard_deduction_calculation.result
-        standard_deduction_explanations = standard_deduction_calculation.explanation
-        for standard_deduction_explanation in standard_deduction_explanations:
-            explanation.append(standard_deduction_explanation)
+        deductions = [
+            StandardDeduction(
+                state_or_territory=self.state_or_territory,
+                household_size=self.household_size,
+                deductions_data=self.deductions_data
+            ),
+            EarnedIncomeDeduction(monthly_job_income=self.monthly_job_income),
+            DependentCareDeduction(dependent_care_costs=self.dependent_care_costs),
+            MedicalExpensesDeduction(
+                household_includes_elderly_or_disabled=self.household_includes_elderly_or_disabled,
+                medical_expenses_for_elderly_or_disabled=self.medical_expenses_for_elderly_or_disabled
+            ),
+            ChildSupportPaymentsDeduction(
+                child_support_payments_deductible=self.child_support_payments_deductible,
+                court_ordered_child_support_payments=self.court_ordered_child_support_payments,
+            )
+        ]
 
-        # Earned income deduction
-        earned_income_deduction_calculator = EarnedIncomeDeduction(self.monthly_job_income)
-        earned_income_deduction_calculation = earned_income_deduction_calculator.calculate()
-        earned_income_deduction = earned_income_deduction_calculation.result
-        earned_income_deduction_explanations = earned_income_deduction_calculation.explanation
-        for earned_income_deduction_explanation in earned_income_deduction_explanations:
-            explanation.append(earned_income_deduction_explanation)
+        deduction_results = []
 
-        # Dependent care deduction
-        dependent_care_deduction_calculator = DependentCareDeduction(self.dependent_care_costs)
-        dependent_care_deduction_calculation = dependent_care_deduction_calculator.calculate()
-        dependent_care_deduction = dependent_care_deduction_calculation.result
-        dependent_care_deduction_explanations = dependent_care_deduction_calculation.explanation
-        for dependent_care_deduction_explanation in dependent_care_deduction_explanations:
-            explanation.append(dependent_care_deduction_explanation)
+        for deduction in deductions:
+            calculation = deduction.calculate()
+            deduction_explanations = calculation.explanation
 
-        # Medical expenses deduction
-        medical_expenses_deduction_calculator = MedicalExpensesDeduction(self.household_includes_elderly_or_disabled,
-                                                                         self.medical_expenses_for_elderly_or_disabled)
-        medical_expenses_deduction_calculation = medical_expenses_deduction_calculator.calculate()
-        medical_expenses_deduction = medical_expenses_deduction_calculation.result
-        medical_expenses_deduction_explanations = medical_expenses_deduction_calculation.explanation
-        for medical_expenses_deduction_explanation in medical_expenses_deduction_explanations:
-            explanation.append(medical_expenses_deduction_explanation)
+            # Append each deduction's explanations to overall Net Income explanation
+            for deduction_explanation in deduction_explanations:
+                explanation.append(deduction_explanation)
 
-        # Court-ordered child support payments deduction
-        child_support_payments_deduction_calculator = ChildSupportPaymentsDeduction(
-            self.child_support_payments_deductible,
-            self.court_ordered_child_support_payments,
-        )
-        child_support_payments_deduction_calculation = child_support_payments_deduction_calculator.calculate()
-        child_support_payments_deduction = child_support_payments_deduction_calculation.result
-        child_support_payments_deduction_explanations = child_support_payments_deduction_calculation.explanation
-        for child_support_payments_deduction_explanation in child_support_payments_deduction_explanations:
-            explanation.append(child_support_payments_deduction_explanation)
+            deduction_results.append(calculation.result)
 
-        total_deductions = (standard_deduction +
-                            earned_income_deduction +
-                            dependent_care_deduction +
-                            medical_expenses_deduction +
-                            child_support_payments_deduction)
+        total_deductions_value = sum(deduction_results)
 
         total_deductions_explanation = (
             f"Next, we add all applicable deductions together: "
@@ -118,21 +91,23 @@ class NetIncome:
         explanation.append(total_deductions_explanation)
         explanation.append('')
 
-        total_deductions_math_explanation = (
-            f"${standard_deduction} + " +
-            f"${earned_income_deduction} + " +
-            f"${dependent_care_deduction} + " +
-            f"${medical_expenses_deduction} = " +
-            f"${total_deductions}"
-        )
+        # Construct math explanation for total deductions:
+        total_deductions_math_explanation = ''
+        deduction_results_length = len(deduction_results)
+        for index, deduction_value in enumerate(deduction_results):
+            if index == (deduction_results_length - 1):
+                total_deductions_math_explanation += f"${deduction_value} = "
+            else:
+                total_deductions_math_explanation += f"${deduction_value} + "
+        total_deductions_math_explanation += f"{total_deductions_value}"
         explanation.append(total_deductions_math_explanation)
 
         total_deductions_summary = (
-            f"The total of all deductions is <strong>${total_deductions}</strong>. "
+            f"The total of all deductions is <strong>${total_deductions_value}</strong>. "
         )
         explanation.append(total_deductions_summary)
 
-        net_income = total_income - total_deductions
+        net_income = total_income - total_deductions_value
 
         # Adjusted net income can't be negative
         if 0 > net_income:
@@ -140,7 +115,7 @@ class NetIncome:
 
         calculation_explanation = (
             f"Total income (<strong>${total_income}</strong>) minus " +
-            f"total deductions (<strong>${total_deductions}</strong>) " +
+            f"total deductions (<strong>${total_deductions_value}</strong>) " +
             f"equals net income: <strong>${net_income}.</strong>"
         )
         explanation.append(calculation_explanation)
