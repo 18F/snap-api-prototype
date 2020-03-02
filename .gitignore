@@ -1,11 +1,16 @@
 # Python builds
-
 *.pyc
 build
 dist
 
+# OS
 .DS_Store
 
+# Sketching file for pseudocode
 sketch
 
+# Local env
 .env
+
+# Type-checking cache
+.mypy_cache

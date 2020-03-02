@@ -20,7 +20,13 @@ jobs:
 
       - run:
           name: Python style check
-          command: make check-style
+          command: make style-check
+
+      - run:
+          name: Type-check with Mypy
+          command: |
+            python3 -m pip install -U mypy
+            make type-check
 
       - run:
           name: Feature tests
