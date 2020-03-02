@@ -21,7 +21,7 @@ class BenefitEstimate:
         self.dependent_care_costs = self.input_data.dependent_care_costs
 
         # Load SNAP program data as YAML
-        self.bbce_data = yaml.safe_load(open('./program_data/state_options.yaml', 'r'))
+        self.state_options_data = yaml.safe_load(open('./program_data/state_options.yaml', 'r'))
         self.income_limit_data = yaml.safe_load(open('./program_data/income_limits.yaml', 'r'))
         self.deductions_data = yaml.safe_load(open('./program_data/deductions.yaml', 'r'))
         self.max_allotments = yaml.safe_load(open('./program_data/max_allotments.yaml', 'r'))
@@ -75,15 +75,15 @@ class BenefitEstimate:
         }
         """
 
-        state_bbce_data = self.bbce_data[self.state_or_territory][2020]
-        state_uses_bbce = state_bbce_data['uses_bbce']
+        state_options = self.state_options_data[self.state_or_territory][2020]
+        state_uses_bbce = state_options['uses_bbce']
 
         if state_uses_bbce:
             return self.__eligibility_calculation_with_params(
-                state_bbce_data['gross_income_limit_factor'],
-                state_bbce_data['resource_limit_elderly_or_disabled'],
-                state_bbce_data['resource_limit_elderly_or_disabled_income_twice_fpl'],
-                state_bbce_data['resource_limit_non_elderly_or_disabled'],
+                state_options['gross_income_limit_factor'],
+                state_options['resource_limit_elderly_or_disabled'],
+                state_options['resource_limit_elderly_or_disabled_income_twice_fpl'],
+                state_options['resource_limit_non_elderly_or_disabled'],
             )
         else:
             # SNAP federal policy defaults
