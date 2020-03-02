@@ -93,7 +93,7 @@ class BenefitEstimate:
                 resource_limit_elderly_or_disabled=3500,
                 resource_limit_elderly_or_disabled_income_twice_fpl=3500,
                 resource_limit_non_elderly_or_disabled=2250,
-                child_support_payments_deductible=False
+                child_support_payments_deductible=state_options['child_support_payments_deductible']
             )
 
     def __eligibility_calculation_with_params(self,
@@ -113,8 +113,6 @@ class BenefitEstimate:
         state_or_territory = self.state_or_territory
         household_size = self.household_size
 
-        income_limits = FetchIncomeLimits(state_or_territory, household_size, income_limit_data)
-
         net_income_calculator = NetIncome(input_data,
                                           deductions_data,
                                           child_support_payments_deductible)
@@ -123,6 +121,7 @@ class BenefitEstimate:
         net_income = net_income_calculation['result']
         net_income_reason = net_income_calculation['reason']
 
+        income_limits = FetchIncomeLimits(state_or_territory, household_size, income_limit_data)
         net_income_test = NetIncomeTest(net_income, income_limits)
 
         asset_test = AssetTest(input_data,
@@ -131,7 +130,8 @@ class BenefitEstimate:
 
         gross_income_test = GrossIncomeTest(input_data,
                                             income_limits,
-                                            gross_income_limit_factor)
+                                            gross_income_limit_factor,
+                                            child_support_payments_deductible)
 
         tests = [net_income_test, asset_test, gross_income_test]
 

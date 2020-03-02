@@ -2,7 +2,11 @@ from snap_financial_factors.input_data.input_data import InputData
 
 
 class GrossIncomeTest:
-    def __init__(self, input_data: InputData, income_limits, gross_income_limit_factor):
+    def __init__(self,
+                 input_data: InputData,
+                 income_limits,
+                 gross_income_limit_factor,
+                 child_support_payments_deductible: bool) -> None:
         # Load user input data
         self.input_data = input_data
         self.state_or_territory = input_data.state_or_territory
@@ -14,6 +18,11 @@ class GrossIncomeTest:
 
         self.income_limits = income_limits
         self.gross_income_limit_factor = gross_income_limit_factor
+
+        # If child support payments are not deductible, they are counted as
+        # exclusions from gross income.
+        self.child_support_payments_deductible = child_support_payments_deductible
+        self.court_ordered_child_support_payments = input_data.court_ordered_child_support_payments
 
     def calculate(self):
         if self.household_includes_elderly_or_disabled:
@@ -40,7 +49,33 @@ class GrossIncomeTest:
         )
         explanation.append(gross_monthly_income_limit_explanation)
 
+        # Calculate monthly income:
         monthly_income = self.monthly_job_income + self.monthly_non_job_income
+
+        # Exclude child support payments depending on state option:
+        if (self.court_ordered_child_support_payments > 0
+                and not self.child_support_payments_deductible):
+            child_support_payments_explanation = (
+                'In this state, court-ordered child support payments are ' +
+                'counted as a gross income exclusion. The gross income is ' +
+                'adjusted to exclude monthly court-ordered child support:'
+            )
+            explanation.append(child_support_payments_explanation)
+
+            monthly_income_minus_child_support = (
+                monthly_income - self.court_ordered_child_support_payments
+            )
+
+            child_support_payments_math = (
+                f"${monthly_income} - " +
+                f"${self.court_ordered_child_support_payments} = " +
+                f"${monthly_income_minus_child_support} adjusted gross income"
+            )
+            explanation.append(child_support_payments_math)
+
+            monthly_income = monthly_income_minus_child_support
+
+        # Result:
         below_gross_income_limit = (gross_monthly_income_limit > monthly_income)
 
         result_to_words = {
