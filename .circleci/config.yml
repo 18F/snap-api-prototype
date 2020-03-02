@@ -25,7 +25,7 @@ jobs:
       - run:
           name: Type-check with Mypy
           command: |
-            python3 -m pip install -U mypy
+            python3 -m pip install mypy --user
             make type-check
 
       - run:
