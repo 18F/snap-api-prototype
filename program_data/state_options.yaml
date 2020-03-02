@@ -33,6 +33,7 @@ IL:
         resource_limit_elderly_or_disabled: NULL
         resource_limit_elderly_or_disabled_income_twice_fpl: 3500
         resource_limit_non_elderly_or_disabled: NULL
+        child_support_payments_deductible: True
 MA:
     2020:
         uses_bbce: True

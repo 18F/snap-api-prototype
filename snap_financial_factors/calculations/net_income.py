@@ -1,7 +1,9 @@
+from typing import Dict
 from snap_financial_factors.program_data_api.fetch_deductions import FetchDeductions
 from snap_financial_factors.deductions.earned_income_deduction import EarnedIncomeDeduction
 from snap_financial_factors.deductions.dependent_care_deduction import DependentCareDeduction
 from snap_financial_factors.deductions.medical_expenses_deduction import MedicalExpensesDeduction
+from snap_financial_factors.deductions.child_support_payments_deduction import ChildSupportPaymentsDeduction
 from snap_financial_factors.input_data.input_data import InputData
 
 
@@ -10,7 +12,10 @@ class NetIncome:
     Returns the adjusted net income (gross income minus deductions).
     '''
 
-    def __init__(self, input_data: InputData, deductions_data):
+    def __init__(self,
+                 input_data: InputData,
+                 deductions_data: Dict,
+                 child_support_payments_deductible: bool):
         # Load user input data
         self.input_data = input_data
         self.state_or_territory = input_data.state_or_territory
@@ -20,8 +25,11 @@ class NetIncome:
         self.dependent_care_costs = input_data.dependent_care_costs
         self.household_includes_elderly_or_disabled = input_data.household_includes_elderly_or_disabled
         self.medical_expenses_for_elderly_or_disabled = input_data.medical_expenses_for_elderly_or_disabled
+        self.court_ordered_child_support_payments = input_data.court_ordered_child_support_payments
 
         self.deductions_data = deductions_data
+
+        self.child_support_payments_deductible = child_support_payments_deductible
 
     def calculate(self):
         state_or_territory = self.state_or_territory
@@ -29,6 +37,7 @@ class NetIncome:
         deductions_data = self.deductions_data
         monthly_job_income = self.monthly_job_income
         monthly_non_job_income = self.monthly_non_job_income
+        child_support_payments_deductible = self.child_support_payments_deductible
 
         explanation = []
         explanation_intro = (
@@ -86,6 +95,17 @@ class NetIncome:
         medical_expenses_deduction_explanations = medical_expenses_deduction_calculation.explanation
         for medical_expenses_deduction_explanation in medical_expenses_deduction_explanations:
             explanation.append(medical_expenses_deduction_explanation)
+
+        # Court-ordered child support payments deduction
+        child_support_payments_deduction_calculator = ChildSupportPaymentsDeduction(
+            self.child_support_payments_deductible,
+            self.court_ordered_child_support_payments,
+        )
+        child_support_payments_deduction_calculation = child_support_payments_deduction_calculator.calculate()
+        child_support_payments_deduction = child_support_payments_deduction_calculation.result
+        child_support_payments_deduction_explanations = child_support_payments_deduction_calculation.explanation
+        for child_support_payments_deduction_explanation in child_support_payments_deduction_explanations:
+            explanation.append(child_support_payments_deduction_explanation)
 
         total_deductions = (standard_deduction +
                             earned_income_deduction +

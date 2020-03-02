@@ -84,6 +84,7 @@ class BenefitEstimate:
                 state_options['resource_limit_elderly_or_disabled'],
                 state_options['resource_limit_elderly_or_disabled_income_twice_fpl'],
                 state_options['resource_limit_non_elderly_or_disabled'],
+                state_options['child_support_payments_deductible']
             )
         else:
             # SNAP federal policy defaults
@@ -92,13 +93,15 @@ class BenefitEstimate:
                 resource_limit_elderly_or_disabled=3500,
                 resource_limit_elderly_or_disabled_income_twice_fpl=3500,
                 resource_limit_non_elderly_or_disabled=2250,
+                child_support_payments_deductible=False
             )
 
     def __eligibility_calculation_with_params(self,
                                               gross_income_limit_factor,
                                               resource_limit_elderly_or_disabled,
                                               resource_limit_elderly_or_disabled_income_twice_fpl,
-                                              resource_limit_non_elderly_or_disabled):
+                                              resource_limit_non_elderly_or_disabled,
+                                              child_support_payments_deductible):
         """
         Private method. Breaks eligibility determiniation into component
         classes; asks each of those classes to run calculations and return
@@ -112,7 +115,11 @@ class BenefitEstimate:
 
         income_limits = FetchIncomeLimits(state_or_territory, household_size, income_limit_data)
 
-        net_income_calculation = NetIncome(input_data, deductions_data).calculate()
+        net_income_calculator = NetIncome(input_data,
+                                          deductions_data,
+                                          child_support_payments_deductible)
+
+        net_income_calculation = net_income_calculator.calculate()
         net_income = net_income_calculation['result']
         net_income_reason = net_income_calculation['reason']
 

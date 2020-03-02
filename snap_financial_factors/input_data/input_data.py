@@ -15,3 +15,4 @@ class InputData:
         self.resources = input_data['resources']
         self.dependent_care_costs = input_data['dependent_care_costs']
         self.medical_expenses_for_elderly_or_disabled = input_data['medical_expenses_for_elderly_or_disabled']
+        self.court_ordered_child_support_payments = input_data['court_ordered_child_support_payments']
