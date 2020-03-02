@@ -27,7 +27,9 @@ class ChildSupportPaymentsDeduction:
                 is_applicable=False,
                 result=0,
                 explanation=[
-                    'This household does not make monthly court-ordered child support payments.'
+                    'This household does not make monthly court-ordered ' +
+                    'child support payments, so the child-support payment ' +
+                    'deduction does not apply.'
                 ]
             )
 
