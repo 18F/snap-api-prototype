@@ -37,7 +37,7 @@ class ParseInputData:
 
         return InputData(input_data)
 
-    def parse_optional_integer_input(self, input_key: str) -> None:
+    def parse_optional_integer_input(self, input_key: str) -> int:
         if input_key in self.input_data:         # Check if the key exists in the dict
             if self.input_data[input_key]:       # Parse as int if value is int or present string
                 return int(self.input_data[input_key])
