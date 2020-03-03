@@ -2,8 +2,11 @@ install:
 	pip install pipenv
 	pipenv install
 
-check-style:
+style-check:
 	pipenv run flake8 --max-line-length=160
+
+type-check:
+	mypy snap_financial_factors
 
 test:
 	python3 -m pipenv run behave
