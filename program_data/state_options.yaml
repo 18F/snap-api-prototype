@@ -1,7 +1,15 @@
-# SOURCE:
-# https://fns-prod.azureedge.net/sites/default/files/resource-files/BBCE2019%28December%29.pdf
+# NOTE: This YAML file is currently incomplete and is being written by hand,
+# based on the following sources from USDA.
 
-# NOTE: This YAML file is currently incomplete and is being written by hand based on sources from SNAP.
+# SOURCES:
+#
+# "Broad-Based Community Eligibility", USDA, last updated December 2019:
+# https://fns-prod.azureedge.net/sites/default/files/resource-files/BBCE2019%28December%29.pdf
+#
+# "State Options Report", USDA, Options as of October 1, 2017:
+#
+# https://fns-prod.azureedge.net/sites/default/files/snap/14-State-Options.pdf
+
 
 AZ:
     2020:
