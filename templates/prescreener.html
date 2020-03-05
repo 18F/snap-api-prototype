@@ -222,15 +222,17 @@
 
           html += '<div id="reasons" class="hidden">';
 
-          var reasons = response.reasons;
-          for (var i = 0; i < reasons.length; i++) {
-              var reason = reasons[i];
-              html += ('<h3>' + reason.test_name + ':</h3>')
+          var names_and_explanations = response.names_and_explanations;
+          for (var i = 0; i < names_and_explanations.length; i++) {
+              var name_and_explanation = names_and_explanations[i];
+              name = name_and_explanation.name
+              explanation = name_and_explanation.explanation
+              html += ('<h3>' + name + ':</h3>')
 
               html += '<div>';
-              for (var j = 0; j < reason.length; j++) {
-                  var description = reason[j];
-                  html += ('<p>' + description + '</p>')
+              for (var j = 0; j < explanation.length; j++) {
+                  var explanation_graph = explanation[j];
+                  html += ('<p>' + explanation_graph + '</p>')
               }
               html += '</div>';
           }

@@ -38,32 +38,24 @@ class BenefitEstimate:
         """
         Only public method for this class. Returns eligibility information,
         estimated monthly benefits, and reasons behind the output.
-
-        Returns a dictionary shaped like this:
-        {
-            'eligible': <bool>,
-            'estimated_monthly_benefit': <int> (U.S. dollar),
-            'reasons': <array of dictionaries>,
-            'state_webiste': <str> (U.S. state website URL for referral)
-        }
         """
 
         eligibility_calculation = self.__eligibility_calculation()
         is_eligible = eligibility_calculation['eligible']
-        explanations = eligibility_calculation['explanations']
+        names_and_explanations = eligibility_calculation['names_and_explanations']
         net_income = eligibility_calculation['net_income']
 
         estimated_benefit = self.__estimated_monthly_benefit(is_eligible, net_income)
         estimated_benefit_amount = estimated_benefit.amount
-        estimated_benefit_reason = estimated_benefit.explanation
-        explanations.append(estimated_benefit_reason)
+        estimated_benefit_reason = estimated_benefit.name_and_explanation
+        names_and_explanations.append(estimated_benefit_reason)
 
         state_website = self.state_websites[self.state_or_territory]
 
         return {
             'eligible': is_eligible,
             'estimated_monthly_benefit': estimated_benefit_amount,
-            'reasons': explanations,
+            'names_and_explanations': names_and_explanations,
             'state_website': state_website
             }
 
@@ -73,12 +65,6 @@ class BenefitEstimate:
 
         Mostly responsible for reading in parameters that differ by U.S. state,
         or passing in default federal parameters in some cases.
-
-        Returns a dictionary shaped like this:
-        {
-            'eligible': <bool>,
-            'reasons': <array of dictionaries>,
-        }
         """
 
         state_options = self.state_options_data[self.state_or_territory][2020]
@@ -130,7 +116,6 @@ class BenefitEstimate:
 
         gross_income_calculation = gross_income_calculator.calculate()
         gross_income = gross_income_calculation.result
-        gross_income_explanation = gross_income_calculation.explanation
 
         net_income_calculator = NetIncome(input_data,
                                           deductions_data,
@@ -138,7 +123,6 @@ class BenefitEstimate:
 
         net_income_calculation = net_income_calculator.calculate()
         net_income = net_income_calculation.result
-        net_income_explanation = net_income_calculation.explanation
 
         income_limits = FetchIncomeLimits(state_or_territory, household_size, income_limit_data)
         net_income_test = NetIncomeTest(net_income, income_limits)
@@ -158,14 +142,15 @@ class BenefitEstimate:
         test_results = [calculation.result for calculation in test_calculations]
         overall_eligibility = all(test_results)
 
-        explanations = [calculation.explanation for calculation in test_calculations]
-        explanations.append(gross_income_explanation)
-        explanations.append(net_income_explanation)
-        # sorted_reasons = sorted(reasons, key=lambda reason: reason.get('sort_order', 10))
+        names_and_explanations = [
+            calculation.name_and_explanation for calculation in test_calculations
+        ]
+        names_and_explanations.append(gross_income_calculation.name_and_explanation)
+        names_and_explanations.append(net_income_calculation.name_and_explanation)
 
         return {
             'eligible': overall_eligibility,
-            'explanations': explanations,
+            'names_and_explanations': names_and_explanations,
             'net_income': net_income,
         }
 
