@@ -16,6 +16,5 @@ class DependentCareDeduction:
 
         return DeductionResult(
             result=self.dependent_care_costs,
-            is_applicable=(self.dependent_care_costs > 0),
             explanation=explanation
         )

@@ -7,15 +7,14 @@ class ChildSupportPaymentsDeduction:
     '''
 
     def __init__(self,
-                 child_support_payments_deductible: bool,
+                 child_support_payments_treatment: str,
                  court_ordered_child_support_payments: int) -> None:
-        self.child_support_payments_deductible = child_support_payments_deductible
+        self.child_support_payments_treatment = child_support_payments_treatment
         self.court_ordered_child_support_payments = court_ordered_child_support_payments
 
     def calculate(self) -> DeductionResult:
-        if self.child_support_payments_deductible is False:
+        if self.child_support_payments_treatment != 'DEDUCT':
             return DeductionResult(
-                is_applicable=False,
                 result=0,
                 explanation=[
                     'Court-ordered child support payments are not deductible in this state.'
@@ -24,7 +23,6 @@ class ChildSupportPaymentsDeduction:
 
         if self.court_ordered_child_support_payments == 0:
             return DeductionResult(
-                is_applicable=False,
                 result=0,
                 explanation=[
                     'This household does not make monthly court-ordered ' +
@@ -35,7 +33,6 @@ class ChildSupportPaymentsDeduction:
 
         return DeductionResult(
             result=(self.court_ordered_child_support_payments),
-            is_applicable=True,
             explanation=[
                 "Next, we deduct the monthly cost of court-ordered " +
                 f"child support payments: ${self.court_ordered_child_support_payments}."

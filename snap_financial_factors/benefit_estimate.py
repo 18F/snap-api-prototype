@@ -1,11 +1,15 @@
 import yaml
-from snap_financial_factors.calculations.net_income import NetIncome
-from snap_financial_factors.calculations.benefit_amount_estimate import BenefitAmountEstimate
+
+from snap_financial_factors.income.net_income import NetIncome
+from snap_financial_factors.income.gross_income import GrossIncome
+
 from snap_financial_factors.tests.asset_test import AssetTest
 from snap_financial_factors.tests.gross_income_test import GrossIncomeTest
 from snap_financial_factors.tests.net_income_test import NetIncomeTest
-from snap_financial_factors.program_data_api.fetch_income_limits import FetchIncomeLimits
+
 from snap_financial_factors.input_data.parse_input_data import ParseInputData
+from snap_financial_factors.program_data_api.fetch_income_limits import FetchIncomeLimits
+from snap_financial_factors.calculations.benefit_amount_estimate import BenefitAmountEstimate
 
 
 class BenefitEstimate:
@@ -76,6 +80,12 @@ class BenefitEstimate:
         """
 
         state_options = self.state_options_data[self.state_or_territory][2020]
+
+        # Validation for state options data on child support payments treatment
+        child_support_payments_treatment = state_options['child_support_payments_treatment']
+        if child_support_payments_treatment not in ['DEDUCT', 'EXCLUDE']:
+            raise ValueError('Unknown value for child_support_payments_treatment.')
+
         state_uses_bbce = state_options['uses_bbce']
 
         if state_uses_bbce:
@@ -84,7 +94,7 @@ class BenefitEstimate:
                 state_options['resource_limit_elderly_or_disabled'],
                 state_options['resource_limit_elderly_or_disabled_income_twice_fpl'],
                 state_options['resource_limit_non_elderly_or_disabled'],
-                state_options['child_support_payments']
+                child_support_payments_treatment
             )
         else:
             # SNAP federal policy defaults
@@ -93,7 +103,7 @@ class BenefitEstimate:
                 resource_limit_elderly_or_disabled=3500,
                 resource_limit_elderly_or_disabled_income_twice_fpl=3500,
                 resource_limit_non_elderly_or_disabled=2250,
-                child_support_payments=state_options['child_support_payments']
+                child_support_payments_treatment=child_support_payments_treatment
             )
 
     def __eligibility_calculation_with_params(self,
@@ -101,7 +111,7 @@ class BenefitEstimate:
                                               resource_limit_elderly_or_disabled,
                                               resource_limit_elderly_or_disabled_income_twice_fpl,
                                               resource_limit_non_elderly_or_disabled,
-                                              child_support_payments):
+                                              child_support_payments_treatment):
         """
         Private method. Breaks eligibility determiniation into component
         classes; asks each of those classes to run calculations and return
@@ -113,22 +123,20 @@ class BenefitEstimate:
         state_or_territory = self.state_or_territory
         household_size = self.household_size
 
-        if child_support_payments == 'DEDUCT':
-            child_support_payments_deductible = True
-        elif child_support_payments == 'EXCLUDE':
-            child_support_payments_deductible = False
-        else:
-            raise ValueError(
-                'Unknown value for handling court-orderedchild support payments.'
-            )
+        gross_income_calculator = GrossIncome(input_data,
+                                              child_support_payments_treatment)
+
+        gross_income_calculation = gross_income_calculator.calculate()
+        gross_income = gross_income_calculation.result
+        gross_income_reason = gross_income_calculation.explanation
 
         net_income_calculator = NetIncome(input_data,
                                           deductions_data,
-                                          child_support_payments_deductible)
+                                          child_support_payments_treatment)
 
         net_income_calculation = net_income_calculator.calculate()
-        net_income = net_income_calculation['result']
-        net_income_reason = net_income_calculation['reason']
+        net_income = net_income_calculation.result
+        net_income_reason = net_income_calculation.explanation
 
         income_limits = FetchIncomeLimits(state_or_territory, household_size, income_limit_data)
         net_income_test = NetIncomeTest(net_income, income_limits)
@@ -138,16 +146,15 @@ class BenefitEstimate:
                                resource_limit_non_elderly_or_disabled)
 
         gross_income_test = GrossIncomeTest(input_data,
+                                            gross_income,
                                             income_limits,
-                                            gross_income_limit_factor,
-                                            child_support_payments_deductible)
+                                            gross_income_limit_factor)
 
         tests = [net_income_test, asset_test, gross_income_test]
 
         test_calculations = [test.calculate() for test in tests]
         test_results = [calculation['result'] for calculation in test_calculations]
         reasons = [calculation['reason'] for calculation in test_calculations]
-        reasons.append(net_income_reason)
         overall_eligibility = all(test_results)
 
         sorted_reasons = sorted(reasons, key=lambda reason: reason.get('sort_order', 10))

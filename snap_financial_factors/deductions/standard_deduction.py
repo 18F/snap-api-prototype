@@ -30,6 +30,5 @@ class StandardDeduction:
 
         return DeductionResult(
             result=standard_deduction,
-            is_applicable=True,
             explanation=explanation
         )

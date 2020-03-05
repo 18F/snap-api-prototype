@@ -18,7 +18,7 @@ CA:
         resource_limit_elderly_or_disabled: NULL
         resource_limit_elderly_or_disabled_income_twice_fpl: NULL
         resource_limit_non_elderly_or_disabled: NULL
-        child_support_payments: EXCLUDE  # According to USDA State Options Report. Options as of October 1, 2017.
+        child_support_payments_treatment: EXCLUDE  # According to USDA State Options Report. Options as of October 1, 2017.
 
 ID:
     2020:
@@ -27,7 +27,7 @@ ID:
         resource_limit_elderly_or_disabled: 5000
         resource_limit_elderly_or_disabled_income_twice_fpl: 5000
         resource_limit_non_elderly_or_disabled: 5000
-        child_support_payments: DEDUCT  # According to USDA State Options Report. Options as of October 1, 2017.
+        child_support_payments_treatment: DEDUCT  # According to USDA State Options Report. Options as of October 1, 2017.
 IL:
     2020:
         uses_bbce: True
@@ -35,7 +35,7 @@ IL:
         resource_limit_elderly_or_disabled: NULL
         resource_limit_elderly_or_disabled_income_twice_fpl: 3500
         resource_limit_non_elderly_or_disabled: NULL
-        child_support_payments: EXCLUDE  # According to USDA State Options Report. Options as of October 1, 2017.
+        child_support_payments_treatment: EXCLUDE  # According to USDA State Options Report. Options as of October 1, 2017.
 MA:
     2020:
         uses_bbce: True
@@ -43,9 +43,9 @@ MA:
         resource_limit_elderly_or_disabled: NULL
         resource_limit_elderly_or_disabled_income_twice_fpl: 3500
         resource_limit_non_elderly_or_disabled: NULL
-        child_support_payments: DEDUCT  # According to USDA State Options Report. Options as of October 1, 2017.
+        child_support_payments_treatment: DEDUCT  # According to USDA State Options Report. Options as of October 1, 2017.
 
 UT:
     2020:
         uses_bbce: False
-        child_support_payments: DEDUCT  # According to USDA State Options Report. Options as of October 1, 2017.
+        child_support_payments_treatment: DEDUCT  # According to USDA State Options Report. Options as of October 1, 2017.

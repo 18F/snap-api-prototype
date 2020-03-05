@@ -5,6 +5,7 @@ from snap_financial_factors.deductions.medical_expenses_deduction import Medical
 from snap_financial_factors.deductions.child_support_payments_deduction import ChildSupportPaymentsDeduction
 from snap_financial_factors.deductions.standard_deduction import StandardDeduction
 from snap_financial_factors.input_data.input_data import InputData
+from snap_financial_factors.income.income_result import IncomeResult
 
 
 class NetIncome:
@@ -15,7 +16,7 @@ class NetIncome:
     def __init__(self,
                  input_data: InputData,
                  deductions_data: Dict,
-                 child_support_payments_deductible: bool):
+                 child_support_payments_treatment: str) -> IncomeResult:
         # Load user input data
         self.input_data = input_data
         self.state_or_territory = input_data.state_or_territory
@@ -29,7 +30,7 @@ class NetIncome:
 
         self.deductions_data = deductions_data
 
-        self.child_support_payments_deductible = child_support_payments_deductible
+        self.child_support_payments_treatment = child_support_payments_treatment
 
     def calculate(self):
         explanation = []
@@ -66,7 +67,7 @@ class NetIncome:
                 medical_expenses_for_elderly_or_disabled=self.medical_expenses_for_elderly_or_disabled
             ),
             ChildSupportPaymentsDeduction(
-                child_support_payments_deductible=self.child_support_payments_deductible,
+                child_support_payments_treatment=self.child_support_payments_treatment,
                 court_ordered_child_support_payments=self.court_ordered_child_support_payments,
             )
         ]
@@ -123,11 +124,8 @@ class NetIncome:
         )
         explanation.append(calculation_explanation)
 
-        return {
-            'result': net_income,
-            'reason': {
-                'test_name': 'Net Income',
-                'description': explanation,
-                'sort_order': 0,
-            }
-        }
+        return IncomeResult(
+            result=net_income,
+            explanation=explanation,
+            sort_order=1
+        )
