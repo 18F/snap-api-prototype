@@ -84,7 +84,7 @@ class BenefitEstimate:
                 state_options['resource_limit_elderly_or_disabled'],
                 state_options['resource_limit_elderly_or_disabled_income_twice_fpl'],
                 state_options['resource_limit_non_elderly_or_disabled'],
-                state_options['child_support_payments_deductible']
+                state_options['child_support_payments']
             )
         else:
             # SNAP federal policy defaults
@@ -93,7 +93,7 @@ class BenefitEstimate:
                 resource_limit_elderly_or_disabled=3500,
                 resource_limit_elderly_or_disabled_income_twice_fpl=3500,
                 resource_limit_non_elderly_or_disabled=2250,
-                child_support_payments_deductible=state_options['child_support_payments_deductible']
+                child_support_payments=state_options['child_support_payments']
             )
 
     def __eligibility_calculation_with_params(self,
@@ -101,7 +101,7 @@ class BenefitEstimate:
                                               resource_limit_elderly_or_disabled,
                                               resource_limit_elderly_or_disabled_income_twice_fpl,
                                               resource_limit_non_elderly_or_disabled,
-                                              child_support_payments_deductible):
+                                              child_support_payments):
         """
         Private method. Breaks eligibility determiniation into component
         classes; asks each of those classes to run calculations and return
@@ -112,6 +112,15 @@ class BenefitEstimate:
         income_limit_data = self.income_limit_data
         state_or_territory = self.state_or_territory
         household_size = self.household_size
+
+        if child_support_payments == 'DEDUCT':
+            child_support_payments_deductible = True
+        elif child_support_payments == 'EXCLUDE':
+            child_support_payments_deductible = False
+        else:
+            raise ValueError(
+                'Unknown value for handling court-orderedchild support payments.'
+            )
 
         net_income_calculator = NetIncome(input_data,
                                           deductions_data,
