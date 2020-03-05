@@ -228,8 +228,8 @@
               html += ('<h3>' + reason.test_name + ':</h3>')
 
               html += '<div>';
-              for (var j = 0; j < reason.description.length; j++) {
-                  var description = reason.description[j];
+              for (var j = 0; j < reason.length; j++) {
+                  var description = reason[j];
                   html += ('<p>' + description + '</p>')
               }
               html += '</div>';
