@@ -11,6 +11,8 @@ type-check:
 test:
 	python3 -m pipenv run behave
 
+check-all: style-check type-check test
+
 # For now.
 serve:
 	env FLASK_APP=app.py FLASK_ENV=development flask run
