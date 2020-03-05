@@ -31,6 +31,7 @@ class GrossIncome:
             return self.calculate_with_child_support_payments_excluded()
         else:
             return IncomeResult(
+                name='Gross Income',
                 result=monthly_income,
                 explanation=[],
                 sort_order=0
@@ -61,6 +62,7 @@ class GrossIncome:
         monthly_income = monthly_income_minus_child_support
 
         return IncomeResult(
+            name='Gross Income',
             result=monthly_income,
             explanation=explanation,
             sort_order=0

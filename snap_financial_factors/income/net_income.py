@@ -125,6 +125,7 @@ class NetIncome:
         explanation.append(calculation_explanation)
 
         return IncomeResult(
+            name='Net Income',
             result=net_income,
             explanation=explanation,
             sort_order=1
