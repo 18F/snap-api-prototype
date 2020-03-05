@@ -16,7 +16,7 @@ class NetIncome:
     def __init__(self,
                  input_data: InputData,
                  deductions_data: Dict,
-                 child_support_payments_treatment: str) -> IncomeResult:
+                 child_support_payments_treatment: str) -> None:
         # Load user input data
         self.input_data = input_data
         self.state_or_territory = input_data.state_or_territory
