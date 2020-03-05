@@ -41,7 +41,7 @@ class AssetTest:
             description.append('Assets: {}.'.format(self.resources))
             description.append('Meets eligibility test? {}.'.format(below_resource_limit))
         else:
-            description = 'This state does not have a resource limit.'
+            description = ['This state does not have a resource limit.']
             below_resource_limit = True
 
         return TestResult(
