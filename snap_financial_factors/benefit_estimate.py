@@ -7,9 +7,11 @@ from snap_financial_factors.tests.asset_test import AssetTest
 from snap_financial_factors.tests.gross_income_test import GrossIncomeTest
 from snap_financial_factors.tests.net_income_test import NetIncomeTest
 
+from snap_financial_factors.calculations.benefit_amount_estimate import BenefitAmountEstimate
+from snap_financial_factors.calculations.benefit_amount_result import BenefitAmountResult
+
 from snap_financial_factors.input_data.parse_input_data import ParseInputData
 from snap_financial_factors.program_data_api.fetch_income_limits import FetchIncomeLimits
-from snap_financial_factors.calculations.benefit_amount_estimate import BenefitAmountEstimate
 
 
 class BenefitEstimate:
@@ -40,7 +42,7 @@ class BenefitEstimate:
         Returns a dictionary shaped like this:
         {
             'eligible': <bool>,
-            'estimated_monthly_benefit': <decimal> (U.S. dollar),
+            'estimated_monthly_benefit': <int> (U.S. dollar),
             'reasons': <array of dictionaries>,
             'state_webiste': <str> (U.S. state website URL for referral)
         }
@@ -48,20 +50,20 @@ class BenefitEstimate:
 
         eligibility_calculation = self.__eligibility_calculation()
         is_eligible = eligibility_calculation['eligible']
-        reasons = eligibility_calculation['reasons']
+        explanations = eligibility_calculation['explanations']
         net_income = eligibility_calculation['net_income']
 
         estimated_benefit = self.__estimated_monthly_benefit(is_eligible, net_income)
-        estimated_benefit_amount = estimated_benefit['amount']
-        estimated_benefit_reason = estimated_benefit['reason']
-        reasons.append(estimated_benefit_reason)
+        estimated_benefit_amount = estimated_benefit.amount
+        estimated_benefit_reason = estimated_benefit.explanation
+        explanations.append(estimated_benefit_reason)
 
         state_website = self.state_websites[self.state_or_territory]
 
         return {
             'eligible': is_eligible,
             'estimated_monthly_benefit': estimated_benefit_amount,
-            'reasons': reasons,
+            'reasons': explanations,
             'state_website': state_website
             }
 
@@ -128,7 +130,7 @@ class BenefitEstimate:
 
         gross_income_calculation = gross_income_calculator.calculate()
         gross_income = gross_income_calculation.result
-        gross_income_reason = gross_income_calculation.explanation
+        gross_income_explanation = gross_income_calculation.explanation
 
         net_income_calculator = NetIncome(input_data,
                                           deductions_data,
@@ -136,7 +138,7 @@ class BenefitEstimate:
 
         net_income_calculation = net_income_calculator.calculate()
         net_income = net_income_calculation.result
-        net_income_reason = net_income_calculation.explanation
+        net_income_explanation = net_income_calculation.explanation
 
         income_limits = FetchIncomeLimits(state_or_territory, household_size, income_limit_data)
         net_income_test = NetIncomeTest(net_income, income_limits)
@@ -153,19 +155,23 @@ class BenefitEstimate:
         tests = [net_income_test, asset_test, gross_income_test]
 
         test_calculations = [test.calculate() for test in tests]
-        test_results = [calculation['result'] for calculation in test_calculations]
-        reasons = [calculation['reason'] for calculation in test_calculations]
+        test_results = [calculation.result for calculation in test_calculations]
         overall_eligibility = all(test_results)
 
-        sorted_reasons = sorted(reasons, key=lambda reason: reason.get('sort_order', 10))
+        explanations = [calculation.explanation for calculation in test_calculations]
+        explanations.append(gross_income_explanation)
+        explanations.append(net_income_explanation)
+        # sorted_reasons = sorted(reasons, key=lambda reason: reason.get('sort_order', 10))
 
         return {
             'eligible': overall_eligibility,
-            'reasons': sorted_reasons,
+            'explanations': explanations,
             'net_income': net_income,
         }
 
-    def __estimated_monthly_benefit(self, is_eligible, net_income):
+    def __estimated_monthly_benefit(self,
+                                    is_eligible: bool,
+                                    net_income: int) -> BenefitAmountResult:
         """
         Returns estimate of monthly benefit, plus reasons behind its decision.
 

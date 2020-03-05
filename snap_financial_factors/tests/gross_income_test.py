@@ -1,4 +1,5 @@
 from snap_financial_factors.input_data.input_data import InputData
+from snap_financial_factors.tests.test_result import TestResult
 
 
 class GrossIncomeTest:
@@ -17,16 +18,16 @@ class GrossIncomeTest:
         self.income_limits = income_limits
         self.gross_income_limit_factor = gross_income_limit_factor
 
-    def calculate(self):
+    def calculate(self) -> TestResult:
         if self.household_includes_elderly_or_disabled:
-            return {
-                'result': True,
-                'reason': {
-                    'test_name': 'Gross Income Test',
-                    'test_passed?': True,
-                    'description': ['Households with an elderly or disabled member do not need to meet the gross income test.']
-                }
-            }
+            return TestResult(
+                test_name='Gross Income Test',
+                result=True,
+                explanation=[
+                    'Households with an elderly or disabled member do not need to meet the gross income test.'
+                ],
+                sort_order=2,
+            )
 
         # The gross income limited is calculated as a percentage of the net
         # income limit, which is based on the federal poverty level.
@@ -56,12 +57,9 @@ class GrossIncomeTest:
         )
         explanation.append(result_explanation)
 
-        return {
-            'result': below_gross_income_limit,
-            'reason': {
-                'test_name': 'Gross Income Test',
-                'test_passed?': below_gross_income_limit,
-                'description': explanation,
-                'sort_order': 2,
-            }
-        }
+        return TestResult(
+            test_name='Gross Income Test',
+            result=below_gross_income_limit,
+            explanation=explanation,
+            sort_order=2,
+        )

@@ -1,5 +1,6 @@
 from snap_financial_factors.program_data_api.fetch_max_allotments import FetchMaxAllotments
 from snap_financial_factors.program_data_api.fetch_min_allotments import FetchMinAllotments
+from snap_financial_factors.calculations.benefit_amount_result import BenefitAmountResult
 
 
 class BenefitAmountEstimate:
@@ -19,13 +20,12 @@ class BenefitAmountEstimate:
 
     def calculate(self):
         if not self.is_eligible:
-            return {
-                'amount': 0,
-                'reason': {
-                    'test_name': 'Estimated Benefit Calculation',
-                    'description': ['Likely not eligible for SNAP.']
-                }
-            }
+            return BenefitAmountResult(
+                test_name='Estimated Benefit Calculation',
+                amount=0,
+                explanation=['Likely not eligible for SNAP.'],
+                sort_order=5
+            )
 
         explanation_intro = (
             'To determine the estimated amount of SNAP benefit, we start ' +
@@ -92,11 +92,9 @@ class BenefitAmountEstimate:
         )
         explanation.append(final_amount_explanation)
 
-        return {
-            'amount': estimated_benefit,
-            'reason': {
-                'test_name': 'Estimated Benefit Calculation',
-                'description': explanation,
-                'sort_order': 4
-            }
-        }
+        return BenefitAmountResult(
+            test_name='Estimated Benefit Calculation',
+            amount=estimated_benefit,
+            explanation=explanation,
+            sort_order=5
+        )

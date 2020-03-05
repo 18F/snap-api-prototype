@@ -1,4 +1,5 @@
 from snap_financial_factors.input_data.input_data import InputData
+from snap_financial_factors.tests.test_result import TestResult
 
 
 class AssetTest:
@@ -13,16 +14,16 @@ class AssetTest:
         self.resource_limit_elderly_or_disabled = resource_limit_elderly_or_disabled
         self.resource_limit_non_elderly_or_disabled = resource_limit_non_elderly_or_disabled
 
-    def calculate(self):
+    def calculate(self) -> TestResult:
         if (self.resource_limit_elderly_or_disabled is None) and (self.resource_limit_non_elderly_or_disabled is None):
-            return {
-                'result': True,
-                'reason': {
-                    'test_name': 'Asset Test',
-                    'test_passed?': True,
-                    'description': [f"{self.state_or_territory} does not have an asset test for SNAP eligibility."]
-                }
-            }
+            return TestResult(
+                test_name='Asset Test',
+                result=True,
+                explanation=[
+                    f"{self.state_or_territory} does not have an asset test for SNAP eligibility."
+                ],
+                sort_order=4,
+            )
 
         has_resource_limit = (self.household_includes_elderly_or_disabled or
                               self.resource_limit_non_elderly_or_disabled)
@@ -43,12 +44,9 @@ class AssetTest:
             description = 'This state does not have a resource limit.'
             below_resource_limit = True
 
-        return {
-            'result': below_resource_limit,
-            'reason': {
-                'test_name': 'Asset Test',
-                'test_passed?': below_resource_limit,
-                'description': description,
-                'sort_order': 3,
-            }
-        }
+        return TestResult(
+            test_name='Asset Test',
+            result=below_resource_limit,
+            explanation=description,
+            sort_order=4,
+        )
