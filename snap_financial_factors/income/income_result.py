@@ -4,6 +4,9 @@ from typing import List
 class IncomeResult:
     '''
     Expresses the result of an income calculation.
+
+    Duck types with TestResult and BenefitAmountResult across `name`,
+    `explanation`, and `sort_order`.
     '''
 
     def __init__(self,
