@@ -26,7 +26,7 @@ def step_impl(context, number):
 def step_impl(context, number):
     context.input_data['monthly_non_job_income'] = number
 
-@given('the household has assets of ${number:d} monthly')
+@given('the household has assets of ${number:d}')
 def step_impl(context, number):
     context.input_data['resources'] = number
 
