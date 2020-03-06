@@ -19,7 +19,7 @@ Feature: Testing SNAP Financial Factors Web API for IL
     And the household does not include an elderly or disabled member
     And the household has earned income of $0 monthly
     And the household has other income of $0 monthly
-    And the household has assets of $0 monthly
+    And the household has assets of $0
     When we run the benefit estimator...
       Then we find the family is likely eligible
       And we find the estimated benefit is $194 per month
@@ -30,7 +30,7 @@ Feature: Testing SNAP Financial Factors Web API for IL
     And the household does not include an elderly or disabled member
     And the household has earned income of $0 monthly
     And the household has other income of $0 monthly
-    And the household has assets of $0 monthly
+    And the household has assets of $0
     When we run the benefit estimator...
       Then we find the family is likely eligible
       And we find the estimated benefit is $355 per month
@@ -41,7 +41,7 @@ Feature: Testing SNAP Financial Factors Web API for IL
     And the household does not include an elderly or disabled member
     And the household has earned income of $0 monthly
     And the household has other income of $0 monthly
-    And the household has assets of $0 monthly
+    And the household has assets of $0
     When we run the benefit estimator...
       Then we find the family is likely eligible
       And we find the estimated benefit is $509 per month
@@ -52,7 +52,7 @@ Feature: Testing SNAP Financial Factors Web API for IL
     And the household does not include an elderly or disabled member
     And the household has earned income of $0 monthly
     And the household has other income of $2000 monthly
-    And the household has assets of $0 monthly
+    And the household has assets of $0
     When we run the benefit estimator...
       Then we find the family is likely not eligible
       And we find the estimated benefit is $0 per month
@@ -63,7 +63,7 @@ Feature: Testing SNAP Financial Factors Web API for IL
     And the household does not include an elderly or disabled member
     And the household has earned income of $0 monthly
     And the household has other income of $1040 monthly
-    And the household has assets of $0 monthly
+    And the household has assets of $0
     When we run the benefit estimator...
       Then we find the family is likely eligible
       And we find the estimated benefit is $16 per month
@@ -74,7 +74,7 @@ Feature: Testing SNAP Financial Factors Web API for IL
     And the household does not include an elderly or disabled member
     And the household has earned income of $0 monthly
     And the household has other income of $2323 monthly
-    And the household has assets of $0 monthly
+    And the household has assets of $0
     When we run the benefit estimator...
       Then we find the family is likely eligible
       And we find the estimated benefit is $2 per month
@@ -85,7 +85,7 @@ Feature: Testing SNAP Financial Factors Web API for IL
     And the household does not include an elderly or disabled member
     And the household has earned income of $1000 monthly
     And the household has other income of $0 monthly
-    And the household has assets of $0 monthly
+    And the household has assets of $0
     When we run the benefit estimator...
       Then we find the family is likely eligible
       And we find the estimated benefit is $319 per month
@@ -96,7 +96,7 @@ Feature: Testing SNAP Financial Factors Web API for IL
     And the household does not include an elderly or disabled member
     And the household has earned income of $500 monthly
     And the household has other income of $500 monthly
-    And the household has assets of $0 monthly
+    And the household has assets of $0
     When we run the benefit estimator...
       Then we find the family is likely eligible
       And we find the estimated benefit is $289 per month
@@ -107,7 +107,7 @@ Feature: Testing SNAP Financial Factors Web API for IL
     And the household does not include an elderly or disabled member
     And the household has earned income of $500 monthly
     And the household has other income of $500 monthly
-    And the household has assets of $0 monthly
+    And the household has assets of $0
     And the household has dependent care costs of $100 monthly
     When we run the benefit estimator...
       Then we find the family is likely eligible
@@ -119,7 +119,7 @@ Feature: Testing SNAP Financial Factors Web API for IL
     And the household does include an elderly or disabled member
     And the household has earned income of $400 monthly
     And the household has other income of $400 monthly
-    And the household has assets of $0 monthly
+    And the household has assets of $0
     And the household has medical expenses for elderly or disabled members of $0 monthly
     When we run the benefit estimator...
       Then we find the family is likely eligible
@@ -131,7 +131,7 @@ Feature: Testing SNAP Financial Factors Web API for IL
     And the household does include an elderly or disabled member
     And the household has earned income of $400 monthly
     And the household has other income of $400 monthly
-    And the household has assets of $0 monthly
+    And the household has assets of $0
     And the household has medical expenses for elderly or disabled members of $35 monthly
     When we run the benefit estimator...
       Then we find the family is likely eligible
@@ -143,7 +143,7 @@ Feature: Testing SNAP Financial Factors Web API for IL
     And the household does include an elderly or disabled member
     And the household has earned income of $400 monthly
     And the household has other income of $400 monthly
-    And the household has assets of $0 monthly
+    And the household has assets of $0
     And the household has medical expenses for elderly or disabled members of $135 monthly
     When we run the benefit estimator...
       Then we find the family is likely eligible
@@ -155,8 +155,46 @@ Feature: Testing SNAP Financial Factors Web API for IL
     And the household does not include an elderly or disabled member
     And the household has earned income of $400 monthly
     And the household has other income of $400 monthly
-    And the household has assets of $0 monthly
+    And the household has assets of $0
     And the household has medical expenses for elderly or disabled members of $135 monthly
     When we run the benefit estimator...
       Then we find the family is likely eligible
       And we find the estimated benefit is $343 per month
+
+  Scenario: Household passes net income test but not gross income test
+    Given the household is in IL
+    And a 3-person household
+    And the household does not include an elderly or disabled member
+    And the household has earned income of $1000 monthly
+    And the household has other income of $2000 monthly
+    And the household has assets of $1000
+    And the household has dependent care costs of $1000 monthly
+    When we run the benefit estimator...
+      Then we find the family is likely not eligible
+      And we find the estimated benefit is $0 per month
+
+  Scenario: Child support payments exclusion pushes household into eligibility
+    Given the household is in IL
+    And a 3-person household
+    And the household does not include an elderly or disabled member
+    And the household has earned income of $1000 monthly
+    And the household has other income of $2000 monthly
+    And the household has assets of $1000
+    And the household has dependent care costs of $1000 monthly
+    And the household has court-ordered child support payments of $100 monthly
+    When we run the benefit estimator...
+      Then we find the family is likely eligible
+      And we find the estimated benefit is $49 per month
+
+  Scenario: More child support payments increase estimated benefit
+    Given the household is in IL
+    And a 3-person household
+    And the household does not include an elderly or disabled member
+    And the household has earned income of $1000 monthly
+    And the household has other income of $2000 monthly
+    And the household has assets of $1000
+    And the household has dependent care costs of $1000 monthly
+    And the household has court-ordered child support payments of $400 monthly
+    When we run the benefit estimator...
+      Then we find the family is likely eligible
+      And we find the estimated benefit is $139 per month

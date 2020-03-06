@@ -4,6 +4,8 @@ from typing import Dict
 class InputData:
     '''
     Holds input data to API.
+
+    Any new input factors must be handled here and in the ParseInputData class.
     '''
 
     def __init__(self, input_data: Dict) -> None:
@@ -15,3 +17,4 @@ class InputData:
         self.resources = input_data['resources']
         self.dependent_care_costs = input_data['dependent_care_costs']
         self.medical_expenses_for_elderly_or_disabled = input_data['medical_expenses_for_elderly_or_disabled']
+        self.court_ordered_child_support_payments = input_data['court_ordered_child_support_payments']

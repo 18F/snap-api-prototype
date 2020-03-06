@@ -7,6 +7,8 @@ class ParseInputData:
     Cleans up input data sent to API:
     * Converts strings to integers as needed
     * Sets defaults
+
+    Any new input factors must be handled here and in the InputData class.
     '''
 
     def __init__(self, input_data: Dict) -> None:
@@ -21,23 +23,10 @@ class ParseInputData:
         input_data['monthly_non_job_income'] = int(input_data['monthly_non_job_income'])
         input_data['resources'] = int(input_data['resources'])
 
-        # Optional value. Set default; convert to int when value supplied:
-        if 'dependent_care_costs' in input_data:
-            if input_data['dependent_care_costs']:
-                input_data['dependent_care_costs'] = int(input_data['dependent_care_costs'])
-            else:
-                input_data['dependent_care_costs'] = 0
-        else:
-            input_data['dependent_care_costs'] = 0
-
-        # Optional value. Set default; convert to int when value supplied:
-        if 'medical_expenses_for_elderly_or_disabled' in input_data:
-            if input_data['medical_expenses_for_elderly_or_disabled']:
-                input_data['medical_expenses_for_elderly_or_disabled'] = int(input_data['medical_expenses_for_elderly_or_disabled'])
-            else:
-                input_data['medical_expenses_for_elderly_or_disabled'] = 0
-        else:
-            input_data['medical_expenses_for_elderly_or_disabled'] = 0
+        # Parse optional integer input data:
+        input_data['dependent_care_costs'] = self.parse_optional_integer_input('dependent_care_costs')
+        input_data['medical_expenses_for_elderly_or_disabled'] = self.parse_optional_integer_input('medical_expenses_for_elderly_or_disabled')
+        input_data['court_ordered_child_support_payments'] = self.parse_optional_integer_input('court_ordered_child_support_payments')
 
         # Parse booleans sent in as strings:
         includes_elderly_or_disabled = input_data['household_includes_elderly_or_disabled']
@@ -47,3 +36,12 @@ class ParseInputData:
             )
 
         return InputData(input_data)
+
+    def parse_optional_integer_input(self, input_key: str) -> int:
+        if input_key in self.input_data:         # Check if the key exists in the dict
+            if self.input_data[input_key]:       # Parse as int if value is int or present string
+                return int(self.input_data[input_key])
+            else:                                # Set to zero if value is null or empty string
+                return 0
+        else:                                    # Set to zero if value does not exist in dict
+            return 0

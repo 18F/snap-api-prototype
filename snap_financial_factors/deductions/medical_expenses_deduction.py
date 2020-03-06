@@ -26,7 +26,6 @@ class MedicalExpensesDeduction:
 
             return DeductionResult(
                 result=0,
-                is_applicable=False,
                 explanation=explanation
             )
 
@@ -37,7 +36,6 @@ class MedicalExpensesDeduction:
 
             return DeductionResult(
                 result=0,
-                is_applicable=False,
                 explanation=explanation
             )
 
@@ -48,7 +46,6 @@ class MedicalExpensesDeduction:
 
             return DeductionResult(
                 result=0,
-                is_applicable=False,
                 explanation=explanation
             )
 
@@ -65,6 +62,5 @@ class MedicalExpensesDeduction:
 
         return DeductionResult(
             result=medical_expenses_deduction,
-            is_applicable=True,
             explanation=explanation
         )

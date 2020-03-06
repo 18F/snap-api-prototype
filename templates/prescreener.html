@@ -156,6 +156,12 @@
                        name="medical_expenses_for_elderly_or_disabled"
                        class="usa-input" />
               </div>
+              <label class="usa-label" for="court_ordered_child_support_payments">
+                Monthly court-ordered child support payments:
+              </label>
+              <input id="court_ordered_child_support_payments"
+                     name="court_ordered_child_support_payments"
+                     class="usa-input" />
               <input id="prescreener-form-submit"
                      class="usa-button"
                      type="submit"
@@ -216,15 +222,24 @@
 
           html += '<div id="reasons" class="hidden">';
 
-          var reasons = response.reasons;
-          for (var i = 0; i < reasons.length; i++) {
-              var reason = reasons[i];
-              html += ('<h3>' + reason.test_name + ':</h3>')
+          var eligibility_factors = response.eligibility_factors;
+          eligibility_factors.sort(function(a, b) {
+              return a.sort_order - b.sort_order;
+          });
+
+          console.log('eligibility_factors', eligibility_factors)
+
+          for (var i = 0; i < eligibility_factors.length; i++) {
+              var eligibility_factor = eligibility_factors[i];
+              name = eligibility_factor.name
+              explanation = eligibility_factor.explanation
+
+              html += ('<h3>' + name + ':</h3>')
 
               html += '<div>';
-              for (var j = 0; j < reason.description.length; j++) {
-                  var description = reason.description[j];
-                  html += ('<p>' + description + '</p>')
+              for (var j = 0; j < explanation.length; j++) {
+                  var explanation_graph = explanation[j];
+                  html += ('<p>' + explanation_graph + '</p>')
               }
               html += '</div>';
           }

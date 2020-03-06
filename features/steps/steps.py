@@ -26,7 +26,7 @@ def step_impl(context, number):
 def step_impl(context, number):
     context.input_data['monthly_non_job_income'] = number
 
-@given('the household has assets of ${number:d} monthly')
+@given('the household has assets of ${number:d}')
 def step_impl(context, number):
     context.input_data['resources'] = number
 
@@ -37,6 +37,10 @@ def step_impl(context, number):
 @given('the household has medical expenses for elderly or disabled members of ${number:d} monthly')
 def step_impl(context, number):
     context.input_data['medical_expenses_for_elderly_or_disabled'] = number
+
+@given('the household has court-ordered child support payments of ${number:d} monthly')
+def step_impl(context, number):
+    context.input_data['court_ordered_child_support_payments'] = number
 
 @when('we run the benefit estimator...')
 def step_impl(context):

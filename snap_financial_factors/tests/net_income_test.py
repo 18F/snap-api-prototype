@@ -1,3 +1,6 @@
+from snap_financial_factors.tests.test_result import TestResult
+
+
 class NetIncomeTest:
     '''
     Evaluates net income against the appropriate net income threshold.
@@ -7,7 +10,7 @@ class NetIncomeTest:
         self.net_income = net_income
         self.income_limits = income_limits
 
-    def calculate(self):
+    def calculate(self) -> TestResult:
         net_income = self.net_income
         net_monthly_income_limit = self.income_limits.net_monthly_income_limit()
         below_net_income_limit = net_monthly_income_limit > net_income
@@ -37,12 +40,9 @@ class NetIncomeTest:
         )
         explanation.append(result_explanation)
 
-        return {
-            'result': below_net_income_limit,
-            'reason': {
-                'test_name': 'Net Income Test',
-                'test_passed?': below_net_income_limit,
-                'description': explanation,
-                'sort_order': 1
-            }
-        }
+        return TestResult(
+            name='Net Income Test',
+            result=below_net_income_limit,
+            explanation=explanation,
+            sort_order=3,
+        )
