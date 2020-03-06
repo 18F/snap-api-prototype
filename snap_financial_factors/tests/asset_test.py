@@ -17,7 +17,7 @@ class AssetTest:
     def calculate(self) -> TestResult:
         if (self.resource_limit_elderly_or_disabled is None) and (self.resource_limit_non_elderly_or_disabled is None):
             return TestResult(
-                test_name='Asset Test',
+                name='Asset Test',
                 result=True,
                 explanation=[
                     f"{self.state_or_territory} does not have an asset test for SNAP eligibility."
@@ -45,7 +45,7 @@ class AssetTest:
             below_resource_limit = True
 
         return TestResult(
-            test_name='Asset Test',
+            name='Asset Test',
             result=below_resource_limit,
             explanation=description,
             sort_order=4,

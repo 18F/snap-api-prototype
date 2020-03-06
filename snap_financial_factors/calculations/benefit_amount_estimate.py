@@ -21,7 +21,7 @@ class BenefitAmountEstimate:
     def calculate(self):
         if not self.is_eligible:
             return BenefitAmountResult(
-                test_name='Estimated Benefit Calculation',
+                name='Estimated Benefit Calculation',
                 amount=0,
                 explanation=['Likely not eligible for SNAP.'],
                 sort_order=5
@@ -93,7 +93,7 @@ class BenefitAmountEstimate:
         explanation.append(final_amount_explanation)
 
         return BenefitAmountResult(
-            test_name='Estimated Benefit Calculation',
+            name='Estimated Benefit Calculation',
             amount=estimated_benefit,
             explanation=explanation,
             sort_order=5

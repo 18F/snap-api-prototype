@@ -21,7 +21,7 @@ class GrossIncomeTest:
     def calculate(self) -> TestResult:
         if self.household_includes_elderly_or_disabled:
             return TestResult(
-                test_name='Gross Income Test',
+                name='Gross Income Test',
                 result=True,
                 explanation=[
                     'Households with an elderly or disabled member do not need to meet the gross income test.'
@@ -58,7 +58,7 @@ class GrossIncomeTest:
         explanation.append(result_explanation)
 
         return TestResult(
-            test_name='Gross Income Test',
+            name='Gross Income Test',
             result=below_gross_income_limit,
             explanation=explanation,
             sort_order=2,

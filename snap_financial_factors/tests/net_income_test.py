@@ -41,7 +41,7 @@ class NetIncomeTest:
         explanation.append(result_explanation)
 
         return TestResult(
-            test_name='Net Income Test',
+            name='Net Income Test',
             result=below_net_income_limit,
             explanation=explanation,
             sort_order=3,

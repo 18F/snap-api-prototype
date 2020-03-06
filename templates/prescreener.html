@@ -227,9 +227,11 @@
               return a.sort_order - b.sort_order;
           });
 
+          console.log('eligibility_factors', eligibility_factors)
+
           for (var i = 0; i < eligibility_factors.length; i++) {
               var eligibility_factor = eligibility_factors[i];
-              test_name = eligibility_factor.test_name
+              name = eligibility_factor.name
               explanation = eligibility_factor.explanation
 
               html += ('<h3>' + name + ':</h3>')

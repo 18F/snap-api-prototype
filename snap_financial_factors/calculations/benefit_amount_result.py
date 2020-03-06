@@ -7,11 +7,11 @@ class BenefitAmountResult:
     '''
 
     def __init__(self,
-                 test_name: str,
+                 name: str,
                  amount: int,
                  explanation: List[str],
                  sort_order: int) -> None:
-        self.test_name = test_name
+        self.name = name
         self.amount = amount
         self.explanation = explanation
         self.sort_order = sort_order
