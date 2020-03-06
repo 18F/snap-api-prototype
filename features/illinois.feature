@@ -173,7 +173,7 @@ Feature: Testing SNAP Financial Factors Web API for IL
       Then we find the family is likely not eligible
       And we find the estimated benefit is $0 per month
 
-  Scenario: Child support payments exclusion pushes household into eligiblity
+  Scenario: Child support payments exclusion pushes household into eligibility
     Given the household is in IL
     And a 3-person household
     And the household does not include an elderly or disabled member
