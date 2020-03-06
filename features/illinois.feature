@@ -184,4 +184,17 @@ Feature: Testing SNAP Financial Factors Web API for IL
     And the household has court-ordered child support payments of $100 monthly
     When we run the benefit estimator...
       Then we find the family is likely eligible
-      And we find the estimated benefit is $19 per month
+      And we find the estimated benefit is $49 per month
+
+  Scenario: More child support payments increase estimated benefit
+    Given the household is in IL
+    And a 3-person household
+    And the household does not include an elderly or disabled member
+    And the household has earned income of $1000 monthly
+    And the household has other income of $2000 monthly
+    And the household has assets of $1000
+    And the household has dependent care costs of $1000 monthly
+    And the household has court-ordered child support payments of $400 monthly
+    When we run the benefit estimator...
+      Then we find the family is likely eligible
+      And we find the estimated benefit is $139 per month
