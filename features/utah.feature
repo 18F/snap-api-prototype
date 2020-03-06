@@ -15,8 +15,8 @@ Feature: Testing SNAP Financial Factors Web API for UT
     Given the household is in UT
     And a 3-person household
     And the household does not include an elderly or disabled member
-    And the household has earned income of $1000 monthly
-    And the household has other income of $2000 monthly
+    And the household has earned income of $0 monthly
+    And the household has other income of $2400 monthly
     And the household has assets of $1000
     And the household has dependent care costs of $1000 monthly
     When we run the benefit estimator...
@@ -27,8 +27,8 @@ Feature: Testing SNAP Financial Factors Web API for UT
     Given the household is in UT
     And a 3-person household
     And the household does not include an elderly or disabled member
-    And the household has earned income of $1000 monthly
-    And the household has other income of $2000 monthly
+    And the household has earned income of $0 monthly
+    And the household has other income of $2400 monthly
     And the household has assets of $1000
     And the household has dependent care costs of $1000 monthly
     And the household has court-ordered child support payments of $100 monthly
