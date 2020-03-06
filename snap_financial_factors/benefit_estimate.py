@@ -1,5 +1,4 @@
 import yaml
-import json
 
 from snap_financial_factors.income.net_income import NetIncome
 from snap_financial_factors.income.gross_income import GrossIncome
