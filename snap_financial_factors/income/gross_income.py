@@ -25,15 +25,30 @@ class GrossIncome:
     def calculate(self) -> IncomeResult:
         child_support_payments_excluded = self.child_support_payments_excluded()
 
-        monthly_income = self.monthly_job_income + self.monthly_non_job_income
-
         if child_support_payments_excluded:
             return self.calculate_with_child_support_payments_excluded()
         else:
+            explanation = []
+
+            gross_income_intro = [
+                'We find gross income by adding up monthly income from both ' +
+                'job and non-job sources.'
+            ]
+            explanation.append(gross_income_intro)
+
+            monthly_income = self.monthly_job_income + self.monthly_non_job_income
+
+            gross_income_math = (
+                f"${self.monthly_job_income} monthly job income + " +
+                f"${self.monthly_non_job_income} monthly non-job income = " +
+                f"<strong>${monthly_income} gross income</strong>"
+            )
+            explanation.append(gross_income_math)
+
             return IncomeResult(
                 name='Gross Income',
                 result=monthly_income,
-                explanation=[],
+                explanation=explanation,
                 sort_order=0
             )
 
