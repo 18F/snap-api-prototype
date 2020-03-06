@@ -117,6 +117,7 @@ class BenefitEstimate:
         gross_income = gross_income_calculation.result
 
         net_income_calculator = NetIncome(input_data,
+                                          gross_income,
                                           deductions_data,
                                           child_support_payments_treatment)
 

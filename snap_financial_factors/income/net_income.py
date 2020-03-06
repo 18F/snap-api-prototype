@@ -15,21 +15,21 @@ class NetIncome:
 
     def __init__(self,
                  input_data: InputData,
+                 gross_income: int,
                  deductions_data: Dict,
                  child_support_payments_treatment: str) -> None:
         # Load user input data
         self.input_data = input_data
+        self.monthly_job_income = input_data.monthly_job_income
         self.state_or_territory = input_data.state_or_territory
         self.household_size = input_data.household_size
-        self.monthly_job_income = input_data.monthly_job_income
-        self.monthly_non_job_income = input_data.monthly_non_job_income
         self.dependent_care_costs = input_data.dependent_care_costs
         self.household_includes_elderly_or_disabled = input_data.household_includes_elderly_or_disabled
         self.medical_expenses_for_elderly_or_disabled = input_data.medical_expenses_for_elderly_or_disabled
         self.court_ordered_child_support_payments = input_data.court_ordered_child_support_payments
 
         self.deductions_data = deductions_data
-
+        self.gross_income = gross_income
         self.child_support_payments_treatment = child_support_payments_treatment
 
     def calculate(self):
@@ -42,12 +42,9 @@ class NetIncome:
         explanation.append(explanation_intro)
 
         # Add up income.
-        total_income = self.monthly_job_income + self.monthly_non_job_income
         income_explanation = (
             "Let's start with total household income. " +
-            f"This household reports monthly earned income of ${self.monthly_job_income} " +
-            f"and additional monthly income of ${self.monthly_non_job_income}, " +
-            f"for a total income of <strong>${total_income}.</strong>"
+            f"This household's gross income is ${self.gross_income}."
         )
         explanation.append(income_explanation)
 
@@ -111,14 +108,14 @@ class NetIncome:
         )
         explanation.append(total_deductions_summary)
 
-        net_income = total_income - total_deductions_value
+        net_income = self.gross_income - total_deductions_value
 
         # Adjusted net income can't be negative
         if 0 > net_income:
             net_income = 0
 
         calculation_explanation = (
-            f"Total income (<strong>${total_income}</strong>) minus " +
+            f"Gross income (<strong>${self.gross_income}</strong>) minus " +
             f"total deductions (<strong>${total_deductions_value}</strong>) " +
             f"equals net income: <strong>${net_income}.</strong>"
         )
