@@ -30,10 +30,10 @@ class GrossIncome:
         else:
             explanation = []
 
-            gross_income_intro = [
+            gross_income_intro = (
                 'We find gross income by adding up monthly income from both ' +
                 'job and non-job sources.'
-            ]
+            )
             explanation.append(gross_income_intro)
 
             monthly_income = self.monthly_job_income + self.monthly_non_job_income
