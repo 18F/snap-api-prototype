@@ -15,7 +15,3 @@ class BenefitAmountResult:
         self.amount = amount
         self.explanation = explanation
         self.sort_order = sort_order
-        self.name_and_explanation = {
-            'name': test_name,
-            'explanation': explanation,
-        }

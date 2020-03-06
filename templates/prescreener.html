@@ -222,11 +222,16 @@
 
           html += '<div id="reasons" class="hidden">';
 
-          var names_and_explanations = response.names_and_explanations;
-          for (var i = 0; i < names_and_explanations.length; i++) {
-              var name_and_explanation = names_and_explanations[i];
-              name = name_and_explanation.name
-              explanation = name_and_explanation.explanation
+          var eligibility_factors = response.eligibility_factors;
+          eligibility_factors.sort(function(a, b) {
+              return a.sort_order - b.sort_order;
+          });
+
+          for (var i = 0; i < eligibility_factors.length; i++) {
+              var eligibility_factor = eligibility_factors[i];
+              test_name = eligibility_factor.test_name
+              explanation = eligibility_factor.explanation
+
               html += ('<h3>' + name + ':</h3>')
 
               html += '<div>';

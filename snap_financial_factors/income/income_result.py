@@ -15,7 +15,3 @@ class IncomeResult:
         self.result = result
         self.explanation = explanation
         self.sort_order = sort_order
-        self.name_and_explanation = {
-            'name': name,
-            'explanation': explanation,
-        }

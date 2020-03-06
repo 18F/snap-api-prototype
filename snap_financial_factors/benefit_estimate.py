@@ -1,4 +1,5 @@
 import yaml
+import json
 
 from snap_financial_factors.income.net_income import NetIncome
 from snap_financial_factors.income.gross_income import GrossIncome
@@ -42,20 +43,19 @@ class BenefitEstimate:
 
         eligibility_calculation = self.__eligibility_calculation()
         is_eligible = eligibility_calculation['eligible']
-        names_and_explanations = eligibility_calculation['names_and_explanations']
+        eligibility_factors = eligibility_calculation['eligibility_factors']
         net_income = eligibility_calculation['net_income']
 
         estimated_benefit = self.__estimated_monthly_benefit(is_eligible, net_income)
         estimated_benefit_amount = estimated_benefit.amount
-        estimated_benefit_reason = estimated_benefit.name_and_explanation
-        names_and_explanations.append(estimated_benefit_reason)
+        eligibility_factors.append(estimated_benefit.__dict__)
 
         state_website = self.state_websites[self.state_or_territory]
 
         return {
             'eligible': is_eligible,
             'estimated_monthly_benefit': estimated_benefit_amount,
-            'names_and_explanations': names_and_explanations,
+            'eligibility_factors': eligibility_factors,
             'state_website': state_website
             }
 
@@ -142,15 +142,17 @@ class BenefitEstimate:
         test_results = [calculation.result for calculation in test_calculations]
         overall_eligibility = all(test_results)
 
-        names_and_explanations = [
-            calculation.name_and_explanation for calculation in test_calculations
+        eligibility_factor_classes = (
+            test_calculations + [gross_income_calculation, net_income_calculation]
+        )
+
+        eligibility_factors = [
+            factor.__dict__ for factor in eligibility_factor_classes
         ]
-        names_and_explanations.append(gross_income_calculation.name_and_explanation)
-        names_and_explanations.append(net_income_calculation.name_and_explanation)
 
         return {
             'eligible': overall_eligibility,
-            'names_and_explanations': names_and_explanations,
+            'eligibility_factors': eligibility_factors,
             'net_income': net_income,
         }
 
