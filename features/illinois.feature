@@ -198,3 +198,9 @@ Feature: Testing SNAP Financial Factors Web API for IL
     When we run the benefit estimator...
       Then we find the family is likely eligible
       And we find the estimated benefit is $139 per month
+
+  Scenario: Household where shelter costs do not exceed half of adjusted income
+  Scenario: Household where shelter costs do exceed half of adjusted income
+  Scenario: Household with excess shelter costs and an elderly or disabled household member
+  Scenario: Household with excess shelter costs that exceed limit and an elderly or disabled household member
+  Scenario: Household with excess shelter costs that exceed limit and no elderly or disabled household member
