@@ -42,6 +42,14 @@ def step_impl(context, number):
 def step_impl(context, number):
     context.input_data['court_ordered_child_support_payments'] = number
 
+@given('the household has rent or mortgage costs of ${number:d} monthly')
+def step_impl(context, number):
+    context.input_data['rent_or_mortgage'] = number
+
+@given('the household has homeowners insurance and taxes costs of ${number:d} monthly')
+def step_impl(context, number):
+    context.input_data['homeowners_insurance_and_taxes'] = number
+
 @when('we run the benefit estimator...')
 def step_impl(context):
     benefit_estimate = BenefitEstimate(context.input_data)
