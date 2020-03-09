@@ -27,6 +27,8 @@ class NetIncome:
         self.household_includes_elderly_or_disabled = input_data.household_includes_elderly_or_disabled
         self.medical_expenses_for_elderly_or_disabled = input_data.medical_expenses_for_elderly_or_disabled
         self.court_ordered_child_support_payments = input_data.court_ordered_child_support_payments
+        self.rent_or_mortgage = input_data.rent_or_mortgage
+        self.homeowners_insurance_and_taxes = input_data.homeowners_insurance_and_taxes
 
         self.deductions_data = deductions_data
         self.gross_income = gross_income
@@ -49,8 +51,6 @@ class NetIncome:
         explanation.append(income_explanation)
 
         # Add up deductions:
-
-        # Standard deduction
         deductions = [
             StandardDeduction(
                 state_or_territory=self.state_or_territory,
