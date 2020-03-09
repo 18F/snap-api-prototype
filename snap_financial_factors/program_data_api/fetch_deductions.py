@@ -40,6 +40,8 @@ class FetchDeductions:
             # deduction does not increase beyond household size of 6. Source:
             # https://fns-prod.azureedge.net/sites/default/files/media/file/FY20-Maximum-Allotments-Deductions.pdf
             return scale[6]
+        else:
+            raise ValueError('Unknown value for household size.')
 
     def maximum_shelter_deduction(self):
         state_lookup_key = self.state_lookup_key()
