@@ -12,6 +12,7 @@ style-check:
 	pipenv run flake8 --max-line-length=160
 
 type-check:
+	python3 -m pip install mypy --user
 	mypy snap_financial_factors
 
 test:
