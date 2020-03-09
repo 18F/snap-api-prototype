@@ -1,6 +1,11 @@
-install:
+install-dev:
 	pip install pipenv
-	pipenv install
+	pipenv install --dev
+
+install-prod:
+	pip install pipenv
+
+install: install-dev
 
 style-check:
 	pipenv run flake8 --max-line-length=160
