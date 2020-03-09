@@ -1,4 +1,6 @@
+from typing import Dict
 from snap_financial_factors.deductions.deduction_result import DeductionResult
+from snap_financial_factors.program_data_api.fetch_deductions import FetchDeductions
 
 
 class ExcessShelterDeduction:
@@ -9,10 +11,16 @@ class ExcessShelterDeduction:
     def __init__(self,
                  adjusted_income: int,
                  shelter_costs: int,
-                 household_includes_elderly_or_disabled: bool) -> None:
+                 household_includes_elderly_or_disabled: bool,
+                 state_or_territory: str,
+                 household_size: int,
+                 deductions_data: Dict) -> None:
         self.adjusted_income = adjusted_income
         self.shelter_costs = shelter_costs
         self.household_includes_elderly_or_disabled = household_includes_elderly_or_disabled
+        self.state_or_territory = state_or_territory
+        self.household_size = household_size
+        self.deductions_data = deductions_data
 
     def calculate(self) -> DeductionResult:
         half_adjusted_income = round(self.adjusted_income / 2)
@@ -44,9 +52,18 @@ class ExcessShelterDeduction:
 
         # If household does not include an elderly or disabled person,
         # check to see if the deduction amount would be above the limit.
-        if raw_deduction_amount > 569:
+        deductions_api = FetchDeductions(
+            state_or_territory=self.state_or_territory,
+            household_size=self.household_size,
+            deductions_data=self.deductions_data,
+            fiscal_year=2020
+        )
+
+        maximum_shelter_deduction = deductions_api.maximum_shelter_deduction()
+
+        if raw_deduction_amount > maximum_shelter_deduction:
             return DeductionResult(
-                result=569,
+                result=maximum_shelter_deduction,
                 explanation=[
                     'Household has a maximum excess shelter deduction of $569.'
                 ]

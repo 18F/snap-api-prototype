@@ -45,3 +45,20 @@ standard_deduction:
           4: 178
           5: 209
           6: 240
+
+maximum_shelter_deduction:
+    DEFAULT:
+        2020:
+            569
+    AK:
+        2020:
+            908
+    HI:
+        2020:
+            766
+    GUAM:
+        2020:
+            667
+    VIRGIN_ISLANDS:
+        2020:
+            448
