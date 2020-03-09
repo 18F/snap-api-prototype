@@ -6,6 +6,7 @@ install-dev:
 
 install-prod:
 	pip install pipenv
+	pipenv install
 
 style-check:
 	pipenv run flake8 --max-line-length=160
