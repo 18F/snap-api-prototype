@@ -1,11 +1,11 @@
+install: install-dev
+
 install-dev:
 	pip install pipenv
 	pipenv install --dev
 
 install-prod:
 	pip install pipenv
-
-install: install-dev
 
 style-check:
 	pipenv run flake8 --max-line-length=160
@@ -18,9 +18,10 @@ test:
 
 check-all: style-check type-check test
 
-# For now.
-serve:
-	env FLASK_APP=app.py FLASK_ENV=development flask run
+serve: serve-local
 
 serve-local:
-	env FLASK_APP=app.py FLASK_ENV=development flask run
+	pipenv run gunicorn "app:create_app()" --reload
+
+serve-prod:
+	pipenv run gunicorn "app:create_app()"
