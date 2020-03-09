@@ -34,11 +34,13 @@ def verify_password(username, password):
 
 
 @app.route('/')
+@auth.login_required
 def get_root():
     return jsonify('welcome'), 300
 
 
 @app.route('/calculate', methods=['POST', 'GET'])
+@auth.login_required
 def calculate_from_json():
     input_data = request.get_json()
     benefit_estimate = BenefitEstimate(input_data)
@@ -46,5 +48,6 @@ def calculate_from_json():
 
 
 @app.route('/prescreener')
+@auth.login_required
 def prescreener():
     return render_template('prescreener.html')
