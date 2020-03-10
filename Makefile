@@ -25,5 +25,5 @@ serve: serve-local
 serve-local:
 	pipenv run gunicorn "app:create_app()" --reload
 
-serve-prod:
+serve-prod: install-prod
 	pipenv run gunicorn "app:create_app()"
