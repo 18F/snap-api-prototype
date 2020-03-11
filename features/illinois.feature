@@ -223,7 +223,8 @@ Feature: Testing SNAP Financial Factors Web API for IL
       Then we find the family is likely eligible
       And we find the estimated benefit is $319 per month
 
-  Scenario: Household with excess shelter costs and an elderly or disabled household member
+  Scenario: Household where shelter costs exceed half of adjusted income by ~$100
+            & the household includes an elderly or disabled household member
     Given the household is in IL
     And a 3-person household
     And the household does include an elderly or disabled member
@@ -235,8 +236,20 @@ Feature: Testing SNAP Financial Factors Web API for IL
       Then we find the family is likely eligible
       And we find the estimated benefit is $319 per month
 
-  Scenario: Household with excess shelter costs that exceed limit and an elderly
-            or disabled household member
+  Scenario: Household where shelter costs exceed half of adjusted income by ~$200
+    Given the household is in IL
+    And a 3-person household
+    And the household does not include an elderly or disabled member
+    And the household has earned income of $500 monthly
+    And the household has other income of $500 monthly
+    And the household has assets of $0
+    And the household has rent or mortgage costs of $567 monthly
+    When we run the benefit estimator...
+      Then we find the family is likely eligible
+      And we find the estimated benefit is $349 per month
+
+  Scenario: Household with excess shelter costs that exceed the IL 2020 max ($569)
+            & include an elderly or disabled household member
     Given the household is in IL
     And a 3-person household
     And the household does include an elderly or disabled member
@@ -248,8 +261,8 @@ Feature: Testing SNAP Financial Factors Web API for IL
       Then we find the family is likely eligible
       And we find the estimated benefit is $499 per month
 
-  Scenario: Household with excess shelter costs that exceed limit and no elderly
-            or disabled household member
+  Scenario: Household with excess shelter costs that exceed the IL 2020 max ($569)
+            & do not include an elderly or disabled household member
     Given the household is in IL
     And a 3-person household
     And the household does not include an elderly or disabled member
