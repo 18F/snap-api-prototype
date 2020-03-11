@@ -86,13 +86,11 @@ class NetIncome:
         adjusted_income_before_excess_shelter = (
             self.gross_income - total_deductions_before_excess_shelter
         )
-        shelter_costs = (
-            self.rent_or_mortgage + self.homeowners_insurance_and_taxes
-        )
 
         excess_shelter_deduction_calcualtor = ExcessShelterDeduction(
             adjusted_income=adjusted_income_before_excess_shelter,
-            shelter_costs=shelter_costs,
+            rent_or_mortgage=self.rent_or_mortgage,
+            homeowners_insurance_and_taxes=self.homeowners_insurance_and_taxes,
             household_includes_elderly_or_disabled=self.household_includes_elderly_or_disabled,
             state_or_territory=self.state_or_territory,
             household_size=self.household_size,

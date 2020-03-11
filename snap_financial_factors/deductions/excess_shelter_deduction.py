@@ -10,45 +10,86 @@ class ExcessShelterDeduction:
 
     def __init__(self,
                  adjusted_income: int,
-                 shelter_costs: int,
+                 rent_or_mortgage: int,
+                 homeowners_insurance_and_taxes: int,
                  household_includes_elderly_or_disabled: bool,
                  state_or_territory: str,
                  household_size: int,
                  deductions_data: Dict) -> None:
         self.adjusted_income = adjusted_income
-        self.shelter_costs = shelter_costs
+        self.rent_or_mortgage = rent_or_mortgage
+        self.homeowners_insurance_and_taxes = homeowners_insurance_and_taxes
         self.household_includes_elderly_or_disabled = household_includes_elderly_or_disabled
         self.state_or_territory = state_or_territory
         self.household_size = household_size
         self.deductions_data = deductions_data
 
     def calculate(self) -> DeductionResult:
+        explanation = [
+            'Next, we calculate the Excess Shelter Deduction. To calculate ' +
+            'this deduction, we need to find half of the household adjusted income. ' +
+            'Adjusted income is equal to gross income, minus all deductions calculated ' +
+            'up to this point.'
+        ]
+
         half_adjusted_income = round(self.adjusted_income / 2)
+
+        half_adjusted_income_explanation = (
+            f"For this household, adjusted income is equal to ${self.adjusted_income} " +
+            f"and half of adjusted income equals ${half_adjusted_income}."
+        )
+        explanation.append(half_adjusted_income_explanation)
+
+        shelter_costs_explanation = (
+            'Next, add up shelter costs by adding any costs of rent, mortgage ' +
+            'payments, homeowners insurance and property taxes.'
+        )
+        explanation.append(shelter_costs_explanation)
+
+        self.shelter_costs = self.rent_or_mortgage + self.homeowners_insurance_and_taxes
+
+        shelter_costs_math_explanation = (
+            f"${self.rent_or_mortgage} rent or mortgage + " +
+            f"${self.homeowners_insurance_and_taxes} homeowners insurance and taxes = " +
+            f"${self.shelter_costs}"
+        )
+        explanation.append(shelter_costs_math_explanation)
 
         # If shelter costs are less than half of adjusted income, no deduction applied.
         if half_adjusted_income > self.shelter_costs:
-            return DeductionResult(
-                result=0,
-                explanation=[
-                    'Shelter costs do not exceed half of adjusted income.'
-                ]
+            explanation.append(
+                'In this case, shelter costs do not exceed half of adjusted income, ' +
+                'so the excess shelter deduction does not apply.'
             )
 
+            return DeductionResult(result=0, explanation=explanation)
+
         raw_deduction_amount = self.shelter_costs - half_adjusted_income
+
+        excess_shelter_costs_math_intro = (
+            'Subtract half of adjusted income from shelter costs to find ' +
+            'the base deduction amount:'
+        )
+        explanation.append(excess_shelter_costs_math_intro)
+
+        excess_shelter_costs_math_explanation = (
+            f"${self.shelter_costs} shelter costs - " +
+            f"${half_adjusted_income} half of adjusted income = " +
+            f"${raw_deduction_amount} base deduction"
+        )
+        explanation.append(excess_shelter_costs_math_explanation)
 
         # If household includes elderly or disabled person, no limit on
         # the amount of the excess shelter deduction.
         if self.household_includes_elderly_or_disabled:
             deduction_amount = raw_deduction_amount
-
-            return DeductionResult(
-                result=deduction_amount,
-                explanation=[
-                    'Because household includes an elderly or disabled household ' +
-                    'member, there is no limit to the excess shelter deduction ' +
-                    'amount.'
-                ]
+            explanation.append(
+                'Because the household includes an elderly or disabled household ' +
+                'member, there is no limit to the excess shelter deduction ' +
+                f"amount, so the full deduction amount of ${deduction_amount} applies."
             )
+
+            return DeductionResult(result=deduction_amount, explanation=explanation)
 
         # If household does not include an elderly or disabled person,
         # check to see if the deduction amount would be above the limit.
@@ -62,11 +103,15 @@ class ExcessShelterDeduction:
         maximum_shelter_deduction = deductions_api.maximum_shelter_deduction()
 
         if raw_deduction_amount > maximum_shelter_deduction:
+            explanation.append(
+                'In this case, the household has a maximum excess shelter ' +
+                f"deduction of ${maximum_shelter_deduction}, so the maximum" +
+                'deduction amount applies.'
+            )
+
             return DeductionResult(
                 result=maximum_shelter_deduction,
-                explanation=[
-                    'Household has a maximum excess shelter deduction of $569.'
-                ]
+                explanation=explanation
             )
 
         # Finally, handle case where household does not include an elderly or
@@ -75,7 +120,5 @@ class ExcessShelterDeduction:
 
         return DeductionResult(
             result=deduction_amount,
-            explanation=[
-                ''
-            ]
+            explanation=explanation
         )
