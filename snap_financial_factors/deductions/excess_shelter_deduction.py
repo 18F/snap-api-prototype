@@ -35,14 +35,14 @@ class ExcessShelterDeduction:
         half_adjusted_income = round(self.adjusted_income / 2)
 
         half_adjusted_income_explanation = (
-            f"For this household, adjusted income is equal to ${self.adjusted_income} " +
-            f"and half of adjusted income equals ${half_adjusted_income}."
+            f"For this household, adjusted income is ${self.adjusted_income} " +
+            f"and half of adjusted income is ${half_adjusted_income}."
         )
         explanation.append(half_adjusted_income_explanation)
 
         shelter_costs_explanation = (
             'Next, add up shelter costs by adding any costs of rent, mortgage ' +
-            'payments, homeowners insurance and property taxes.'
+            'payments, homeowners insurance and property taxes:'
         )
         explanation.append(shelter_costs_explanation)
 
