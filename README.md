@@ -30,6 +30,14 @@ make test
 make serve-local
 ```
 
+## Deploy
+
+This app includes a `manifest.yml` file with deploy configuration for [Cloud.gov](https://cloud.gov/) or another [Cloud Foundry](https://www.cloudfoundry.org/) system.
+
+A [demo API and pre-screener](https://snap-prototype-financial-factors.app.cloud.gov/) are deployed to Cloud.gov. Since this application falls under [ATO pre-assessment](https://before-you-ship.18f.gov/ato/types/#conditions-for-pre-assessment), it is password-protected and only available to Federal staff.
+
+Please reach out via email if you are a Federal employee and would like a demonstration of the web API and pre-screener.
+
 ## Test the Web API locally
 
 ```sh
