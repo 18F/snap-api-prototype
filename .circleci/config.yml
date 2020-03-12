@@ -38,5 +38,6 @@ jobs:
           command: make test
 
       - save_cache:
-          path: ./.venv
+          paths:
+            - ./.venv
           key: pipenv-packages-{{ checksum "Pipfile.lock" }}
