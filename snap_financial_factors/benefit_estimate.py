@@ -27,7 +27,7 @@ class BenefitEstimate:
         self.dependent_care_costs = self.input_data.dependent_care_costs
 
         # Load SNAP program data as YAML
-        self.state_options_data = yaml.safe_load(open('./program_data/state_options.yaml', 'r'))
+        self.state_options_data = yaml.load(open('./program_data/state_options.yaml', 'r'))
         self.income_limit_data = yaml.safe_load(open('./program_data/income_limits.yaml', 'r'))
         self.deductions_data = yaml.safe_load(open('./program_data/deductions.yaml', 'r'))
         self.max_allotments = yaml.safe_load(open('./program_data/max_allotments.yaml', 'r'))
