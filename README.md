@@ -8,7 +8,7 @@ This is a sketchpad prototyping repo being used by 18F's [Eligibility APIs Initi
 
 To run the project locally, you will need:
 
-* [Python 3.7](https://www.python.org/downloads/).
+* [Python 3.8.1](https://www.python.org/downloads/).
 * [Pipenv](https://pipenv.kennethreitz.org/en/latest/), for installing and managing dependencies.
 * [Pyenv](https://github.com/pyenv/pyenv), for managing Python versions. (Optional but recommended.)
 
