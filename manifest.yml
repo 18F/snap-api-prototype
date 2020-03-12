@@ -1,0 +1,7 @@
+---
+applications:
+- name: snap-prototype-financial-factors
+  buildpacks:
+    - python_buildpack
+  memory: 256M
+  command: make serve-prod
