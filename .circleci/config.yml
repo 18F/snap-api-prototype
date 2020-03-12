@@ -19,6 +19,10 @@ jobs:
           command: make install
 
       - run:
+          name: Python security static analysis check
+          command: make security-check
+
+      - run:
           name: Python style check
           command: make style-check
 
