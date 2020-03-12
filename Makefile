@@ -15,10 +15,13 @@ type-check:
 	python3 -m pip install mypy --user
 	mypy snap_financial_factors
 
+security-check:
+	pipenv run bandit -r snap_financial_factors
+
 test:
 	python3 -m pipenv run behave
 
-check-all: style-check type-check test
+check-all: style-check type-check security-check test
 
 serve: serve-local
 
