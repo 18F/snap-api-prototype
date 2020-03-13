@@ -16,10 +16,14 @@ class StandardDeduction:
         self.deductions_data = deductions_data
 
     def calculate(self) -> DeductionResult:
-        deductions = FetchDeductions(self.state_or_territory,
-                                     self.household_size,
-                                     self.deductions_data)
-        standard_deduction = deductions.standard_deduction()
+        deductions_api = FetchDeductions(
+            state_or_territory=self.state_or_territory,
+            household_size=self.household_size,
+            deductions_data=self.deductions_data,
+            fiscal_year=2020
+        )
+
+        standard_deduction = deductions_api.standard_deduction()
 
         standard_deduction_pdf_url = 'https://fns-prod.azureedge.net/sites/default/files/media/file/FY20-Maximum-Allotments-Deductions.pdf'
         explanation = [

@@ -1,10 +1,11 @@
 from typing import Dict
+from snap_financial_factors.input_data.input_data import InputData
 from snap_financial_factors.deductions.earned_income_deduction import EarnedIncomeDeduction
 from snap_financial_factors.deductions.dependent_care_deduction import DependentCareDeduction
 from snap_financial_factors.deductions.medical_expenses_deduction import MedicalExpensesDeduction
 from snap_financial_factors.deductions.child_support_payments_deduction import ChildSupportPaymentsDeduction
 from snap_financial_factors.deductions.standard_deduction import StandardDeduction
-from snap_financial_factors.input_data.input_data import InputData
+from snap_financial_factors.deductions.excess_shelter_deduction import ExcessShelterDeduction
 from snap_financial_factors.income.income_result import IncomeResult
 
 
@@ -27,6 +28,8 @@ class NetIncome:
         self.household_includes_elderly_or_disabled = input_data.household_includes_elderly_or_disabled
         self.medical_expenses_for_elderly_or_disabled = input_data.medical_expenses_for_elderly_or_disabled
         self.court_ordered_child_support_payments = input_data.court_ordered_child_support_payments
+        self.rent_or_mortgage = input_data.rent_or_mortgage
+        self.homeowners_insurance_and_taxes = input_data.homeowners_insurance_and_taxes
 
         self.deductions_data = deductions_data
         self.gross_income = gross_income
@@ -49,9 +52,7 @@ class NetIncome:
         explanation.append(income_explanation)
 
         # Add up deductions:
-
-        # Standard deduction
-        deductions = [
+        deductions_before_excess_shelter = [
             StandardDeduction(
                 state_or_territory=self.state_or_territory,
                 household_size=self.household_size,
@@ -69,9 +70,9 @@ class NetIncome:
             )
         ]
 
-        deduction_results = []
+        deduction_results_before_excess_shelter = []
 
-        for deduction in deductions:
+        for deduction in deductions_before_excess_shelter:
             calculation = deduction.calculate()
             deduction_explanations = calculation.explanation
 
@@ -79,9 +80,33 @@ class NetIncome:
             for deduction_explanation in deduction_explanations:
                 explanation.append(deduction_explanation)
 
-            deduction_results.append(calculation.result)
+            deduction_results_before_excess_shelter.append(calculation.result)
 
+        total_deductions_before_excess_shelter = sum(deduction_results_before_excess_shelter)
+        adjusted_income_before_excess_shelter = (
+            self.gross_income - total_deductions_before_excess_shelter
+        )
+
+        excess_shelter_deduction_calcualtor = ExcessShelterDeduction(
+            adjusted_income=adjusted_income_before_excess_shelter,
+            rent_or_mortgage=self.rent_or_mortgage,
+            homeowners_insurance_and_taxes=self.homeowners_insurance_and_taxes,
+            household_includes_elderly_or_disabled=self.household_includes_elderly_or_disabled,
+            state_or_territory=self.state_or_territory,
+            household_size=self.household_size,
+            deductions_data=self.deductions_data,
+        )
+
+        excess_shelter_calculation = excess_shelter_deduction_calcualtor.calculate()
+        excess_shelter_calculation_result = excess_shelter_calculation.result
+        excess_shelter_calculation_explanation = excess_shelter_calculation.explanation
+
+        deduction_results = (
+            deduction_results_before_excess_shelter + [excess_shelter_calculation_result]
+        )
         total_deductions_value = sum(deduction_results)
+        for deduction_explanation in excess_shelter_calculation_explanation:
+            explanation.append(deduction_explanation)
 
         total_deductions_explanation = (
             f"Next, we add all applicable deductions together: "
@@ -100,7 +125,7 @@ class NetIncome:
                 total_deductions_math_explanation += f"${deduction_value} = "
             else:
                 total_deductions_math_explanation += f"${deduction_value} + "
-        total_deductions_math_explanation += f"{total_deductions_value}"
+        total_deductions_math_explanation += f"${total_deductions_value}"
         explanation.append(total_deductions_math_explanation)
 
         total_deductions_summary = (

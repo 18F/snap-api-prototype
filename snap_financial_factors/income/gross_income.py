@@ -70,7 +70,7 @@ class GrossIncome:
         child_support_payments_math = (
             f"${monthly_income} - " +
             f"${self.court_ordered_child_support_payments} = " +
-            f"${monthly_income_minus_child_support} adjusted gross income"
+            f"${monthly_income_minus_child_support} gross income"
         )
         explanation.append(child_support_payments_math)
 
