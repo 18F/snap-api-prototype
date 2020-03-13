@@ -105,7 +105,7 @@ class ExcessShelterDeduction:
         if raw_deduction_amount > maximum_shelter_deduction:
             explanation.append(
                 'In this case, the household has a maximum excess shelter ' +
-                f"deduction of ${maximum_shelter_deduction}, so the maximum" +
+                f"deduction of ${maximum_shelter_deduction}, so the maximum " +
                 'deduction amount applies.'
             )
 

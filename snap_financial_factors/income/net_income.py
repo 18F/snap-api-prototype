@@ -125,7 +125,7 @@ class NetIncome:
                 total_deductions_math_explanation += f"${deduction_value} = "
             else:
                 total_deductions_math_explanation += f"${deduction_value} + "
-        total_deductions_math_explanation += f"{total_deductions_value}"
+        total_deductions_math_explanation += f"${total_deductions_value}"
         explanation.append(total_deductions_math_explanation)
 
         total_deductions_summary = (
