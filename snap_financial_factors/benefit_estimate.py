@@ -32,7 +32,6 @@ class BenefitEstimate:
         self.deductions_data = yaml.safe_load(open('./program_data/deductions.yaml', 'r'))
         self.max_allotments = yaml.safe_load(open('./program_data/max_allotments.yaml', 'r'))
         self.min_allotments = yaml.safe_load(open('./program_data/min_allotments.yaml', 'r'))
-        self.state_websites = yaml.safe_load(open('./program_data/state_websites.yaml', 'r'))
 
     def calculate(self):
         """
@@ -49,7 +48,7 @@ class BenefitEstimate:
         estimated_benefit_amount = estimated_benefit.amount
         eligibility_factors.append(estimated_benefit.__dict__)
 
-        state_website = self.state_websites[self.state_or_territory]
+        state_website = self.state_options_data[self.state_or_territory][2020]['website']
 
         return {
             'eligible': is_eligible,
