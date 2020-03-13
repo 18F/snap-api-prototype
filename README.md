@@ -43,9 +43,11 @@ Please reach out via [email](mailto:eligibility-apis-initiative@gsa.gov) if you 
 ```sh
 # IL, 1 person, no income or savings:
 
-curl -X POST -H "Content-Type: application/json" \
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -u username:password \
   -d @./sample_input_data/il-1-person-no-income-or-savings.json \
-  http://127.0.0.1:5000/calculate
+  http://127.0.0.1:8000/calculate
 ```
 
 # Modeling notes

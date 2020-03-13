@@ -10,6 +10,9 @@ jobs:
     steps:
       - checkout
 
+      - restore_cache:
+          key: pipenv-packages-{{ checksum "Pipfile.lock" }}
+
       - run:
           name: Install Pipenv
           command: sudo pip install pipenv
@@ -33,3 +36,8 @@ jobs:
       - run:
           name: Feature tests
           command: make test
+
+      - save_cache:
+          paths:
+            - ./.venv
+          key: pipenv-packages-{{ checksum "Pipfile.lock" }}
