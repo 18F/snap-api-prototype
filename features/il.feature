@@ -57,6 +57,20 @@ Feature: Testing SNAP Financial Factors Web API for IL
       Then we find the family is likely not eligible
       And we find the estimated benefit is $0 per month
 
+  Scenario: Household (just barely) fails the Gross Income test for IL (165% FPL),
+            passes the Net Income Test, is overall ineligible
+    Given the household is in IL
+    And a 3-person household
+    And the household does not include an elderly or disabled member
+    And the household has earned income of $3000 monthly
+    And the household has other income of $0 monthly
+    And the household has assets of $0
+    And the household has dependent care costs of $300 monthly
+    And the household has rent or mortgage costs of $2000 monthly
+    When we run the benefit estimator...
+      Then we find the family is likely not eligible
+      And we find the estimated benefit is $0 per month
+
   Scenario: Minimum allotment
     Given the household is in IL
     And a 1-person household
