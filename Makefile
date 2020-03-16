@@ -30,3 +30,13 @@ serve-local:
 
 serve-prod: install-prod
 	pipenv run gunicorn "app:create_app()"
+
+deploy: deploy-cf
+
+deploy-cf:
+	cf push
+
+logs: logs-cf
+
+logs-cf:
+	cf logs snap-prototype-financial-factors
