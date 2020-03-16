@@ -1,6 +1,7 @@
 import os
 from flask import Flask, jsonify, request, render_template
 from flask_httpauth import HTTPBasicAuth
+from flask_cors import CORS
 from os import path
 
 from snap_financial_factors.benefit_estimate import BenefitEstimate
@@ -8,6 +9,7 @@ from snap_financial_factors.benefit_estimate import BenefitEstimate
 
 def create_app():
     app = Flask(__name__)
+    CORS(app, resources={r"/calculate": {"origins": "*"}})
     auth = HTTPBasicAuth()
 
     if path.exists(".env"):
