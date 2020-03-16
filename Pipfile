@@ -14,6 +14,7 @@ flask = "~=1.1.1"
 flask-httpauth = "~=3.3.0"
 pyyaml = "~=5.3"
 gunicorn = "~=20.0.4"
+flask-cors = "~=3.0.8"
 
 [requires]
 python_version = "3.8.1"
