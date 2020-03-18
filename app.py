@@ -5,6 +5,7 @@ from flask_cors import CORS
 from os import path
 
 from snap_financial_factors.benefit_estimate import BenefitEstimate
+from snap_financial_factors.input_data.parse_input_data import ParseInputData
 
 
 def create_app():
@@ -43,9 +44,22 @@ def create_app():
     @app.route('/calculate', methods=['POST', 'GET'])
     @auth.login_required
     def calculate_from_json():
-        input_data = request.get_json()
-        benefit_estimate = BenefitEstimate(input_data)
-        return jsonify(benefit_estimate.calculate()), 200
+        raw_input_data = request.get_json()
+
+        # Handle invalid input case; return error
+        parsed_input_data = ParseInputData(raw_input_data).parse()
+        if parsed_input_data.valid is False:
+            return jsonify({
+                'status': 'ERROR',
+                'errors': parsed_input_data.errors,
+            }), 400
+
+        # Handle valid input case; return data
+        benefit_estimate = BenefitEstimate(parsed_input_data).calculate()
+        return jsonify({
+            **benefit_estimate,
+            'status': 'OK',
+        }), 200
 
     @app.route('/prescreener')
     @auth.login_required
