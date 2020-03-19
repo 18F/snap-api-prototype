@@ -234,6 +234,19 @@
       }
 
       function responseToHTML (response) {
+          if (response.status !== 'OK') {
+            html = '<h1>Error(s):</h1>';
+            errors = response.errors;
+
+            for (var i = 0; i < errors.length; i++) {
+                var error = errors[i];
+                html += ('<li style="color: red;">' + error + '.</li>')
+            }
+
+            window.scrollTo(0, 0);
+            return html;
+          }
+
           html = '<h1>Results:</h1>';
 
           if (response.eligible) {

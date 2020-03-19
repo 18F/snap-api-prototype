@@ -18,10 +18,13 @@ type-check:
 security-check:
 	pipenv run bandit -r snap_financial_factors
 
-test:
+feature-check:
 	python3 -m pipenv run behave
 
-check-all: style-check type-check security-check test
+test:
+	python3 -m pipenv run pytest tests -v
+
+check-all: style-check type-check security-check feature-check test
 
 serve: serve-local
 

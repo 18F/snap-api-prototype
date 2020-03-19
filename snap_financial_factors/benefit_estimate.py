@@ -1,3 +1,6 @@
+from typing import Dict
+from snap_financial_factors.input_data.input_data import InputData
+
 import yaml
 
 from snap_financial_factors.income.net_income import NetIncome
@@ -10,14 +13,12 @@ from snap_financial_factors.tests.net_income_test import NetIncomeTest
 from snap_financial_factors.calculations.benefit_amount_estimate import BenefitAmountEstimate
 from snap_financial_factors.calculations.benefit_amount_result import BenefitAmountResult
 
-from snap_financial_factors.input_data.parse_input_data import ParseInputData
 from snap_financial_factors.program_data_api.fetch_income_limits import FetchIncomeLimits
 
 
 class BenefitEstimate:
-    def __init__(self, input_data):
-        # Load and parse user input data
-        self.input_data = ParseInputData(input_data).parse()
+    def __init__(self, parsed_input_data: InputData):
+        self.input_data = parsed_input_data
         self.state_or_territory = self.input_data.state_or_territory
         self.monthly_job_income = self.input_data.monthly_job_income
         self.monthly_non_job_income = self.input_data.monthly_non_job_income
@@ -33,7 +34,7 @@ class BenefitEstimate:
         self.max_allotments = yaml.safe_load(open('./program_data/max_allotments.yaml', 'r'))
         self.min_allotments = yaml.safe_load(open('./program_data/min_allotments.yaml', 'r'))
 
-    def calculate(self):
+    def calculate(self) -> Dict:
         """
         Only public method for this class. Returns eligibility information,
         estimated monthly benefits, and reasons behind the output.

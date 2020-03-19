@@ -2,6 +2,7 @@
 import json
 from behave import given, when, then, step
 from snap_financial_factors.benefit_estimate import BenefitEstimate
+from snap_financial_factors.input_data.parse_input_data import ParseInputData
 
 
 @given('the household is in {state}')
@@ -52,7 +53,8 @@ def step_impl(context, number):
 
 @when('we run the benefit estimator...')
 def step_impl(context):
-    benefit_estimate = BenefitEstimate(context.input_data)
+    parsed_input_data = ParseInputData(context.input_data).parse().result
+    benefit_estimate = BenefitEstimate(parsed_input_data)
     context.api_result = benefit_estimate.calculate()
 
 @then('we find the family is likely {eligible}')
