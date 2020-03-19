@@ -42,4 +42,5 @@ deploy-cf:
 logs: logs-cf
 
 logs-cf:
-	cf logs snap-prototype-financial-factors
+	./set_app_name.sh
+	cf logs ${APP_NAME}
