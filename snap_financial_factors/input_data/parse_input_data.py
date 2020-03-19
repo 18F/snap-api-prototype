@@ -18,15 +18,18 @@ class ParseInputData:
         self.input_data: Dict = input_data
         self.valid: bool = True        # Default; set to False if invalid data detected.
         self.errors: List[str] = []    # Initialize array to fill with error messages.
+        self.result = None
 
-    def parse(self) -> InputData:
+    # This method returns a self; apparently this case isn't well-handled until
+    # Python 4.x.
+    def parse(self):
         input_data = self.input_data
 
         # Handle case when no input data is received:
         if input_data is None:
             self.valid = False
             self.errors.append('No input data received.')
-            return
+            return self
 
         # Handle required integer fields:
         required_integer_inputs = [
@@ -54,26 +57,32 @@ class ParseInputData:
         for input_key in optional_integer_inputs:
             self.set_optional_integer_input(input_data=input_data, input_key=input_key)
 
-        return InputData(input_data)
+        if self.valid:
+            self.result = InputData(input_data)
+
+        return self
 
     def handle_required_integer_input(self, input_data: Dict, input_key: str) -> None:
-        if input_data[input_key] is None:
+        input_value = input_data.get(input_key, None)
+
+        if input_value is None:
             self.valid = False
-            self.errors.append(f"Missing required input: ${input_key}")
+            self.errors.append(f"Missing required input: {input_key}")
             return None
 
         try:
-            input_data[input_key] = int(input_data[input_key])
+            input_data[input_key] = int(input_value)
         except ValueError:
             self.valid = False
-            self.errors.append(f"Value for ${input_key} is not an integer.")
+            self.errors.append(f"Value for {input_key} is not an integer.")
             return None
 
     def handle_required_bool_input(self, input_data: Dict, input_key: str) -> None:
-        input_value = input_data[input_key]
+        input_value = input_data.get(input_key, None)
+
         if input_value is None:
             self.valid = False
-            self.errors.append(f"Missing required input: ${input_key}")
+            self.errors.append(f"Missing required input: {input_key}")
             return None
 
         # Convert to a Python boolean if a "string-y" boolean is passed in:

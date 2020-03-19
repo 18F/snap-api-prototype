@@ -53,7 +53,7 @@ def step_impl(context, number):
 
 @when('we run the benefit estimator...')
 def step_impl(context):
-    parsed_input_data = ParseInputData(context.input_data).parse()
+    parsed_input_data = ParseInputData(context.input_data).parse().result
     benefit_estimate = BenefitEstimate(parsed_input_data)
     context.api_result = benefit_estimate.calculate()
 

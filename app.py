@@ -55,7 +55,9 @@ def create_app():
             }), 400
 
         # Handle valid input case; return data
-        benefit_estimate = BenefitEstimate(parsed_input_data).calculate()
+        input_data = parsed_input_data.result
+        benefit_estimate = BenefitEstimate(input_data).calculate()
+
         return jsonify({
             **benefit_estimate,
             'status': 'OK',
