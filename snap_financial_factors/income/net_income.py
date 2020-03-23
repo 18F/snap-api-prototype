@@ -17,7 +17,8 @@ class NetIncome:
     def __init__(self,
                  input_data: InputData,
                  gross_income: int,
-                 deductions_data: Dict,
+                 standard_deductions: Dict,
+                 max_shelter_deductions: Dict,
                  child_support_payments_treatment: str) -> None:
         # Load user input data
         self.input_data = input_data
@@ -31,8 +32,12 @@ class NetIncome:
         self.rent_or_mortgage = input_data.rent_or_mortgage
         self.homeowners_insurance_and_taxes = input_data.homeowners_insurance_and_taxes
 
-        self.deductions_data = deductions_data
+        # Load calculated inputs
         self.gross_income = gross_income
+
+        # Load state-level data
+        self.standard_deductions = standard_deductions
+        self.max_shelter_deductions = max_shelter_deductions
         self.child_support_payments_treatment = child_support_payments_treatment
 
     def calculate(self):
@@ -56,7 +61,7 @@ class NetIncome:
             StandardDeduction(
                 state_or_territory=self.state_or_territory,
                 household_size=self.household_size,
-                deductions_data=self.deductions_data
+                standard_deductions=self.standard_deductions
             ),
             EarnedIncomeDeduction(monthly_job_income=self.monthly_job_income),
             DependentCareDeduction(dependent_care_costs=self.dependent_care_costs),
@@ -94,7 +99,7 @@ class NetIncome:
             household_includes_elderly_or_disabled=self.household_includes_elderly_or_disabled,
             state_or_territory=self.state_or_territory,
             household_size=self.household_size,
-            deductions_data=self.deductions_data,
+            max_shelter_deductions=self.max_shelter_deductions,
         )
 
         excess_shelter_calculation = excess_shelter_deduction_calcualtor.calculate()

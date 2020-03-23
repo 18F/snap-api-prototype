@@ -1,0 +1,22 @@
+# SOURCES:
+#
+# https://www.fns.usda.gov/snap/allotment/COLA
+#
+# https://fns-prod.azureedge.net/sites/default/files/media/file/FY20-Maximum-Allotments-Deductions.pdf
+
+maximum_shelter_deduction:
+    DEFAULT:
+        2020:
+            569
+    AK:
+        2020:
+            908
+    HI:
+        2020:
+            766
+    GUAM:
+        2020:
+            667
+    VIRGIN_ISLANDS:
+        2020:
+            448
