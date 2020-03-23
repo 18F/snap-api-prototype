@@ -4,7 +4,7 @@ FNS provides a spreadsheet of information about standard utility allowances by s
 
 https://www.fns.usda.gov/snap/eligibility/deduction/standard-utility-allowances
 
-There are too many data points to make hard-coding sensible, but enough complexity that simply transforming the CSV to YAML and using the raw outut YAML directly isn't feasible.
+There are too many data points to make hard-coding sensible, but enough complexity that simply transforming the CSV to YAML and using the raw output YAML directly isn't feasible.
 
 I use a script to transform the raw CSV into raw YAML, and will then pull that YAML out into the main `standard_utility_allowances.yaml` file in the folder above on a state-by-state basis.
 
