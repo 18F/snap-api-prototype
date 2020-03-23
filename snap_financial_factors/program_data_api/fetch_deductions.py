@@ -21,6 +21,7 @@ class FetchDeductions:
 
     def state_lookup_key(self) -> str:
         return {
+            'IL': 'IL',
             'AK': 'AK',
             'HI': 'HI',
             'GUAM': 'GUAM',
