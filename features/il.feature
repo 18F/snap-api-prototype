@@ -90,8 +90,8 @@ Feature: Testing SNAP Financial Factors Web API for IL
     And the household has other income of $2323 monthly
     And the household has assets of $0
     When we run the benefit estimator...
-      Then we find the family is likely eligible
-      And we find the estimated benefit is $2 per month
+      Then we find the family is likely not eligible
+      And we find the estimated benefit is $0 per month
 
   Scenario: Earned income
     Given the household is in IL
