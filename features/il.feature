@@ -237,8 +237,7 @@ Feature: Testing SNAP Financial Factors Web API for IL
       Then we find the family is likely eligible
       And we find the estimated benefit is $319 per month
 
-  Scenario: Household where shelter costs exceed half of adjusted income by ~$100
-            & the household includes an elderly or disabled household member
+  Scenario: Household where shelter costs exceed half of adjusted income by ~$100 and the household includes an elderly or disabled household member
     Given the household is in IL
     And a 3-person household
     And the household does include an elderly or disabled member
@@ -262,8 +261,7 @@ Feature: Testing SNAP Financial Factors Web API for IL
       Then we find the family is likely eligible
       And we find the estimated benefit is $349 per month
 
-  Scenario: Household with excess shelter costs that exceed the IL 2020 max ($569)
-            & include an elderly or disabled household member
+  Scenario: Household with excess shelter costs that exceed the IL 2020 max ($569) that includes an elderly or disabled household member
     Given the household is in IL
     And a 3-person household
     And the household does include an elderly or disabled member
@@ -275,8 +273,7 @@ Feature: Testing SNAP Financial Factors Web API for IL
       Then we find the family is likely eligible
       And we find the estimated benefit is $496 per month
 
-  Scenario: Household with excess shelter costs that exceed the IL 2020 max ($569)
-            & do not include an elderly or disabled household member
+  Scenario: Household with excess shelter costs that exceed the IL 2020 max ($569) that does not include an elderly or disabled household member
     Given the household is in IL
     And a 3-person household
     And the household does not include an elderly or disabled member
