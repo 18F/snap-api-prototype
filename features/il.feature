@@ -273,7 +273,7 @@ Feature: Testing SNAP Financial Factors Web API for IL
     And the household has rent or mortgage costs of $1067 monthly
     When we run the benefit estimator...
       Then we find the family is likely eligible
-      And we find the estimated benefit is $499 per month
+      And we find the estimated benefit is $496 per month
 
   Scenario: Household with excess shelter costs that exceed the IL 2020 max ($569)
             & do not include an elderly or disabled household member
@@ -286,4 +286,4 @@ Feature: Testing SNAP Financial Factors Web API for IL
     And the household has rent or mortgage costs of $1067 monthly
     When we run the benefit estimator...
       Then we find the family is likely eligible
-      And we find the estimated benefit is $460 per month
+      And we find the estimated benefit is $457 per month
