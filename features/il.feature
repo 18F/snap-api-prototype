@@ -286,4 +286,4 @@ Feature: Testing SNAP Financial Factors Web API for IL
     And the household has rent or mortgage costs of $1067 monthly
     When we run the benefit estimator...
       Then we find the family is likely eligible
-      And we find the estimated benefit is $457 per month
+      And we find the estimated benefit is $458 per month
