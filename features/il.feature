@@ -90,8 +90,8 @@ Feature: Testing SNAP Financial Factors Web API for IL
     And the household has other income of $2323 monthly
     And the household has assets of $0
     When we run the benefit estimator...
-      Then we find the family is likely eligible
-      And we find the estimated benefit is $2 per month
+      Then we find the family is likely not eligible
+      And we find the estimated benefit is $0 per month
 
   Scenario: Earned income
     Given the household is in IL
@@ -102,7 +102,7 @@ Feature: Testing SNAP Financial Factors Web API for IL
     And the household has assets of $0
     When we run the benefit estimator...
       Then we find the family is likely eligible
-      And we find the estimated benefit is $319 per month
+      And we find the estimated benefit is $317 per month
 
   Scenario: Both earned income and other income
     Given the household is in IL
@@ -113,7 +113,7 @@ Feature: Testing SNAP Financial Factors Web API for IL
     And the household has assets of $0
     When we run the benefit estimator...
       Then we find the family is likely eligible
-      And we find the estimated benefit is $289 per month
+      And we find the estimated benefit is $287 per month
 
   Scenario: Dependent care deduction
     Given the household is in IL
@@ -125,7 +125,7 @@ Feature: Testing SNAP Financial Factors Web API for IL
     And the household has dependent care costs of $100 monthly
     When we run the benefit estimator...
       Then we find the family is likely eligible
-      And we find the estimated benefit is $319 per month
+      And we find the estimated benefit is $317 per month
 
   Scenario: Medical expenses of $0 do not affect benefit amount
     Given the household is in IL
@@ -137,7 +137,7 @@ Feature: Testing SNAP Financial Factors Web API for IL
     And the household has medical expenses for elderly or disabled members of $0 monthly
     When we run the benefit estimator...
       Then we find the family is likely eligible
-      And we find the estimated benefit is $343 per month
+      And we find the estimated benefit is $341 per month
 
   Scenario: Medical expenses of $35 do not affect benefit amount
     Given the household is in IL
@@ -149,7 +149,7 @@ Feature: Testing SNAP Financial Factors Web API for IL
     And the household has medical expenses for elderly or disabled members of $35 monthly
     When we run the benefit estimator...
       Then we find the family is likely eligible
-      And we find the estimated benefit is $343 per month
+      And we find the estimated benefit is $341 per month
 
   Scenario: Medical expenses of $135 increase benefit by $30
     Given the household is in IL
@@ -161,7 +161,7 @@ Feature: Testing SNAP Financial Factors Web API for IL
     And the household has medical expenses for elderly or disabled members of $135 monthly
     When we run the benefit estimator...
       Then we find the family is likely eligible
-      And we find the estimated benefit is $373 per month
+      And we find the estimated benefit is $371 per month
 
   Scenario: Medical expenses do not affect benefit if household does not include an elderly or disabled member
     Given the household is in IL
@@ -173,7 +173,7 @@ Feature: Testing SNAP Financial Factors Web API for IL
     And the household has medical expenses for elderly or disabled members of $135 monthly
     When we run the benefit estimator...
       Then we find the family is likely eligible
-      And we find the estimated benefit is $343 per month
+      And we find the estimated benefit is $341 per month
 
   Scenario: Household passes net income test but not gross income test
     Given the household is in IL
@@ -198,7 +198,7 @@ Feature: Testing SNAP Financial Factors Web API for IL
     And the household has court-ordered child support payments of $100 monthly
     When we run the benefit estimator...
       Then we find the family is likely eligible
-      And we find the estimated benefit is $49 per month
+      And we find the estimated benefit is $47 per month
 
   Scenario: More child support payments increase estimated benefit
     Given the household is in IL
@@ -211,7 +211,7 @@ Feature: Testing SNAP Financial Factors Web API for IL
     And the household has court-ordered child support payments of $400 monthly
     When we run the benefit estimator...
       Then we find the family is likely eligible
-      And we find the estimated benefit is $139 per month
+      And we find the estimated benefit is $137 per month
 
   Scenario: Household where shelter costs do not exceed half of adjusted income
     Given the household is in IL
@@ -223,7 +223,7 @@ Feature: Testing SNAP Financial Factors Web API for IL
     And the household has rent or mortgage costs of $300 monthly
     When we run the benefit estimator...
       Then we find the family is likely eligible
-      And we find the estimated benefit is $289 per month
+      And we find the estimated benefit is $287 per month
 
   Scenario: Household where shelter costs exceed half of adjusted income by ~$100
     Given the household is in IL
@@ -235,10 +235,9 @@ Feature: Testing SNAP Financial Factors Web API for IL
     And the household has rent or mortgage costs of $467 monthly
     When we run the benefit estimator...
       Then we find the family is likely eligible
-      And we find the estimated benefit is $319 per month
+      And we find the estimated benefit is $316 per month
 
-  Scenario: Household where shelter costs exceed half of adjusted income by ~$100
-            & the household includes an elderly or disabled household member
+  Scenario: Household where shelter costs exceed half of adjusted income by ~$100 and the household includes an elderly or disabled household member
     Given the household is in IL
     And a 3-person household
     And the household does include an elderly or disabled member
@@ -248,7 +247,7 @@ Feature: Testing SNAP Financial Factors Web API for IL
     And the household has rent or mortgage costs of $467 monthly
     When we run the benefit estimator...
       Then we find the family is likely eligible
-      And we find the estimated benefit is $319 per month
+      And we find the estimated benefit is $316 per month
 
   Scenario: Household where shelter costs exceed half of adjusted income by ~$200
     Given the household is in IL
@@ -260,10 +259,9 @@ Feature: Testing SNAP Financial Factors Web API for IL
     And the household has rent or mortgage costs of $567 monthly
     When we run the benefit estimator...
       Then we find the family is likely eligible
-      And we find the estimated benefit is $349 per month
+      And we find the estimated benefit is $346 per month
 
-  Scenario: Household with excess shelter costs that exceed the IL 2020 max ($569)
-            & include an elderly or disabled household member
+  Scenario: Household with excess shelter costs that exceed the IL 2020 max ($569) that includes an elderly or disabled household member
     Given the household is in IL
     And a 3-person household
     And the household does include an elderly or disabled member
@@ -273,10 +271,9 @@ Feature: Testing SNAP Financial Factors Web API for IL
     And the household has rent or mortgage costs of $1067 monthly
     When we run the benefit estimator...
       Then we find the family is likely eligible
-      And we find the estimated benefit is $499 per month
+      And we find the estimated benefit is $496 per month
 
-  Scenario: Household with excess shelter costs that exceed the IL 2020 max ($569)
-            & do not include an elderly or disabled household member
+  Scenario: Household with excess shelter costs that exceed the IL 2020 max ($569) that does not include an elderly or disabled household member
     Given the household is in IL
     And a 3-person household
     And the household does not include an elderly or disabled member
@@ -286,4 +283,4 @@ Feature: Testing SNAP Financial Factors Web API for IL
     And the household has rent or mortgage costs of $1067 monthly
     When we run the benefit estimator...
       Then we find the family is likely eligible
-      And we find the estimated benefit is $460 per month
+      And we find the estimated benefit is $458 per month

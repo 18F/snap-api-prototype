@@ -30,7 +30,8 @@ class BenefitEstimate:
         # Load SNAP program data as YAML
         self.state_options_data = yaml.safe_load(open('./program_data/state_options.yaml', 'r'))
         self.income_limit_data = yaml.safe_load(open('./program_data/income_limits.yaml', 'r'))
-        self.deductions_data = yaml.safe_load(open('./program_data/deductions.yaml', 'r'))
+        self.standard_deductions = yaml.safe_load(open('./program_data/standard_deductions.yaml', 'r'))
+        self.max_shelter_deductions = yaml.safe_load(open('./program_data/max_shelter_deductions.yaml', 'r'))
         self.max_allotments = yaml.safe_load(open('./program_data/max_allotments.yaml', 'r'))
         self.min_allotments = yaml.safe_load(open('./program_data/min_allotments.yaml', 'r'))
 
@@ -105,7 +106,6 @@ class BenefitEstimate:
         reasons.
         """
         input_data = self.input_data
-        deductions_data = self.deductions_data
         income_limit_data = self.income_limit_data
         state_or_territory = self.state_or_territory
         household_size = self.household_size
@@ -118,7 +118,8 @@ class BenefitEstimate:
 
         net_income_calculator = NetIncome(input_data,
                                           gross_income,
-                                          deductions_data,
+                                          self.standard_deductions,
+                                          self.max_shelter_deductions,
                                           child_support_payments_treatment)
 
         net_income_calculation = net_income_calculator.calculate()

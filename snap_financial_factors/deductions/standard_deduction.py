@@ -1,6 +1,6 @@
 from typing import Dict
 from snap_financial_factors.deductions.deduction_result import DeductionResult
-from snap_financial_factors.program_data_api.fetch_deductions import FetchDeductions
+from snap_financial_factors.program_data_api.fetch_standard_deductions import FetchStandardDeductions
 
 
 class StandardDeduction:
@@ -10,16 +10,16 @@ class StandardDeduction:
     def __init__(self,
                  state_or_territory: str,
                  household_size: int,
-                 deductions_data: Dict) -> None:
+                 standard_deductions: Dict) -> None:
         self.state_or_territory = state_or_territory
         self.household_size = household_size
-        self.deductions_data = deductions_data
+        self.standard_deductions = standard_deductions
 
     def calculate(self) -> DeductionResult:
-        deductions_api = FetchDeductions(
+        deductions_api = FetchStandardDeductions(
             state_or_territory=self.state_or_territory,
             household_size=self.household_size,
-            deductions_data=self.deductions_data,
+            standard_deductions=self.standard_deductions,
             fiscal_year=2020
         )
 
