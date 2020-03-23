@@ -102,7 +102,7 @@ Feature: Testing SNAP Financial Factors Web API for IL
     And the household has assets of $0
     When we run the benefit estimator...
       Then we find the family is likely eligible
-      And we find the estimated benefit is $319 per month
+      And we find the estimated benefit is $317 per month
 
   Scenario: Both earned income and other income
     Given the household is in IL
@@ -113,7 +113,7 @@ Feature: Testing SNAP Financial Factors Web API for IL
     And the household has assets of $0
     When we run the benefit estimator...
       Then we find the family is likely eligible
-      And we find the estimated benefit is $289 per month
+      And we find the estimated benefit is $287 per month
 
   Scenario: Dependent care deduction
     Given the household is in IL
@@ -247,7 +247,7 @@ Feature: Testing SNAP Financial Factors Web API for IL
     And the household has rent or mortgage costs of $467 monthly
     When we run the benefit estimator...
       Then we find the family is likely eligible
-      And we find the estimated benefit is $319 per month
+      And we find the estimated benefit is $316 per month
 
   Scenario: Household where shelter costs exceed half of adjusted income by ~$200
     Given the household is in IL
