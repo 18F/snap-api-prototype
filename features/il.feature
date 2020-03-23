@@ -137,7 +137,7 @@ Feature: Testing SNAP Financial Factors Web API for IL
     And the household has medical expenses for elderly or disabled members of $0 monthly
     When we run the benefit estimator...
       Then we find the family is likely eligible
-      And we find the estimated benefit is $343 per month
+      And we find the estimated benefit is $341 per month
 
   Scenario: Medical expenses of $35 do not affect benefit amount
     Given the household is in IL
@@ -149,7 +149,7 @@ Feature: Testing SNAP Financial Factors Web API for IL
     And the household has medical expenses for elderly or disabled members of $35 monthly
     When we run the benefit estimator...
       Then we find the family is likely eligible
-      And we find the estimated benefit is $343 per month
+      And we find the estimated benefit is $341 per month
 
   Scenario: Medical expenses of $135 increase benefit by $30
     Given the household is in IL
@@ -161,7 +161,7 @@ Feature: Testing SNAP Financial Factors Web API for IL
     And the household has medical expenses for elderly or disabled members of $135 monthly
     When we run the benefit estimator...
       Then we find the family is likely eligible
-      And we find the estimated benefit is $373 per month
+      And we find the estimated benefit is $371 per month
 
   Scenario: Medical expenses do not affect benefit if household does not include an elderly or disabled member
     Given the household is in IL
