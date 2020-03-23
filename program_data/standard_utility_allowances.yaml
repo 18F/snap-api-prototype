@@ -1,0 +1,33 @@
+# NOTES: This YAML file is currently incomplete; I am adding each state's data
+# as needed rather than trying to add every state at once. Some states have
+# more complexity, such as multiple regions in one state, and/or different
+# SUA values for different household sizes.
+#
+# SOURCES:
+#
+# "Standard Utility Allowances", USDA:
+#
+# https://www.fns.usda.gov/snap/eligibility/deduction/standard-utility-allowances
+#
+# See the standard_utility_allowances folder and associated README for more
+# information and context.
+
+IL:
+    HEATING_AND_COOLING_UTILITY_ALLOWANCE: $466
+    BASIC_LIMITED_UTILITY_ALLOWANCE: $319
+    ELECTRICITY: $72
+    GAS_AND_FUEL: $72
+    PHONE: $30
+    SEWAGE: $72
+    TRASH: $72
+    WATER: $72
+
+VT:
+    HEATING_AND_COOLING_UTILITY_ALLOWANCE: $822
+    BASIC_LIMITED_UTILITY_ALLOWANCE: $235
+    ELECTRICITY: $0
+    GAS_AND_FUEL: $0
+    PHONE: $36
+    SEWAGE: $0
+    TRASH: $0
+    WATER: $0

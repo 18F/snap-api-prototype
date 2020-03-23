@@ -9,7 +9,10 @@
 # "State Options Report", USDA, Options as of October 1, 2017:
 #
 # https://fns-prod.azureedge.net/sites/default/files/snap/14-State-Options.pdf
-
+#
+# "Standard Utility Allowances", USDA:
+#
+# https://www.fns.usda.gov/snap/eligibility/deduction/standard-utility-allowances
 
 CA:
     2020:
@@ -18,6 +21,7 @@ CA:
         resource_limit_elderly_or_disabled: NULL
         resource_limit_elderly_or_disabled_income_twice_fpl: NULL
         resource_limit_non_elderly_or_disabled: NULL
+        mandatory_standard_utility_allowances: True
         child_support_payments_treatment: EXCLUDE  # According to USDA State Options Report. Options as of October 1, 2017.
 
 ID:
@@ -27,6 +31,7 @@ ID:
         resource_limit_elderly_or_disabled: 5000
         resource_limit_elderly_or_disabled_income_twice_fpl: 5000
         resource_limit_non_elderly_or_disabled: 5000
+        mandatory_standard_utility_allowances: True
         child_support_payments_treatment: DEDUCT  # According to USDA State Options Report. Options as of October 1, 2017.
 
 IL:
@@ -37,6 +42,7 @@ IL:
         resource_limit_elderly_or_disabled_income_twice_fpl: 3500
         resource_limit_non_elderly_or_disabled: NULL
         child_support_payments_treatment: EXCLUDE  # According to USDA State Options Report. Options as of October 1, 2017.
+        mandatory_standard_utility_allowances: True
         website: https://abe.illinois.gov/abe/access/
 
 MA:
@@ -46,12 +52,14 @@ MA:
         resource_limit_elderly_or_disabled: NULL
         resource_limit_elderly_or_disabled_income_twice_fpl: 3500
         resource_limit_non_elderly_or_disabled: NULL
+        mandatory_standard_utility_allowances: True
         child_support_payments_treatment: DEDUCT  # According to USDA State Options Report. Options as of October 1, 2017.
 
 UT:
     2020:
         uses_bbce: False
         child_support_payments_treatment: DEDUCT  # According to USDA State Options Report. Options as of October 1, 2017.
+        mandatory_standard_utility_allowances: True
         website: https://jobs.utah.gov/assistance/index.html
 
 VT:
@@ -62,4 +70,5 @@ VT:
         resource_limit_elderly_or_disabled_income_twice_fpl: NULL
         resource_limit_non_elderly_or_disabled: NULL
         child_support_payments_treatment: DEDUCT  # According to USDA State Options Report. Options as of October 1, 2017.
+        mandatory_standard_utility_allowances: True
         website: https://dcf.vermont.gov/mybenefits
