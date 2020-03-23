@@ -17,10 +17,8 @@ reader = csv.DictReader(
         'PHONE',
     ])
 
-# State (with Region and Household Size)
 for index, row in enumerate(reader):
     if index > 0:
-        print(row)
         state_with_region = row['STATE_WITH_REGION']
         row.pop('STATE_WITH_REGION')
         data[state_with_region] = row
