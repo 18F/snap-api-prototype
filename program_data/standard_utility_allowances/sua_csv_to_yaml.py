@@ -7,7 +7,7 @@ reader = csv.DictReader(
     open('Copy-of-SNAP-SUA-Table-FY2019.csv', newline=''),
     fieldnames=[
         'STATE_WITH_REGION',
-        'HEATING_AND_COOLING',
+        'HEATING_AND_COOLING_UTILITY_ALLOWANCE',
         'BASIC_LIMITED_UTILITY_ALLOWANCE',
         'ELECTRICITY',
         'GAS_AND_FUEL',
