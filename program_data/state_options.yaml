@@ -55,6 +55,28 @@ MA:
         mandatory_standard_utility_allowances: True
         child_support_payments_treatment: DEDUCT  # According to USDA State Options Report. Options as of October 1, 2017.
 
+MI:
+    2020:
+        uses_bbce: True
+        gross_income_limit_factor: 2
+        resource_limit_elderly_or_disabled: 15000 # NOTE: Double-check this across households with/without elderly or disabled members.
+        resource_limit_elderly_or_disabled_income_twice_fpl: 15000 # NOTE: Double-check this across households with/without elderly or disabled members.
+        resource_limit_non_elderly_or_disabled: 15000 # NOTE: Double-check this across households with/without elderly or disabled members.
+        mandatory_standard_utility_allowances: True
+        child_support_payments_treatment: DEDUCT  # According to USDA State Options Report. Options as of October 1, 2017.
+        website: https://newmibridges.michigan.gov/
+
+MN:
+    2020:
+        uses_bbce: True
+        gross_income_limit_factor: 1.65
+        resource_limit_elderly_or_disabled: NULL
+        resource_limit_elderly_or_disabled_income_twice_fpl: NULL
+        resource_limit_non_elderly_or_disabled: NULL
+        mandatory_standard_utility_allowances: True
+        child_support_payments_treatment: DEDUCT  # According to USDA State Options Report. Options as of October 1, 2017.
+        website: https://edocs.dhs.state.mn.us/lfserver/public/DHS-3529-ENG
+
 UT:
     2020:
         uses_bbce: False
