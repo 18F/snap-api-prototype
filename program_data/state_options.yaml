@@ -62,8 +62,8 @@ MI:
         resource_limit_elderly_or_disabled: 15000 # NOTE: Double-check this across households with/without elderly or disabled members.
         resource_limit_elderly_or_disabled_income_twice_fpl: 15000 # NOTE: Double-check this across households with/without elderly or disabled members.
         resource_limit_non_elderly_or_disabled: 15000 # NOTE: Double-check this across households with/without elderly or disabled members.
-        mandatory_standard_utility_allowances:
-        child_support_payments_treatment:
+        mandatory_standard_utility_allowances: True
+        child_support_payments_treatment: DEDUCT  # According to USDA State Options Report. Options as of October 1, 2017.
 
 MN:
     2020:
@@ -72,8 +72,8 @@ MN:
         resource_limit_elderly_or_disabled: NULL
         resource_limit_elderly_or_disabled_income_twice_fpl: NULL
         resource_limit_non_elderly_or_disabled: NULL
-        mandatory_standard_utility_allowances:
-        child_support_payments_treatment:
+        mandatory_standard_utility_allowances: True
+        child_support_payments_treatment: DEDUCT  # According to USDA State Options Report. Options as of October 1, 2017.
 
 UT:
     2020:
