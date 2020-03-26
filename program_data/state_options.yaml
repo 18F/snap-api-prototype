@@ -57,21 +57,21 @@ MA:
 
 MI:
     2020:
-        uses_bbce:
-        gross_income_limit_factor:
-        resource_limit_elderly_or_disabled:
-        resource_limit_elderly_or_disabled_income_twice_fpl:
-        resource_limit_non_elderly_or_disabled:
+        uses_bbce: True
+        gross_income_limit_factor: 2
+        resource_limit_elderly_or_disabled: 15000 # NOTE: Double-check this across households with/without elderly or disabled members.
+        resource_limit_elderly_or_disabled_income_twice_fpl: 15000 # NOTE: Double-check this across households with/without elderly or disabled members.
+        resource_limit_non_elderly_or_disabled: 15000 # NOTE: Double-check this across households with/without elderly or disabled members.
         mandatory_standard_utility_allowances:
         child_support_payments_treatment:
 
 MN:
     2020:
-        uses_bbce:
-        gross_income_limit_factor:
-        resource_limit_elderly_or_disabled:
-        resource_limit_elderly_or_disabled_income_twice_fpl:
-        resource_limit_non_elderly_or_disabled:
+        uses_bbce: True
+        gross_income_limit_factor: 1.65
+        resource_limit_elderly_or_disabled: NULL
+        resource_limit_elderly_or_disabled_income_twice_fpl: NULL
+        resource_limit_non_elderly_or_disabled: NULL
         mandatory_standard_utility_allowances:
         child_support_payments_treatment:
 
