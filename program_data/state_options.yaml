@@ -55,6 +55,26 @@ MA:
         mandatory_standard_utility_allowances: True
         child_support_payments_treatment: DEDUCT  # According to USDA State Options Report. Options as of October 1, 2017.
 
+MI:
+    2020:
+        uses_bbce:
+        gross_income_limit_factor:
+        resource_limit_elderly_or_disabled:
+        resource_limit_elderly_or_disabled_income_twice_fpl:
+        resource_limit_non_elderly_or_disabled:
+        mandatory_standard_utility_allowances:
+        child_support_payments_treatment:
+
+MN:
+    2020:
+        uses_bbce:
+        gross_income_limit_factor:
+        resource_limit_elderly_or_disabled:
+        resource_limit_elderly_or_disabled_income_twice_fpl:
+        resource_limit_non_elderly_or_disabled:
+        mandatory_standard_utility_allowances:
+        child_support_payments_treatment:
+
 UT:
     2020:
         uses_bbce: False
