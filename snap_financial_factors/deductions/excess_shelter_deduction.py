@@ -51,21 +51,37 @@ class ExcessShelterDeduction:
 
         shelter_costs_explanation = (
             'Next, add up shelter costs by adding any costs of rent, mortgage ' +
-            'payments, homeowners insurance and property taxes:'
+            'payments, homeowners insurance and property taxes, and utility costs. ' +
+            "Let's start with everything except utilities:"
         )
         explanation.append(shelter_costs_explanation)
 
-        self.shelter_costs = self.rent_or_mortgage + self.homeowners_insurance_and_taxes
+        base_shelter_costs = self.rent_or_mortgage + self.homeowners_insurance_and_taxes
 
         shelter_costs_math_explanation = (
             f"${self.rent_or_mortgage} rent or mortgage + " +
             f"${self.homeowners_insurance_and_taxes} homeowners insurance and taxes = " +
-            f"${self.shelter_costs}"
+            f"${base_shelter_costs}"
         )
         explanation.append(shelter_costs_math_explanation)
 
+        # Handle utilities:
+        if self.mandatory_standard_utility_allowances:
+            if self.utility_allowance:
+                utility_allowance_amount = self.standard_utility_allowances[self.utility_allowance]
+                shelter_costs = base_shelter_costs + utility_allowance_amount
+                utilities_explanation = ('')
+            else:
+                shelter_costs = base_shelter_costs
+                utilities_explanation = ('')
+        else:
+            shelter_costs = base_shelter_costs + self.utility_costs
+            utilities_explanation = ('')
+
+        explanation.append(utilities_explanation)
+
         # If shelter costs are less than half of adjusted income, no deduction applied.
-        if half_adjusted_income > self.shelter_costs:
+        if half_adjusted_income > shelter_costs:
             explanation.append(
                 'In this case, shelter costs do not exceed half of adjusted income, ' +
                 'so the excess shelter deduction does not apply.'
@@ -73,7 +89,7 @@ class ExcessShelterDeduction:
 
             return DeductionResult(result=0, explanation=explanation)
 
-        raw_deduction_amount = self.shelter_costs - half_adjusted_income
+        raw_deduction_amount = shelter_costs - half_adjusted_income
 
         excess_shelter_costs_math_intro = (
             'Subtract half of adjusted income from shelter costs to find ' +
@@ -82,7 +98,7 @@ class ExcessShelterDeduction:
         explanation.append(excess_shelter_costs_math_intro)
 
         excess_shelter_costs_math_explanation = (
-            f"${self.shelter_costs} shelter costs - " +
+            f"${shelter_costs} shelter costs - " +
             f"${half_adjusted_income} half of adjusted income = " +
             f"${raw_deduction_amount} base deduction"
         )
