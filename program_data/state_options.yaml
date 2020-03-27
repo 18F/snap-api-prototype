@@ -13,6 +13,15 @@
 # "Standard Utility Allowances", USDA:
 #
 # https://www.fns.usda.gov/snap/eligibility/deduction/standard-utility-allowances
+#
+# Data on standard utility allowances is incomplete; I am adding in state data
+# as needed rather than trying to add every state at once. Some states have
+# more complexity when it comes to standard utility allowances, such as multiple
+# regions in one state, and/or different SUA values for different household sizes.
+# That complexity is not modeled here yet.
+#
+# See the standard_utility_allowances folder and associated README for more
+# information, context, and parsing scripts.
 
 CA:
     2020:
@@ -21,8 +30,8 @@ CA:
         resource_limit_elderly_or_disabled: NULL
         resource_limit_elderly_or_disabled_income_twice_fpl: NULL
         resource_limit_non_elderly_or_disabled: NULL
-        mandatory_standard_utility_allowances: True
         child_support_payments_treatment: EXCLUDE  # According to USDA State Options Report. Options as of October 1, 2017.
+        mandatory_standard_utility_allowances: True
 
 ID:
     2020:
@@ -31,8 +40,8 @@ ID:
         resource_limit_elderly_or_disabled: 5000
         resource_limit_elderly_or_disabled_income_twice_fpl: 5000
         resource_limit_non_elderly_or_disabled: 5000
-        mandatory_standard_utility_allowances: True
         child_support_payments_treatment: DEDUCT  # According to USDA State Options Report. Options as of October 1, 2017.
+        mandatory_standard_utility_allowances: True
 
 IL:
     2020:
@@ -42,8 +51,17 @@ IL:
         resource_limit_elderly_or_disabled_income_twice_fpl: 3500
         resource_limit_non_elderly_or_disabled: NULL
         child_support_payments_treatment: EXCLUDE  # According to USDA State Options Report. Options as of October 1, 2017.
-        mandatory_standard_utility_allowances: True
         website: https://abe.illinois.gov/abe/access/
+        mandatory_standard_utility_allowances: True
+        standard_utility_allowances:
+              HEATING_AND_COOLING: 466
+              BASIC_LIMITED_ALLOWANCE: 319
+              ELECTRICITY: 72
+              GAS_AND_FUEL: 72
+              PHONE: 30
+              SEWAGE: 72
+              TRASH: 72
+              WATER: 72
 
 MA:
     2020:
@@ -52,8 +70,8 @@ MA:
         resource_limit_elderly_or_disabled: NULL
         resource_limit_elderly_or_disabled_income_twice_fpl: 3500
         resource_limit_non_elderly_or_disabled: NULL
-        mandatory_standard_utility_allowances: True
         child_support_payments_treatment: DEDUCT  # According to USDA State Options Report. Options as of October 1, 2017.
+        mandatory_standard_utility_allowances: True
 
 MI:
     2020:
@@ -62,9 +80,18 @@ MI:
         resource_limit_elderly_or_disabled: 15000 # NOTE: Double-check this across households with/without elderly or disabled members.
         resource_limit_elderly_or_disabled_income_twice_fpl: 15000 # NOTE: Double-check this across households with/without elderly or disabled members.
         resource_limit_non_elderly_or_disabled: 15000 # NOTE: Double-check this across households with/without elderly or disabled members.
-        mandatory_standard_utility_allowances: True
         child_support_payments_treatment: DEDUCT  # According to USDA State Options Report. Options as of October 1, 2017.
         website: https://newmibridges.michigan.gov/
+        mandatory_standard_utility_allowances: True
+        standard_utility_allowances:
+              HEATING_AND_COOLING: 543
+              BASIC_LIMITED_ALLOWANCE: 0
+              ELECTRICITY: 135
+              GAS_AND_FUEL: 44
+              PHONE: 31
+              SEWAGE: 91
+              TRASH: 19
+              WATER: 91
 
 MN:
     2020:
@@ -73,16 +100,25 @@ MN:
         resource_limit_elderly_or_disabled: NULL
         resource_limit_elderly_or_disabled_income_twice_fpl: NULL
         resource_limit_non_elderly_or_disabled: NULL
-        mandatory_standard_utility_allowances: True
         child_support_payments_treatment: DEDUCT  # According to USDA State Options Report. Options as of October 1, 2017.
         website: https://edocs.dhs.state.mn.us/lfserver/public/DHS-3529-ENG
+        mandatory_standard_utility_allowances: True
+        standard_utility_allowances:
+            HEATING_AND_COOLING: 556
+            BASIC_LIMITED_ALLOWANCE: 0
+            ELECTRICITY: 172
+            GAS_AND_FUEL: 0
+            PHONE: 41
+            SEWAGE: 0
+            TRASH: 0
+            WATER: 0
 
 UT:
     2020:
         uses_bbce: False
         child_support_payments_treatment: DEDUCT  # According to USDA State Options Report. Options as of October 1, 2017.
-        mandatory_standard_utility_allowances: True
         website: https://jobs.utah.gov/assistance/index.html
+        mandatory_standard_utility_allowances: True
 
 VT:
     2020:
@@ -92,5 +128,14 @@ VT:
         resource_limit_elderly_or_disabled_income_twice_fpl: NULL
         resource_limit_non_elderly_or_disabled: NULL
         child_support_payments_treatment: DEDUCT  # According to USDA State Options Report. Options as of October 1, 2017.
-        mandatory_standard_utility_allowances: True
         website: https://dcf.vermont.gov/mybenefits
+        mandatory_standard_utility_allowances: True
+        standard_utility_allowances:
+            HEATING_AND_COOLING: 822
+            BASIC_LIMITED_ALLOWANCE: 235
+            ELECTRICITY: 0
+            GAS_AND_FUEL: 0
+            PHONE: 36
+            SEWAGE: 0
+            TRASH: 0
+            WATER: 0
