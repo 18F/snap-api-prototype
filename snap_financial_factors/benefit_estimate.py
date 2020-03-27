@@ -75,31 +75,49 @@ class BenefitEstimate:
             raise ValueError('Unknown value for child_support_payments_treatment.')
 
         state_uses_bbce = state_options['uses_bbce']
+        mandatory_standard_utility_allowances = state_options['mandatory_standard_utility_allowances']
 
         if state_uses_bbce:
-            return self.__eligibility_calculation_with_params(
+            eligibility_args = [
                 state_options['gross_income_limit_factor'],
                 state_options['resource_limit_elderly_or_disabled'],
                 state_options['resource_limit_elderly_or_disabled_income_twice_fpl'],
                 state_options['resource_limit_non_elderly_or_disabled'],
-                child_support_payments_treatment
-            )
+                child_support_payments_treatment,
+            ]
         else:
-            # SNAP federal policy defaults
-            return self.__eligibility_calculation_with_params(
-                gross_income_limit_factor=1.3,
-                resource_limit_elderly_or_disabled=3500,
-                resource_limit_elderly_or_disabled_income_twice_fpl=3500,
-                resource_limit_non_elderly_or_disabled=2250,
-                child_support_payments_treatment=child_support_payments_treatment
-            )
+            # Use federal defaults when state does not set its own BBCE options:
+            eligibility_args = [
+                1.3,   # gross_income_limit_factor
+                3500,  # resource_limit_elderly_or_disabled
+                3500,  # resource_limit_elderly_or_disabled_income_twice_fpl
+                2250,  # resource_limit_non_elderly_or_disabled
+                child_support_payments_treatment
+            ]
+
+        if mandatory_standard_utility_allowances:
+            # If the state uses standard utility allowances, send in the state's
+            # standard utility allowance data
+            eligibility_args.extend([
+                True,
+                state_options.get('standard_utility_allowances', None)
+            ])
+        else:
+            eligibility_args.extend([
+                False,
+                None
+            ])
+
+        return self.__eligibility_calculation_with_params(*eligibility_args)
 
     def __eligibility_calculation_with_params(self,
                                               gross_income_limit_factor,
                                               resource_limit_elderly_or_disabled,
                                               resource_limit_elderly_or_disabled_income_twice_fpl,
                                               resource_limit_non_elderly_or_disabled,
-                                              child_support_payments_treatment):
+                                              child_support_payments_treatment,
+                                              mandatory_standard_utility_allowances,
+                                              standard_utility_allowances):
         """
         Private method. Breaks eligibility determiniation into component
         classes; asks each of those classes to run calculations and return
