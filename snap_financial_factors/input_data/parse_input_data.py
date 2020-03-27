@@ -53,9 +53,14 @@ class ParseInputData:
             'court_ordered_child_support_payments',
             'rent_or_mortgage',
             'homeowners_insurance_and_taxes',
+            'utility_costs',
         ]
         for input_key in optional_integer_inputs:
             self.set_optional_integer_input(input_data=input_data, input_key=input_key)
+
+        # Handle utility allowance input, string that must match tuple of
+        # allowances the API knows about
+        self.handle_utility_allowance_input(input_data=input_data)
 
         if self.valid:
             self.result = InputData(input_data)
@@ -88,6 +93,33 @@ class ParseInputData:
         # Convert to a Python boolean if a "string-y" boolean is passed in:
         if isinstance(input_value, str):
             input_data[input_key] = (input_value == 'true')
+
+    def handle_utility_allowance_input(self, input_data: Dict) -> None:
+        input_value = input_data.get('utility_allowance', None)
+
+        # Utility allowance can be blank if the input is coming from a state
+        # that uses raw utility costs instead of standard utility allowances
+        if input_value is None:
+            input_data['utility_allowance'] = None
+            return None
+
+        UTILITY_ALLOWANCES = (
+            'HEATING_AND_COOLING',
+            'BASIC_LIMITED_ALLOWANCE',
+            'ELECTRICITY',
+            'GAS_AND_FUEL',
+            'PHONE',
+            'SEWAGE',
+            'TRASH',
+            'WATER',
+        )
+
+        if input_value in UTILITY_ALLOWANCES:
+            input_data['utility_allowance'] = input_value
+        else:
+            self.valid = False
+            self.errors.append(f"Unknown standard utility allowance: {input_value}")
+            return None
 
     def set_optional_integer_input(self, input_data: Dict, input_key: str) -> None:
         input_data[input_key] = self.parse_optional_integer_input(input_key)
