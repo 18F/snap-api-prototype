@@ -123,6 +123,7 @@ class BenefitEstimate:
         classes; asks each of those classes to run calculations and return
         reasons.
         """
+
         input_data = self.input_data
         income_limit_data = self.income_limit_data
         state_or_territory = self.state_or_territory
@@ -138,7 +139,9 @@ class BenefitEstimate:
                                           gross_income,
                                           self.standard_deductions,
                                           self.max_shelter_deductions,
-                                          child_support_payments_treatment)
+                                          child_support_payments_treatment,
+                                          mandatory_standard_utility_allowances,
+                                          standard_utility_allowances)
 
         net_income_calculation = net_income_calculator.calculate()
         net_income = net_income_calculation.result

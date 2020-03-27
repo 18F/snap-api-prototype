@@ -1,4 +1,5 @@
 from typing import Dict
+
 from snap_financial_factors.deductions.deduction_result import DeductionResult
 from snap_financial_factors.program_data_api.fetch_max_shelter_deductions import FetchMaxShelterDeductions
 
@@ -15,7 +16,11 @@ class ExcessShelterDeduction:
                  household_includes_elderly_or_disabled: bool,
                  state_or_territory: str,
                  household_size: int,
-                 max_shelter_deductions: Dict) -> None:
+                 max_shelter_deductions: Dict,
+                 utility_costs: int,
+                 utility_allowance: str,
+                 mandatory_standard_utility_allowances: bool,
+                 standard_utility_allowances: Dict) -> None:
         self.adjusted_income = adjusted_income
         self.rent_or_mortgage = rent_or_mortgage
         self.homeowners_insurance_and_taxes = homeowners_insurance_and_taxes
@@ -23,6 +28,10 @@ class ExcessShelterDeduction:
         self.state_or_territory = state_or_territory
         self.household_size = household_size
         self.max_shelter_deductions = max_shelter_deductions
+        self.utility_costs = utility_costs
+        self.utility_allowance = utility_allowance
+        self.mandatory_standard_utility_allowances = mandatory_standard_utility_allowances
+        self.standard_utility_allowances = standard_utility_allowances
 
     def calculate(self) -> DeductionResult:
         explanation = [
