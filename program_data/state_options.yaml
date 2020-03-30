@@ -53,15 +53,19 @@ IL:
         child_support_payments_treatment: EXCLUDE  # According to USDA State Options Report. Options as of October 1, 2017.
         website: https://abe.illinois.gov/abe/access/
         mandatory_standard_utility_allowances: True
+        # NOTE: IL uses different standard utility allowances than those listed
+        # in the latest (FY2019) FNS Standard Utility Allowances spreadsheet.
+        #
+        # Is IL is using older, newer, or just different allowances than
+        # those the federal data source suggests? I'm not really sure.
+        # Source for IL standard utility allowances:
+        #
+        # https://www.dhs.state.il.us/page.aspx?item=16170
         standard_utility_allowances:
-              HEATING_AND_COOLING: 466
-              BASIC_LIMITED_ALLOWANCE: 319
-              ELECTRICITY: 72
-              GAS_AND_FUEL: 72
+              HEATING_AND_COOLING: 478
+              BASIC_LIMITED_ALLOWANCE: 328
+              SINGLE_UTILITY: 74
               PHONE: 30
-              SEWAGE: 72
-              TRASH: 72
-              WATER: 72
 
 MA:
     2020:

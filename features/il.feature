@@ -297,9 +297,6 @@ Feature: Testing SNAP Financial Factors Web API for IL
       Then we find the family is likely eligible
       And we find the estimated benefit is $41 per month
 
-  # NOTE: The API result for this scenario is within $2 of the Illinois online
-  # calculator result for the same scenario; the online calculator estimates
-  # a benefit of $184: http://fscalc.dhs.illinois.gov/FSCalc/calculateFS.do.
   Scenario: Household pays for AC or heat separately
     Given the household is in IL
     And a 3-person household
@@ -311,11 +308,8 @@ Feature: Testing SNAP Financial Factors Web API for IL
     And the household pays for AC or heat (or otherwise qualifies for AC/heat utility allowance)
     When we run the benefit estimator...
       Then we find the family is likely eligible
-      And we find the estimated benefit is $181 per month
+      And we find the estimated benefit is $184 per month
 
-  # NOTE: The API result for this scenario is within $2 of the Illinois online
-  # calculator result for the same scenario; the online calculator estimates
-  # a benefit of $139: http://fscalc.dhs.illinois.gov/FSCalc/calculateFS.do.
   Scenario: Household pays for two utilities besides AC and heat
     Given the household is in IL
     And a 3-person household
@@ -327,7 +321,7 @@ Feature: Testing SNAP Financial Factors Web API for IL
     And the household pays for water and trash collection (or otherwise qualifies for limited utility allowance)
     When we run the benefit estimator...
       Then we find the family is likely eligible
-      And we find the estimated benefit is $137 per month
+      And we find the estimated benefit is $139 per month
 
   Scenario: Household pays for telephone only
     Given the household is in IL
