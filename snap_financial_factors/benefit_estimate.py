@@ -96,13 +96,15 @@ class BenefitEstimate:
             ]
 
         if mandatory_standard_utility_allowances:
-            # If the state uses standard utility allowances, send in the state's
+            # If the state uses standard utility allowances, send down the state's
             # standard utility allowance data:
             eligibility_args.extend([
                 True,
                 state_options.get('standard_utility_allowances', None)
             ])
         else:
+            # Otherwise, there should be no standard utility allowance
+            # data to send down:
             eligibility_args.extend([
                 False,
                 None
