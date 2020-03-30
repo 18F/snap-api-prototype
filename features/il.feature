@@ -328,3 +328,16 @@ Feature: Testing SNAP Financial Factors Web API for IL
     When we run the benefit estimator...
       Then we find the family is likely eligible
       And we find the estimated benefit is $137 per month
+
+  Scenario: Household pays for telephone only
+    Given the household is in IL
+    And a 3-person household
+    And the household does include an elderly or disabled member
+    And the household has earned income of $3000 monthly
+    And the household has other income of $0 monthly
+    And the household has assets of $0
+    And the household has rent or mortgage costs of $1800 monthly
+    And the household pays phone bills only
+    When we run the benefit estimator...
+      Then we find the family is likely eligible
+      And we find the estimated benefit is $50 per month

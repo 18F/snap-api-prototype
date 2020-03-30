@@ -59,6 +59,10 @@ def step_impl(context):
 def step_impl(context):
     context.input_data['utility_allowance'] = 'BASIC_LIMITED_ALLOWANCE'
 
+@given(u'the household pays phone bills only')
+def step_impl(context):
+    context.input_data['utility_allowance'] = 'PHONE'
+
 @when('we run the benefit estimator...')
 def step_impl(context):
     parsed_input_data = ParseInputData(context.input_data).parse().result
