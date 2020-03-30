@@ -111,6 +111,22 @@ def test_valid_utility_allowance():
     assert parse.result is not None
 
 
+def test_valid_utility_allowance_of_none():
+    parse = parse_input_data({
+        'state_or_territory': 'IL',
+        'monthly_job_income': '0',
+        'monthly_non_job_income': '0',
+        'household_size': '1',
+        'household_includes_elderly_or_disabled': 'false',
+        'resources': '0',
+        'utility_allowance': 'NONE',
+    })
+
+    assert parse.valid is True
+    assert parse.errors == []
+    assert parse.result is not None
+
+
 def test_clearly_invalid_utility_allowance():
     parse = parse_input_data({
         'state_or_territory': 'IL',
