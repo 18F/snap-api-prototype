@@ -97,8 +97,8 @@ class ParseInputData:
     def handle_utility_allowance_input(self, input_data: Dict) -> None:
         input_value = input_data.get('utility_allowance', None)
 
-        # Utility allowance can be blank if the input is coming from a state
-        # that uses raw utility costs instead of standard utility allowances
+        # Utility allowance can be blank or '', if the household is in a state
+        # that uses raw utility costs instead of standard utility allowances.
         if input_value is None or input_value == '':
             input_data['utility_allowance'] = None
             return None
