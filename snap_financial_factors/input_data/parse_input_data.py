@@ -113,6 +113,8 @@ class ParseInputData:
             'SEWAGE',
             'TRASH',
             'WATER',
+            'NONE',  # Clients can either explicitly specify no SUA applies; or
+                     # leave this optional field blank to the same effect.
         )
 
         if input_value in UTILITY_ALLOWANCES:

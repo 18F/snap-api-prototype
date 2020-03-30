@@ -94,6 +94,7 @@ def test_missing_multiple():
     ]
     assert parse.result is None
 
+
 def test_valid_utility_allowance():
     parse = parse_input_data({
         'state_or_territory': 'IL',
@@ -108,6 +109,7 @@ def test_valid_utility_allowance():
     assert parse.valid is True
     assert parse.errors == []
     assert parse.result is not None
+
 
 def test_clearly_invalid_utility_allowance():
     parse = parse_input_data({
@@ -126,6 +128,7 @@ def test_clearly_invalid_utility_allowance():
     ]
     assert parse.result is None
 
+
 def test_sneakily_invalid_utility_allowance():
     parse = parse_input_data({
         'state_or_territory': 'IL',
@@ -134,7 +137,7 @@ def test_sneakily_invalid_utility_allowance():
         'household_size': '1',
         'household_includes_elderly_or_disabled': 'false',
         'resources': '0',
-        'utility_allowance': 'TELEPHONE', # should be just "PHONE"
+        'utility_allowance': 'TELEPHONE',  # Should be just "PHONE".
     })
 
     assert parse.valid is False
