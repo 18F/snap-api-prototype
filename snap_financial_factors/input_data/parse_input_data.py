@@ -99,7 +99,7 @@ class ParseInputData:
 
         # Utility allowance can be blank if the input is coming from a state
         # that uses raw utility costs instead of standard utility allowances
-        if input_value is None:
+        if input_value is None or input_value == '':
             input_data['utility_allowance'] = None
             return None
 
