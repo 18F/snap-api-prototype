@@ -72,11 +72,14 @@ class ExcessShelterDeduction:
         if self.mandatory_standard_utility_allowances:
             if self.utility_allowance is None or self.utility_allowance == 'NONE':
                 # In this case the client has either:
+                #
                 # * Explicitly told us the end user does not qualify for a
                 # standard utility allowance ("NONE"), or,
+                #
                 # * The client has left the field blank (None); we assume that
                 # the end user does not pay for utilities separately and
-                # for that reason does not receive a SUA deduction.
+                # for that reason does not receive a SUA deduction:
+                #
                 shelter_costs = base_shelter_costs
                 utilities_explanation = (
                     'In this case there is no deduction for utilities, likely ' +
@@ -85,10 +88,16 @@ class ExcessShelterDeduction:
             else:
                 utility_allowance_amount = self.standard_utility_allowances[self.utility_allowance]
                 shelter_costs = base_shelter_costs + utility_allowance_amount
-                utilities_explanation = ('')
+                utilities_explanation = (
+                    f"In this case, a standard utility deduction of ${utility_allowance_amount} applies, " +
+                    f"so total shelter plus utilities costs come to ${shelter_costs}."
+                )
         else:
             shelter_costs = base_shelter_costs + self.utility_costs
-            utilities_explanation = ('')
+            utilities_explanation = (
+                f"In this case, the household has utility costs of ${self.utility_costs}, " +
+                f"so total shelter plus utilities costs come to ${shelter_costs}."
+            )
 
         explanation.append(utilities_explanation)
 
