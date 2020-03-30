@@ -106,6 +106,7 @@ class ParseInputData:
         UTILITY_ALLOWANCES = (
             'HEATING_AND_COOLING',
             'BASIC_LIMITED_ALLOWANCE',
+            'SINGLE_UTILITY_ALLOWANCE',
             'ELECTRICITY',
             'GAS_AND_FUEL',
             'PHONE',

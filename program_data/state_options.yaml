@@ -64,7 +64,7 @@ IL:
         standard_utility_allowances:
               HEATING_AND_COOLING: 478
               BASIC_LIMITED_ALLOWANCE: 328
-              SINGLE_UTILITY: 74
+              SINGLE_UTILITY_ALLOWANCE: 74
               PHONE: 30
 
 MA:

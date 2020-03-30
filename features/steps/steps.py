@@ -59,6 +59,10 @@ def step_impl(context):
 def step_impl(context):
     context.input_data['utility_allowance'] = 'BASIC_LIMITED_ALLOWANCE'
 
+@given(u'the household pays for a single utility besides AC, heat, and phone')
+def step_impl(context):
+    context.input_data['utility_allowance'] = 'SINGLE_UTILITY_ALLOWANCE'
+
 @given(u'the household pays phone bills only')
 def step_impl(context):
     context.input_data['utility_allowance'] = 'PHONE'
