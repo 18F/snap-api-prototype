@@ -46,8 +46,10 @@ class BenefitAmountEstimate:
                                            self.household_size,
                                            self.max_allotments).calculate()
 
+        max_allotment_pdf_url = 'https://fns-prod.azureedge.net/sites/default/files/media/file/FY20-Maximum-Allotments-Deductions.pdf'
         max_allotment_explanation = (
-            f"In this case, the estimated benefit amount is ${max_allotment}."
+            f"In this case, the estimated benefit amount is ${max_allotment}. " +
+            f"<a class='why why-small' href='{max_allotment_pdf_url}' target='_blank'>why?</a>"
         )
         explanation.append(max_allotment_explanation)
 
