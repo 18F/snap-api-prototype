@@ -71,6 +71,10 @@ def step_impl(context):
 def step_impl(context):
     context.input_data['utility_allowance'] = 'NONE'
 
+@given(u'the household has utility costs of ${number:d} monthly')
+def step_impl(context, number):
+    context.input_data['utility_costs'] = number
+
 @when('we run the benefit estimator...')
 def step_impl(context):
     parsed_input_data = ParseInputData(context.input_data).parse().result
