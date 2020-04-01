@@ -10,13 +10,15 @@ class BenefitAmountEstimate:
                  max_allotments,
                  min_allotments,
                  is_eligible,
-                 net_income):
+                 net_income,
+                 emergency_allotment: bool):
         self.state_or_territory = state_or_territory
         self.household_size = household_size
         self.max_allotments = max_allotments
         self.min_allotments = min_allotments
         self.is_eligible = is_eligible
         self.net_income = net_income
+        self.emergency_allotment = emergency_allotment
 
     def calculate(self):
         if not self.is_eligible:
@@ -27,6 +29,38 @@ class BenefitAmountEstimate:
                 sort_order=5
             )
 
+        if self.emergency_allotment:
+            return self.calculate_with_emergency_allotment()
+        else:
+            return self.calculate_without_emergency_allotment()
+
+    def calculate_with_emergency_allotment(self):
+        explanation_intro = (
+            'Because this state is offering an emergency SNAP benefit amount in response ' +
+            'to the current crisis, a household may receive the maximum monthly ' +
+            'benefit amount for their household size.'
+        )
+        explanation = [explanation_intro]
+
+        max_allotment = FetchMaxAllotments(self.state_or_territory,
+                                           self.household_size,
+                                           self.max_allotments).calculate()
+
+        max_allotment_pdf_url = 'https://fns-prod.azureedge.net/sites/default/files/media/file/FY20-Maximum-Allotments-Deductions.pdf'
+        max_allotment_explanation = (
+            f"In this case, the estimated benefit amount is ${max_allotment}. " +
+            f"<a class='why why-small' href='{max_allotment_pdf_url}' target='_blank'>why?</a>"
+        )
+        explanation.append(max_allotment_explanation)
+
+        return BenefitAmountResult(
+            name='Estimated Benefit Calculation',
+            amount=max_allotment,
+            explanation=explanation,
+            sort_order=5
+        )
+
+    def calculate_without_emergency_allotment(self):
         explanation_intro = (
             'To determine the estimated amount of SNAP benefit, we start ' +
             'with the maximum allotment and then subtract 30% of net income ' +

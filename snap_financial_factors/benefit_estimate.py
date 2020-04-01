@@ -46,7 +46,9 @@ class BenefitEstimate:
         eligibility_factors = eligibility_calculation['eligibility_factors']
         net_income = eligibility_calculation['net_income']
 
-        estimated_benefit = self.__estimated_monthly_benefit(is_eligible, net_income)
+        emergency_allotment = self.state_options_data[self.state_or_territory][2020]['emergency_allotment']
+
+        estimated_benefit = self.__estimated_monthly_benefit(is_eligible, net_income, emergency_allotment)
         estimated_benefit_amount = estimated_benefit.amount
         eligibility_factors.append(estimated_benefit.__dict__)
 
@@ -182,7 +184,8 @@ class BenefitEstimate:
 
     def __estimated_monthly_benefit(self,
                                     is_eligible: bool,
-                                    net_income: int) -> BenefitAmountResult:
+                                    net_income: int,
+                                    emergency_allotment: bool) -> BenefitAmountResult:
         """
         Returns estimate of monthly benefit, plus reasons behind its decision.
 
@@ -194,6 +197,7 @@ class BenefitEstimate:
                                                 self.max_allotments,
                                                 self.min_allotments,
                                                 is_eligible,
-                                                net_income)
+                                                net_income,
+                                                emergency_allotment)
 
         return amount_estimate.calculate()

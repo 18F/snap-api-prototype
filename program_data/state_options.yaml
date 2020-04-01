@@ -22,9 +22,18 @@
 #
 # See the standard_utility_allowances folder and associated README for more
 # information, context, and parsing scripts.
+#
+# "SNAP Emergency Allotments to Current SNAP Households", USDA
+#
+# https://www.fns.usda.gov/disaster/pandemic/snap-emergency-allotments
+#
+# "Most States Are Easing SNAP Participation Rules; Many Have Opted to Provide Added Benefits", Center on Budget and Policy Priorities:
+#
+# https://www.cbpp.org/research/food-assistance/most-states-are-easing-snap-participation-rules-many-have-opted-to-provide
 
 CA:
     2020:
+        emergency_allotment: True  # As of 4/1/2020
         uses_bbce: True
         gross_income_limit_factor: 2
         resource_limit_elderly_or_disabled: NULL
@@ -35,6 +44,7 @@ CA:
 
 ID:
     2020:
+        emergency_allotment: False  # As of 4/1/2020
         uses_bbce: False
         gross_income_limit_factor: 1.3
         resource_limit_elderly_or_disabled: 5000
@@ -45,6 +55,7 @@ ID:
 
 IL:
     2020:
+        emergency_allotment: False  # As of 4/1/2020
         uses_bbce: True
         gross_income_limit_factor: 1.65
         resource_limit_elderly_or_disabled: NULL
@@ -69,6 +80,7 @@ IL:
 
 MA:
     2020:
+        emergency_allotment: True  # As of 4/1/2020
         uses_bbce: True
         gross_income_limit_factor: 2
         resource_limit_elderly_or_disabled: NULL
@@ -79,6 +91,7 @@ MA:
 
 MI:
     2020:
+        emergency_allotment: True  # As of 4/1/2020
         uses_bbce: True
         gross_income_limit_factor: 2
         resource_limit_elderly_or_disabled: 15000 # NOTE: Double-check this across households with/without elderly or disabled members.
@@ -99,6 +112,7 @@ MI:
 
 MN:
     2020:
+        emergency_allotment: False  # As of 4/1/2020
         uses_bbce: True
         gross_income_limit_factor: 1.65
         resource_limit_elderly_or_disabled: NULL
@@ -119,6 +133,7 @@ MN:
 
 UT:
     2020:
+        emergency_allotment: False  # As of 4/1/2020
         uses_bbce: False
         child_support_payments_treatment: DEDUCT  # According to USDA State Options Report. Options as of October 1, 2017.
         website: https://jobs.utah.gov/assistance/index.html
@@ -126,6 +141,7 @@ UT:
 
 VT:
     2020:
+        emergency_allotment: True  # As of 4/1/2020
         uses_bbce: True
         gross_income_limit_factor: 1.85
         resource_limit_elderly_or_disabled: NULL
