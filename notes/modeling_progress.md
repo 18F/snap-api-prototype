@@ -8,6 +8,8 @@
 | Medical Expenses Deduction  | 2/24/2020    | :ballot_box_with_check:  | 2/27/2020             |
 | Child Support Payments      | 2/24/2020    | :ballot_box_with_check:  | 3/6/2020              |
 | Excess Shelter Costs        | 2/24/2020    | :ballot_box_with_check:  | 3/11/2020             |
+| Standard Utility Allowances | 2/24/2020    | :ballot_box_with_check:  | 4/1/2020              |
+| Emergency SNAP Allotments   | 4/1/2020     | :ballot_box_with_check:  | 4/1/2020              |
 | Elderly/Disabled 2x FPL     | 2/24/2020    |                          |                       |
 | Expedited Benefits          | 2/25/2020    |                          |                       |
 | Minimum Allotments          | 2/25/2020    | :ballot_box_with_check:  | 2/26/2020             |
