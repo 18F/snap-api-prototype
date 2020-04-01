@@ -285,7 +285,7 @@ Feature: Testing SNAP Financial Factors Web API for IL
       Then we find the family is likely eligible
       And we find the estimated benefit is $458 per month
 
-  Scenario: Household that would have a low benefit amount without taking utilities into account
+  Scenario: Household would have a low benefit amount without taking utilities into account
     Given the household is in IL
     And a 3-person household
     And the household does include an elderly or disabled member
