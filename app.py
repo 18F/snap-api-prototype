@@ -1,5 +1,5 @@
 import os
-from flask import Flask, jsonify, request, render_template
+from flask import Flask, jsonify, request
 from flask_httpauth import HTTPBasicAuth
 from flask_cors import CORS
 from os import path
@@ -62,10 +62,5 @@ def create_app():
             **benefit_estimate,
             'status': 'OK',
         }), 200
-
-    @app.route('/prescreener')
-    @auth.login_required
-    def prescreener():
-        return render_template('prescreener.html')
 
     return app
