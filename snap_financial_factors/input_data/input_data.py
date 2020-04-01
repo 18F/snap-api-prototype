@@ -20,3 +20,5 @@ class InputData:
         self.court_ordered_child_support_payments = input_data['court_ordered_child_support_payments']
         self.rent_or_mortgage = input_data['rent_or_mortgage']
         self.homeowners_insurance_and_taxes = input_data['homeowners_insurance_and_taxes']
+        self.utility_costs = input_data['utility_costs']
+        self.utility_allowance = input_data['utility_allowance']

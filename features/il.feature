@@ -284,3 +284,80 @@ Feature: Testing SNAP Financial Factors Web API for IL
     When we run the benefit estimator...
       Then we find the family is likely eligible
       And we find the estimated benefit is $458 per month
+
+  Scenario: Household would have a low benefit amount without taking utilities into account
+    Given the household is in IL
+    And a 3-person household
+    And the household does include an elderly or disabled member
+    And the household has earned income of $3000 monthly
+    And the household has other income of $0 monthly
+    And the household has assets of $0
+    And the household has rent or mortgage costs of $1800 monthly
+    When we run the benefit estimator...
+      Then we find the family is likely eligible
+      And we find the estimated benefit is $41 per month
+
+  Scenario: Household pays for AC or heat separately
+    Given the household is in IL
+    And a 3-person household
+    And the household does include an elderly or disabled member
+    And the household has earned income of $3000 monthly
+    And the household has other income of $0 monthly
+    And the household has assets of $0
+    And the household has rent or mortgage costs of $1800 monthly
+    And the household pays for AC or heat (or otherwise qualifies for AC/heat utility allowance)
+    When we run the benefit estimator...
+      Then we find the family is likely eligible
+      And we find the estimated benefit is $184 per month
+
+  Scenario: Household pays for two utilities besides AC and heat
+    Given the household is in IL
+    And a 3-person household
+    And the household does include an elderly or disabled member
+    And the household has earned income of $3000 monthly
+    And the household has other income of $0 monthly
+    And the household has assets of $0
+    And the household has rent or mortgage costs of $1800 monthly
+    And the household pays for water and trash collection (or otherwise qualifies for limited utility allowance)
+    When we run the benefit estimator...
+      Then we find the family is likely eligible
+      And we find the estimated benefit is $139 per month
+
+  Scenario: Household pays a single utilities besides AC, heat, and phone
+    Given the household is in IL
+    And a 3-person household
+    And the household does include an elderly or disabled member
+    And the household has earned income of $3000 monthly
+    And the household has other income of $0 monthly
+    And the household has assets of $0
+    And the household has rent or mortgage costs of $1800 monthly
+    And the household pays for a single utility besides AC, heat, and phone
+    When we run the benefit estimator...
+      Then we find the family is likely eligible
+      And we find the estimated benefit is $63 per month
+
+  Scenario: Household pays for telephone only
+    Given the household is in IL
+    And a 3-person household
+    And the household does include an elderly or disabled member
+    And the household has earned income of $3000 monthly
+    And the household has other income of $0 monthly
+    And the household has assets of $0
+    And the household has rent or mortgage costs of $1800 monthly
+    And the household pays phone bills only
+    When we run the benefit estimator...
+      Then we find the family is likely eligible
+      And we find the estimated benefit is $50 per month
+
+  Scenario: Household not billed separately for any utilities (client explicitly tells API as opposed to leaving field blank)
+    Given the household is in IL
+    And a 3-person household
+    And the household does include an elderly or disabled member
+    And the household has earned income of $3000 monthly
+    And the household has other income of $0 monthly
+    And the household has assets of $0
+    And the household has rent or mortgage costs of $1800 monthly
+    And the household is not billed separately for any utilities
+    When we run the benefit estimator...
+      Then we find the family is likely eligible
+      And we find the estimated benefit is $41 per month

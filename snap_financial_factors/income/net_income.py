@@ -19,7 +19,9 @@ class NetIncome:
                  gross_income: int,
                  standard_deductions: Dict,
                  max_shelter_deductions: Dict,
-                 child_support_payments_treatment: str) -> None:
+                 child_support_payments_treatment: str,
+                 mandatory_standard_utility_allowances: bool,
+                 standard_utility_allowances: Dict) -> None:
         # Load user input data
         self.input_data = input_data
         self.monthly_job_income = input_data.monthly_job_income
@@ -31,6 +33,8 @@ class NetIncome:
         self.court_ordered_child_support_payments = input_data.court_ordered_child_support_payments
         self.rent_or_mortgage = input_data.rent_or_mortgage
         self.homeowners_insurance_and_taxes = input_data.homeowners_insurance_and_taxes
+        self.utility_costs = input_data.utility_costs
+        self.utility_allowance = input_data.utility_allowance
 
         # Load calculated inputs
         self.gross_income = gross_income
@@ -39,6 +43,8 @@ class NetIncome:
         self.standard_deductions = standard_deductions
         self.max_shelter_deductions = max_shelter_deductions
         self.child_support_payments_treatment = child_support_payments_treatment
+        self.mandatory_standard_utility_allowances = mandatory_standard_utility_allowances
+        self.standard_utility_allowances = standard_utility_allowances
 
     def calculate(self):
         explanation = []
@@ -100,6 +106,10 @@ class NetIncome:
             state_or_territory=self.state_or_territory,
             household_size=self.household_size,
             max_shelter_deductions=self.max_shelter_deductions,
+            utility_costs=self.utility_costs,
+            utility_allowance=self.utility_allowance,
+            mandatory_standard_utility_allowances=self.mandatory_standard_utility_allowances,
+            standard_utility_allowances=self.standard_utility_allowances,
         )
 
         excess_shelter_calculation = excess_shelter_deduction_calcualtor.calculate()
