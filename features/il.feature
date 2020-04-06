@@ -301,7 +301,7 @@ Feature: Illinois scenarios, no EA waiver
       Then we find the family is likely eligible
       And we find the estimated benefit is $139 per month
 
-  Scenario: Household pays a single utilities besides AC, heat, and phone
+  Scenario: Household pays a single utility besides AC, heat, and phone
     Given a 3-person household
     And the household does include an elderly or disabled member
     And the household has earned income of $3000 monthly
