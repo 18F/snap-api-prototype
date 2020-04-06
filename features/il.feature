@@ -15,6 +15,7 @@ Feature: Testing SNAP Financial Factors Web API for IL
 
   Background:
     Given the household is in IL
+    Given no emergency allotment waiver
 
   Scenario:
     Given a 1-person household

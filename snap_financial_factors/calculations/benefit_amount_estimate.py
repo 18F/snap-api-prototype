@@ -11,14 +11,14 @@ class BenefitAmountEstimate:
                  min_allotments,
                  is_eligible,
                  net_income,
-                 emergency_allotment: bool):
+                 use_emergency_allotment: bool):
         self.state_or_territory = state_or_territory
         self.household_size = household_size
         self.max_allotments = max_allotments
         self.min_allotments = min_allotments
         self.is_eligible = is_eligible
         self.net_income = net_income
-        self.emergency_allotment = emergency_allotment
+        self.use_emergency_allotment = use_emergency_allotment
 
     def calculate(self):
         if not self.is_eligible:
@@ -29,7 +29,7 @@ class BenefitAmountEstimate:
                 sort_order=5
             )
 
-        if self.emergency_allotment:
+        if self.use_emergency_allotment:
             return self.calculate_with_emergency_allotment()
         else:
             return self.calculate_without_emergency_allotment()

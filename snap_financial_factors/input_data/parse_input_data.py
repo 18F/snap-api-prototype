@@ -31,7 +31,7 @@ class ParseInputData:
             self.errors.append('No input data received.')
             return self
 
-        # Handle required integer fields:
+        # Handle required integer fields (household size, income, assets):
         required_integer_inputs = [
             'household_size',
             'monthly_job_income',
@@ -41,10 +41,17 @@ class ParseInputData:
         for input_key in required_integer_inputs:
             self.handle_required_integer_input(input_data=input_data, input_key=input_key)
 
-        # Handle required boolean field (can be sent in as either a Python
-        # boolean value or a string, "true" will convert to True):
-        required_boolean_input = 'household_includes_elderly_or_disabled'
-        self.handle_required_bool_input(input_data=input_data, input_key=required_boolean_input)
+        # Handle required elderly or disabled household member boolean field
+        # (can be sent in as either a Python boolean value or a string,
+        # with "true" converted automatically to True):
+        self.handle_required_bool_input(input_data=input_data, input_key='household_includes_elderly_or_disabled')
+
+        # Handle optional boolean value, `use_emergency_allotment`.
+        # We will use server-side YAML values by default to determine if an
+        # emergency allotment should be applied, but those can be overriden
+        # by the client since we trust clients to have up-to-date data about
+        # emergency allotment status.
+        self.handle_optional_bool_input(input_data=input_data, input_key='use_emergency_allotment')
 
         # Handle optional integer fields:
         optional_integer_inputs = [
@@ -93,6 +100,10 @@ class ParseInputData:
         # Convert to a Python boolean if a "string-y" boolean is passed in:
         if isinstance(input_value, str):
             input_data[input_key] = (input_value == 'true')
+
+    def handle_optional_bool_input(self, input_data: Dict, input_key: str) -> None:
+        input_value = input_data.get(input_key, None)
+        input_data[input_key] = input_value
 
     def handle_utility_allowance_input(self, input_data: Dict) -> None:
         input_value = input_data.get('utility_allowance', None)

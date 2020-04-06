@@ -27,6 +27,8 @@ class BenefitEstimate:
         self.resources = self.input_data.resources
         self.dependent_care_costs = self.input_data.dependent_care_costs
 
+        self.use_emergency_allotment = self.input_data.use_emergency_allotment
+
         # Load SNAP program data as YAML
         self.state_options_data = yaml.safe_load(open('./program_data/state_options.yaml', 'r'))
         self.income_limit_data = yaml.safe_load(open('./program_data/income_limits.yaml', 'r'))
@@ -46,9 +48,7 @@ class BenefitEstimate:
         eligibility_factors = eligibility_calculation['eligibility_factors']
         net_income = eligibility_calculation['net_income']
 
-        emergency_allotment = self.state_options_data[self.state_or_territory][2020]['emergency_allotment']
-
-        estimated_benefit = self.__estimated_monthly_benefit(is_eligible, net_income, emergency_allotment)
+        estimated_benefit = self.__estimated_monthly_benefit(is_eligible, net_income)
         estimated_benefit_amount = estimated_benefit.amount
         eligibility_factors.append(estimated_benefit.__dict__)
 
@@ -184,13 +184,23 @@ class BenefitEstimate:
 
     def __estimated_monthly_benefit(self,
                                     is_eligible: bool,
-                                    net_income: int,
-                                    emergency_allotment: bool) -> BenefitAmountResult:
+                                    net_income: int) -> BenefitAmountResult:
         """
         Returns estimate of monthly benefit, plus reasons behind its decision.
 
         Delegates to BenefitAmountEstimate class.
         """
+
+        # Trust the client to know if a given state is using emergency allotments;
+        # default to YAML information stored in the API about emergency allotments
+        # if we don't hear anything from the client.
+        client_use_emergency_allotment = self.use_emergency_allotment
+        server_use_emergency_allotment = self.state_options_data[self.state_or_territory][2020]['use_emergency_allotment']
+
+        if client_use_emergency_allotment is None:
+            use_emergency_allotment = server_use_emergency_allotment
+        else:
+            use_emergency_allotment = client_use_emergency_allotment
 
         amount_estimate = BenefitAmountEstimate(self.state_or_territory,
                                                 self.household_size,
@@ -198,6 +208,6 @@ class BenefitEstimate:
                                                 self.min_allotments,
                                                 is_eligible,
                                                 net_income,
-                                                emergency_allotment)
+                                                use_emergency_allotment)
 
         return amount_estimate.calculate()

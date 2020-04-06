@@ -10,6 +10,11 @@ def step_impl(context, state):
     context.input_data = {}
     context.input_data['state_or_territory'] = state
 
+@given('{no_or_an} emergency allotment waiver')
+def step_impl(context, no_or_an):
+    use_emergency_allotment = (no_or_an == 'an')
+    context.input_data['use_emergency_allotment'] = use_emergency_allotment
+
 @given('a {number:d}-person household')
 def step_impl(context, number):
     context.input_data['household_size'] = number
