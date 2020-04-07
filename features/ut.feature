@@ -1,8 +1,11 @@
-Feature: Testing SNAP Financial Factors Web API for UT
+Feature: UT scenarios without an EA (Emergency Allotment) waiver
+
+  Background:
+    Given the household is in UT
+    Given no emergency allotment waiver
 
   Scenario:
-    Given the household is in UT
-    And a 1-person household
+    Given a 1-person household
     And the household does not include an elderly or disabled member
     And the household has earned income of $0 monthly
     And the household has other income of $0 monthly
@@ -12,8 +15,7 @@ Feature: Testing SNAP Financial Factors Web API for UT
       And we find the estimated benefit is $194 per month
 
   Scenario: Household passes net income test but not gross income test
-    Given the household is in UT
-    And a 3-person household
+    Given a 3-person household
     And the household does not include an elderly or disabled member
     And the household has earned income of $0 monthly
     And the household has other income of $2400 monthly
@@ -24,8 +26,7 @@ Feature: Testing SNAP Financial Factors Web API for UT
       And we find the estimated benefit is $0 per month
 
   Scenario: Child support payments deduction does not push household into eligibility
-    Given the household is in UT
-    And a 3-person household
+    Given a 3-person household
     And the household does not include an elderly or disabled member
     And the household has earned income of $0 monthly
     And the household has other income of $2400 monthly

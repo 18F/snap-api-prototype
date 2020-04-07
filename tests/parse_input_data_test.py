@@ -1,3 +1,4 @@
+import pytest
 from snap_financial_factors.input_data.parse_input_data import ParseInputData
 
 
@@ -78,6 +79,99 @@ def test_missing_required_bool():
     assert parse.valid is False
     assert parse.errors == ['Missing required input: household_includes_elderly_or_disabled']
     assert parse.result is None
+
+
+def test_optional_bool_accepts_none():
+    parse = parse_input_data({
+        'state_or_territory': 'IL',
+        'monthly_job_income': 0,
+        'monthly_non_job_income': 0,
+        'household_size': 1,
+        'household_includes_elderly_or_disabled': 'false',
+        'resources': 0,
+        'use_emergency_allotment': None
+    })
+    assert parse.valid is True
+    assert parse.errors == []
+    assert parse.result is not None
+
+
+def test_optional_bool_successfully_parsed_from_true_string():
+    parse = parse_input_data({
+        'state_or_territory': 'IL',
+        'monthly_job_income': 0,
+        'monthly_non_job_income': 0,
+        'household_size': 1,
+        'household_includes_elderly_or_disabled': 'false',
+        'resources': 0,
+        'use_emergency_allotment': 'true'
+    })
+    assert parse.valid is True
+    assert parse.errors == []
+    assert parse.result is not None
+    assert parse.input_data['use_emergency_allotment'] is True
+
+
+def test_optional_bool_successfully_parsed_from_false_string():
+    parse = parse_input_data({
+        'state_or_territory': 'IL',
+        'monthly_job_income': 0,
+        'monthly_non_job_income': 0,
+        'household_size': 1,
+        'household_includes_elderly_or_disabled': 'false',
+        'resources': 0,
+        'use_emergency_allotment': 'false'
+    })
+    assert parse.valid is True
+    assert parse.errors == []
+    assert parse.result is not None
+    assert parse.input_data['use_emergency_allotment'] is False
+
+
+def test_optional_bool_accepts_python_native_bool_true():
+    parse = parse_input_data({
+        'state_or_territory': 'IL',
+        'monthly_job_income': 0,
+        'monthly_non_job_income': 0,
+        'household_size': 1,
+        'household_includes_elderly_or_disabled': 'false',
+        'resources': 0,
+        'use_emergency_allotment': True
+    })
+    assert parse.valid is True
+    assert parse.errors == []
+    assert parse.result is not None
+    assert parse.input_data['use_emergency_allotment'] is True
+
+
+def test_optional_bool_accepts_python_native_bool_false():
+    parse = parse_input_data({
+        'state_or_territory': 'IL',
+        'monthly_job_income': 0,
+        'monthly_non_job_income': 0,
+        'household_size': 1,
+        'household_includes_elderly_or_disabled': 'false',
+        'resources': 0,
+        'use_emergency_allotment': False
+    })
+    assert parse.valid is True
+    assert parse.errors == []
+    assert parse.result is not None
+    assert parse.input_data['use_emergency_allotment'] is False
+
+
+def test_optional_bool_raises_on_int():
+    with pytest.raises(ValueError) as error:
+        parse_input_data({
+            'state_or_territory': 'IL',
+            'monthly_job_income': 0,
+            'monthly_non_job_income': 0,
+            'household_size': 1,
+            'household_includes_elderly_or_disabled': 'false',
+            'resources': 0,
+            'use_emergency_allotment': 3
+        })
+    assert str(error.value) == 'Unexpected value for use_emergency_allotment'
 
 
 def test_missing_multiple():

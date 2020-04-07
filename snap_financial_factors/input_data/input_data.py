@@ -22,3 +22,4 @@ class InputData:
         self.homeowners_insurance_and_taxes = input_data['homeowners_insurance_and_taxes']
         self.utility_costs = input_data['utility_costs']
         self.utility_allowance = input_data['utility_allowance']
+        self.use_emergency_allotment = input_data['use_emergency_allotment']
