@@ -1,4 +1,4 @@
-Feature: Illinois scenarios with EA (Emergency Allotment) waiver
+Feature: IL scenarios with EA (Emergency Allotment) waiver
 
   Background:
     Given the household is in IL
