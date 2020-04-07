@@ -109,7 +109,7 @@ def test_optional_bool_successfully_parsed_from_true_string():
     assert parse.valid is True
     assert parse.errors == []
     assert parse.result is not None
-    assert parse.input_data['use_emergency_allotment'] == True
+    assert parse.input_data['use_emergency_allotment'] is True
 
 
 def test_optional_bool_successfully_parsed_from_false_string():
@@ -125,7 +125,7 @@ def test_optional_bool_successfully_parsed_from_false_string():
     assert parse.valid is True
     assert parse.errors == []
     assert parse.result is not None
-    assert parse.input_data['use_emergency_allotment'] == False
+    assert parse.input_data['use_emergency_allotment'] is False
 
 
 def test_optional_bool_accepts_python_native_bool_true():
@@ -141,7 +141,7 @@ def test_optional_bool_accepts_python_native_bool_true():
     assert parse.valid is True
     assert parse.errors == []
     assert parse.result is not None
-    assert parse.input_data['use_emergency_allotment'] == True
+    assert parse.input_data['use_emergency_allotment'] is True
 
 
 def test_optional_bool_accepts_python_native_bool_false():
@@ -157,12 +157,12 @@ def test_optional_bool_accepts_python_native_bool_false():
     assert parse.valid is True
     assert parse.errors == []
     assert parse.result is not None
-    assert parse.input_data['use_emergency_allotment'] == False
+    assert parse.input_data['use_emergency_allotment'] is False
 
 
 def test_optional_bool_raises_on_int():
     with pytest.raises(ValueError) as error:
-        parse = parse_input_data({
+        parse_input_data({
             'state_or_territory': 'IL',
             'monthly_job_income': 0,
             'monthly_non_job_income': 0,
