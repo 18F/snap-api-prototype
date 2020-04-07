@@ -53,16 +53,19 @@ class BenefitEstimate:
         eligibility_factors.append(estimated_benefit.__dict__)
 
         state_website = self.state_options_data[self.state_or_territory][2020]['website']
+        use_emergency_allotment = self.__use_emergency_allotment()
 
         return {
             'eligible': is_eligible,
             'estimated_monthly_benefit': estimated_benefit_amount,
             'eligibility_factors': eligibility_factors,
-            'state_website': state_website
+            'state_website': state_website,
+            'use_emergency_allotment': use_emergency_allotment,
             }
 
     def __eligibility_calculation(self):
-        """Private method. Returns estimated SNAP eligibility plus reasons
+        """
+        Private method. Returns estimated SNAP eligibility plus reasons
         behind the calculation.
 
         Mostly responsible for reading in parameters that differ by U.S. state,
@@ -182,6 +185,23 @@ class BenefitEstimate:
             'net_income': net_income,
         }
 
+    def __use_emergency_allotment(self):
+        """
+        Trust the client to know if a given state is using emergency allotments;
+        default to YAML information stored in the API about emergency allotments
+        if we don't hear anything from the client.
+        """
+
+        client_use_emergency_allotment = self.use_emergency_allotment
+        server_use_emergency_allotment = self.state_options_data[self.state_or_territory][2020]['use_emergency_allotment']
+
+        if client_use_emergency_allotment is None:
+            use_emergency_allotment = server_use_emergency_allotment
+        else:
+            use_emergency_allotment = client_use_emergency_allotment
+
+        return use_emergency_allotment
+
     def __estimated_monthly_benefit(self,
                                     is_eligible: bool,
                                     net_income: int) -> BenefitAmountResult:
@@ -190,17 +210,7 @@ class BenefitEstimate:
 
         Delegates to BenefitAmountEstimate class.
         """
-
-        # Trust the client to know if a given state is using emergency allotments;
-        # default to YAML information stored in the API about emergency allotments
-        # if we don't hear anything from the client.
-        client_use_emergency_allotment = self.use_emergency_allotment
-        server_use_emergency_allotment = self.state_options_data[self.state_or_territory][2020]['use_emergency_allotment']
-
-        if client_use_emergency_allotment is None:
-            use_emergency_allotment = server_use_emergency_allotment
-        else:
-            use_emergency_allotment = client_use_emergency_allotment
+        use_emergency_allotment = self.__use_emergency_allotment()
 
         amount_estimate = BenefitAmountEstimate(self.state_or_territory,
                                                 self.household_size,
