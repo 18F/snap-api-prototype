@@ -1,3 +1,4 @@
+import pytest
 from snap_financial_factors.input_data.parse_input_data import ParseInputData
 
 
@@ -157,6 +158,20 @@ def test_optional_bool_accepts_python_native_bool_false():
     assert parse.errors == []
     assert parse.result is not None
     assert parse.input_data['use_emergency_allotment'] == False
+
+
+def test_optional_bool_raises_on_int():
+    with pytest.raises(ValueError) as error:
+        parse = parse_input_data({
+            'state_or_territory': 'IL',
+            'monthly_job_income': 0,
+            'monthly_non_job_income': 0,
+            'household_size': 1,
+            'household_includes_elderly_or_disabled': 'false',
+            'resources': 0,
+            'use_emergency_allotment': 3
+        })
+    assert str(error.value) == 'Unexpected value for use_emergency_allotment'
 
 
 def test_missing_multiple():
