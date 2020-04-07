@@ -103,7 +103,14 @@ class ParseInputData:
 
     def handle_optional_bool_input(self, input_data: Dict, input_key: str) -> None:
         input_value = input_data.get(input_key, None)
-        input_data[input_key] = input_value
+
+        if input_value in [True, False, None]:
+            input_data[input_key] = input_value
+        # Convert to a Python boolean if a "string-y" boolean is passed in:
+        elif isinstance(input_value, str):
+            input_data[input_key] = (input_value == 'true')
+        else:
+            raise ValueError(f"Unexpected value for {input_key}")
 
     def handle_utility_allowance_input(self, input_data: Dict) -> None:
         input_value = input_data.get('utility_allowance', None)
