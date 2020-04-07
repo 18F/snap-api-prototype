@@ -95,6 +95,70 @@ def test_optional_bool_accepts_none():
     assert parse.result is not None
 
 
+def test_optional_bool_successfully_parsed_from_true_string():
+    parse = parse_input_data({
+        'state_or_territory': 'IL',
+        'monthly_job_income': 0,
+        'monthly_non_job_income': 0,
+        'household_size': 1,
+        'household_includes_elderly_or_disabled': 'false',
+        'resources': 0,
+        'use_emergency_allotment': 'true'
+    })
+    assert parse.valid is True
+    assert parse.errors == []
+    assert parse.result is not None
+    assert parse.input_data['use_emergency_allotment'] == True
+
+
+def test_optional_bool_successfully_parsed_from_false_string():
+    parse = parse_input_data({
+        'state_or_territory': 'IL',
+        'monthly_job_income': 0,
+        'monthly_non_job_income': 0,
+        'household_size': 1,
+        'household_includes_elderly_or_disabled': 'false',
+        'resources': 0,
+        'use_emergency_allotment': 'false'
+    })
+    assert parse.valid is True
+    assert parse.errors == []
+    assert parse.result is not None
+    assert parse.input_data['use_emergency_allotment'] == False
+
+
+def test_optional_bool_accepts_python_native_bool_true():
+    parse = parse_input_data({
+        'state_or_territory': 'IL',
+        'monthly_job_income': 0,
+        'monthly_non_job_income': 0,
+        'household_size': 1,
+        'household_includes_elderly_or_disabled': 'false',
+        'resources': 0,
+        'use_emergency_allotment': True
+    })
+    assert parse.valid is True
+    assert parse.errors == []
+    assert parse.result is not None
+    assert parse.input_data['use_emergency_allotment'] == True
+
+
+def test_optional_bool_accepts_python_native_bool_false():
+    parse = parse_input_data({
+        'state_or_territory': 'IL',
+        'monthly_job_income': 0,
+        'monthly_non_job_income': 0,
+        'household_size': 1,
+        'household_includes_elderly_or_disabled': 'false',
+        'resources': 0,
+        'use_emergency_allotment': False
+    })
+    assert parse.valid is True
+    assert parse.errors == []
+    assert parse.result is not None
+    assert parse.input_data['use_emergency_allotment'] == False
+
+
 def test_missing_multiple():
     parse = parse_input_data({
         'state_or_territory': 'IL',
