@@ -4,6 +4,22 @@ The Web API has one endpoint:
 
 ## `/calculate`
 
+### Inputs (example valid request)
+
+```
+{
+    'state_or_territory': 'IL',
+    'monthly_job_income': 2100,
+    'monthly_non_job_income': 0,
+    'household_size': 4,
+    'household_includes_elderly_or_disabled': 'false',
+    'resources': 1500,
+    'rent_or_mortgage': 1300,
+    'utility_allowance': 'HEATING_AND_COOLING',
+    'use_emergency_allotment': 'true'
+}
+```
+
 ### Inputs (summary)
 
 * [household_size (int, required)](#household_size-int-required)
