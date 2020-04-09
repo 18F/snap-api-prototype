@@ -1,6 +1,8 @@
 # Python API
 
-This prototype does not yet have a Python API. We are planning to package and distribute as a downloadable and import-able library for users who would rather call the API locally as opposed to over the network. Please reach out if this matches your use case.
+This prototype does not yet have a Python API.
+
+We are planning to package and distribute as a downloadable and import-able library for users who would rather call the API locally, as opposed to over the network. Please reach out if this matches your use case.
 
 # Web API
 
@@ -130,3 +132,34 @@ If no value is provided, the API will use its most recent available data on whic
 The API trusts the client about whether or not Emergency Allotments are in effect.
 
 Boolean values can be sent in as strings in the following format: `"true", "false"`.
+
+### Outputs (example output):
+
+{
+  'status': 'OK',
+  'eligible': true,
+  'estimated_monthly_benefit': 355,
+  'state_website':'https://abe.illinois.gov/abe/access/',
+  'use_emergency_allotment': true
+  'eligibility_factors': [
+    {
+      name: "Gross Income"
+      result: 0
+      sort_order: 0
+      explanation: [
+        "We find gross income by adding up monthly income from both job and non-job sources.",…
+      ]
+    }
+    ...
+    {
+      name: "Net Income Test",
+      result: true,
+      sort_order: 3,
+      explanation: [
+        "To be eligible for SNAP, a household's net income needs to be below the net monthly income limit.",…
+      ]
+    }
+    ...
+  ]
+}
+```
