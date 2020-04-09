@@ -200,9 +200,11 @@ Did the API use an emergency allotment amount in calculating its results?
 
 * #### `eligibility_factors (array)`
 
-Experimental feature. This is an array of objects that explain the different factors involved in the final eligibility estimate and estimated benefit amount.
+Experimental feature. This is an array of objects that explain the different factors involved in the final eligibility estimate and estimated benefit amount. See below for the shape of each object in the array.
 
-  * `name`: Name of the factors.
+* #### `eligibility_factor (object)`
+
+  * `name`: Name of the factor.
   * `sort_order`: Order in which to logically display the factor.
-  * `result`: A boolean or integer result for this factor.
+  * `result`: A boolean or integer result for this factor. (Boolean results for test such as "Gross Income Test" or "Net Income Test", integers for factors such as "Gross Income" or "Net Income".)
   * `explanation`: An array of sentences (strings) that explain the logic and math behind this factor. Each sentence in the array represents a line or paragraph.
