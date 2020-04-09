@@ -1,10 +1,10 @@
 # Web API Documentation
 
-The Web API has one endpoint:
+The web API has one endpoint:
 
 ## `/calculate`
 
-### Inputs (example valid request)
+### Inputs (example valid request):
 
 ```
 {
@@ -20,7 +20,7 @@ The Web API has one endpoint:
 }
 ```
 
-### Inputs (summary)
+### Inputs (summary):
 
 * [household_size (int, required)](#household_size-int-required)
 * [state_or_territory (str, required)](#state_or_territory-str-required)
@@ -37,7 +37,7 @@ The Web API has one endpoint:
 * [utility_allowance (str, optional)](#utility_allowance-str-optional)
 * [use_emergency_allotment (bool, optional)](#use_emergency_allotment-bool-optional)
 
-### Inputs (detail)
+### Inputs (detail):
 
 #### `household_size (int, required)`
 The number of people in the household.
