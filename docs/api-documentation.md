@@ -1,4 +1,8 @@
-# Web API Documentation
+# Python API
+
+This prototype does not yet have a Python API, but we are planning to package and distribute as a downloadable and `import`'able library for users who would rather call the API locally as opposed to over the network.
+
+# Web API
 
 The web API has one endpoint:
 
@@ -50,17 +54,21 @@ The [U.S. Postal Abbreviation](https//pe.usps.com/text/pub28/28apb.htm) of the h
 
 Does the household include any household members who are 60 years of age or over, or who meet the [SNAP criteria for disability](https//www.fns.usda.gov/snap/eligibility/elderly-disabled-special-rules#Who%20is%20elderly?)?
 
+Boolean values can be sent in as strings in the following format: `"true", "false"`.
+
 #### `monthly_job_income (int, required)`
 
 Monthly earned income in dollars from sources such as a job or self-employment.
 
 #### `monthly_non_job_income (int, required)`
 
-Monthly income in dollars from sources non-job sources as
+Monthly income in dollars from sources non-job sources as Social Security, disability, Child Support, Worker's Comp, Unemployment, Pension Income, or others.
 
 #### `resources (int, required)`
 
 Total household assets in dollars.
+
+*DEV NOTE:* Some states have no asset limit. For other states, asset amounts are an important component of eligibility determination. This field may move from required to required-on-a-per-state-basis in the near future.
 
 #### `dependent_care_costs (int, optional)`
 
@@ -118,3 +126,5 @@ Is the household in a state or territory that is currently using SNAP Emergency 
 If no value is provided, the API will use its most recent available data on which states are using emergency allotments.
 
 The API trusts the client about whether or not Emergency Allotments are in effect.
+
+Boolean values can be sent in as strings in the following format: `"true", "false"`.
