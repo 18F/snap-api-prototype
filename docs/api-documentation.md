@@ -1,6 +1,6 @@
 # Python API
 
-This prototype does not yet have a Python API, but we are planning to package and distribute as a downloadable and `import`'able library for users who would rather call the API locally as opposed to over the network.
+This prototype does not yet have a Python API. We are planning to package and distribute as a downloadable and import-able library for users who would rather call the API locally as opposed to over the network. Please reach out if this matches your use case.
 
 # Web API
 
@@ -50,6 +50,8 @@ The number of people in the household.
 
 The [U.S. Postal Abbreviation](https//pe.usps.com/text/pub28/28apb.htm) of the household's state or U.S. territory.
 
+*DEV NOTE:* Handling of codes for territories is currently inconsistent and needs to be fixed.
+
 #### `household_includes_elderly_or_disabled (bool, required)`
 
 Does the household include any household members who are 60 years of age or over, or who meet the [SNAP criteria for disability](https//www.fns.usda.gov/snap/eligibility/elderly-disabled-special-rules#Who%20is%20elderly?)?
@@ -62,7 +64,7 @@ Monthly earned income in dollars from sources such as a job or self-employment.
 
 #### `monthly_non_job_income (int, required)`
 
-Monthly income in dollars from sources non-job sources as Social Security, disability, Child Support, Worker's Comp, Unemployment, Pension Income, or others.
+Monthly income in dollars from sources non-job sources as Social Security, disability, Child Support, Worker's Comp, Unemployment, Pension Income, or other sources.
 
 #### `resources (int, required)`
 
