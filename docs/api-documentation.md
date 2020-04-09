@@ -171,13 +171,13 @@ Boolean values can be sent in as strings in the following format: `"true", "fals
 
 Possible statuses:
 
-* `"OK"`: Request handled successfully by API.
-* `"ERROR"`: API encountered one or more errors in handling the request.
+  * `"OK"`: Request handled successfully by API.
+  * `"ERROR"`: API encountered one or more errors in handling the request.
 
 * #### `eligible (bool)`
 
-* `true`: Household likely eligible for SNAP benefits.
-* `false`: Household likely ineligible for SNAP benefits.
+  * `true`: Household likely eligible for SNAP benefits.
+  * `false`: Household likely ineligible for SNAP benefits.
 
 * #### `estimated_monthly_benefit (int)`
 
