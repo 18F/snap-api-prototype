@@ -141,7 +141,7 @@ Boolean values can be sent in as strings in the following format: `"true", "fals
   'eligible': true,
   'estimated_monthly_benefit': 355,
   'state_website':'https://abe.illinois.gov/abe/access/',
-  'use_emergency_allotment': true
+  'use_emergency_allotment': true,
   'eligibility_factors': [
     {
       name: "Gross Income"
