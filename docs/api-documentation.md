@@ -167,6 +167,15 @@ Boolean values can be sent in as strings in the following format: `"true", "fals
 
 ### Outputs (summary):
 
+* [status (str)](#status-str)
+* [eligible (bool)](#eligible-bool)
+* [estimated_monthly_benefit (int)](#estimated_monthly_benefit-int)
+* [state_website (str)](#state_website-str)
+* [use_emergency_allotment (bool)](#use_emergency_allotment-bool)
+* [eligibility_factors (array)](#eligibility_factors-array)
+
+### Outputs (details):
+
 * #### `status (str)`
 
   * `"OK"`: Request handled successfully by API.
@@ -191,4 +200,9 @@ Did the API use an emergency allotment amount in calculating its results?
 
 * #### `eligibility_factors (array)`
 
-Experimental feature.
+Experimental feature. This is an array of objects that explain the different factors involved in the final eligibility estimate and estimated benefit amount.
+
+  * `name`: Name of the factors.
+  * `sort_order`: Order in which to logically display the factor.
+  * `result`: A boolean or integer result for this factor.
+  * `explanation`: An array of sentences (strings) that explain the logic and math behind this factor. Each sentence in the array represents a line or paragraph.
