@@ -169,8 +169,6 @@ Boolean values can be sent in as strings in the following format: `"true", "fals
 
 * #### `status (str)`
 
-Possible statuses:
-
   * `"OK"`: Request handled successfully by API.
   * `"ERROR"`: API encountered one or more errors in handling the request.
 
