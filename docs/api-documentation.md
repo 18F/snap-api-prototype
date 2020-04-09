@@ -164,3 +164,33 @@ Boolean values can be sent in as strings in the following format: `"true", "fals
   ]
 }
 ```
+
+### Outputs (summary):
+
+* #### `status (str)`
+
+Possible statuses:
+
+* `"OK"`: Request handled successfully by API.
+* `"ERROR"`: API encountered one or more errors in handling the request.
+
+* #### `eligible (bool)`
+
+* `true`: Household likely eligible for SNAP benefits.
+* `false`: Household likely ineligible for SNAP benefits.
+
+* #### `estimated_monthly_benefit (int)`
+
+Estimated monthly SNAP benefit for household, in dollars.
+
+* #### `state_website (str)`
+
+URL for the state or territorial website where a household can apply for SNAP benefits, or, if no such website exists, link to a page with more information about how to apply for SNAP benefits.
+
+* #### `use_emergency_allotment (bool)`
+
+Did the API use an emergency allotment amount in calculating its results?
+
+* #### `eligibility_factors (array)`
+
+Experimental feature.
