@@ -10,6 +10,13 @@ The web API has one endpoint:
 
 ## `/calculate`
 
++ [Inputs (example valid request)](#inputs-example-valid-request)
++ [Inputs (summary)](#inputs-summary)
++ [Inputs (detail)](#inputs-detail)
++ [Outputs (example output)](#outputs-example-output)
++ [Outputs (summary)](#outputs-summary)
++ [Outputs (details)](#outputs-details)
+
 ### Inputs (example valid request):
 
 ```
