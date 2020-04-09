@@ -135,6 +135,7 @@ Boolean values can be sent in as strings in the following format: `"true", "fals
 
 ### Outputs (example output):
 
+```
 {
   'status': 'OK',
   'eligible': true,
