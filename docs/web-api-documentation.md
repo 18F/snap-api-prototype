@@ -24,12 +24,16 @@ Note that not all U.S. states are supported by the prototype API at this stage.
 + [Outputs (summary)](#outputs-summary)
 + [Outputs (details)](#outputs-details)
 
+
 ### Example requests
 
 Please reach out to eligibility-apis-initiative at gsa.gov to request the username/password for this prototype API.
 
-[Valid input data; eligible household in IL.]()
+[Valid input data; eligible household in IL.](https://snap-prototype-financial-factors.app.cloud.gov/calculate?state_or_territory=IL&monthly_job_income=0&monthly_non_job_income=1000&household_includes_elderly_or_disabled=false&household_size=3&resources=1400&pretty_print=true)
 
+[Valid input data; ineligible household in IL.](https://snap-prototype-financial-factors.app.cloud.gov/calculate?state_or_territory=IL&monthly_job_income=4000&monthly_non_job_income=1000&household_includes_elderly_or_disabled=false&household_size=3&resources=1400&pretty_print=true)
+
+[Invalid input data.](https://snap-prototype-financial-factors.app.cloud.gov/calculate?state_or_territory=IL&monthly_job_income=4000&monthly_non_job_income=1000&household_size=3&resources=1400&pretty_print=true)
 ### Inputs (summary):
 
 * [household_size (int, required)](#household_size-int-required)
