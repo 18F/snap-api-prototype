@@ -4,16 +4,16 @@ The web API has one endpoint. The `calculate` end point accepts inputs about a h
 
 Note that not all U.S. states are supported by the prototype API at this stage.
 
-| State | Notes |
-| ------|-------|
-| CA    | State options data plugged into API; more verification and consultation with local subject matter experts needed. TODO: Add Standard Utility Allowance data. |
-| ID    | State options data plugged into API; more verification and consultation with local subject matter experts needed. TODO: Add Standard Utility Allowance data. |
-| IL    | State with the highest quality data and info so far. Regular checks against [IL's pre-screener](http://fscalc.dhs.illinois.gov/FSCalc/returnToInput.do) and consultation with local subject matter experts. Standard Utility Allowance data included. |
-| MA    | State options data plugged into API; more verification and consultation with local subject matter experts needed. TODO: Add Standard Utility Allowance data. |
-| MI    | State options data plugged into API; more verification and consultation with local subject matter experts needed. Standard Utility Allowance data included. |
-| MN    | State options data plugged into API; more verification and consultation with local subject matter experts needed. Standard Utility Allowance data included. |
-| VT    | State options data plugged into API; more verification and consultation with local subject matter experts needed. |
-| UT    | State options data plugged into API; more verification and consultation with local subject matter experts needed. Standard Utility Allowance data included. |
+| State | Notes | Standard Utility Allowance data included? |
+| ------|-------|-------------------------------------------|
+| CA    | State options data plugged into API; more verification and consultation with local subject matter experts needed. | Not yet |
+| ID    | State options data plugged into API; more verification and consultation with local subject matter experts needed. | Not yet |
+| IL    | State with the highest quality data and info so far. Regular checks against [IL's pre-screener](http://fscalc.dhs.illinois.gov/FSCalc/returnToInput.do) and consultation with local subject matter experts. | Yes, Standard Utility Allowance data included. |
+| MA    | State options data plugged into API; more verification and consultation with local subject matter experts needed. | Not yet |
+| MI    | State options data plugged into API; more verification and consultation with local subject matter experts needed. | Yes, but more verification needed |
+| MN    | State options data plugged into API; more verification and consultation with local subject matter experts needed. | Yes, but more verification needed |
+| VT    | State options data plugged into API; more verification and consultation with local subject matter experts needed. | Yes, but more verification needed |
+| UT    | State options data plugged into API; more verification and consultation with local subject matter experts needed. | N/A |
 
 ## `/calculate`
 
