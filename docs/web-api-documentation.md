@@ -174,34 +174,34 @@ Boolean values can be sent in as strings in the following format: `"true", "fals
 
 ### Outputs (summary):
 
-* [status (str)](#status-str)
-* [eligible (bool)](#eligible-bool)
-* [estimated_monthly_benefit (int)](#estimated_monthly_benefit-int)
-* [state_website (str)](#state_website-str)
-* [use_emergency_allotment (bool)](#use_emergency_allotment-bool)
+* [status (string)](#status-str)
+* [eligible (boolean)](#eligible-bool)
+* [estimated_monthly_benefit (integer)](#estimated_monthly_benefit-int)
+* [state_website (string)](#state_website-str)
+* [use_emergency_allotment (boolean)](#use_emergency_allotment-bool)
 * [eligibility_factors (array)](#eligibility_factors-array)
 
 ### Outputs (details):
 
-* #### `status (str)`
+* #### `status (string)`
 
   * `"OK"`: Request handled successfully by API.
   * `"ERROR"`: API encountered one or more errors in handling the request.
 
-* #### `eligible (bool)`
+* #### `eligible (boolean)`
 
   * `true`: Household likely eligible for SNAP benefits.
   * `false`: Household likely ineligible for SNAP benefits.
 
-* #### `estimated_monthly_benefit (int)`
+* #### `estimated_monthly_benefit (integer)`
 
 Estimated monthly SNAP benefit for household, in dollars.
 
-* #### `state_website (str)`
+* #### `state_website (string)`
 
 URL for the state or territorial website where a household can apply for SNAP benefits, or, if no such website exists, link to a page with more information about how to apply for SNAP benefits.
 
-* #### `use_emergency_allotment (bool)`
+* #### `use_emergency_allotment (boolean)`
 
 Did the API use an emergency allotment amount in calculating its results?
 
