@@ -17,100 +17,99 @@ Note that not all U.S. states are supported by the prototype API at this stage.
 
 ## `/calculate`
 
-+ [Inputs (example valid request)](#inputs-example-valid-request)
+### Example requests
+
+Please reach out to eligibility-apis-initiative at gsa.gov to request the username/password for this prototype API.
+
++ [Valid input data; eligible household in IL.](https://snap-prototype-financial-factors.app.cloud.gov/calculate?state_or_territory=IL&monthly_job_income=0&monthly_non_job_income=1000&household_includes_elderly_or_disabled=false&household_size=3&resources=1400&pretty_print=true)
++ [Valid input data; ineligible household in IL.](https://snap-prototype-financial-factors.app.cloud.gov/calculate?state_or_territory=IL&monthly_job_income=4000&monthly_non_job_income=1000&household_includes_elderly_or_disabled=false&household_size=3&resources=1400&pretty_print=true)
++ [Invalid input data.](https://snap-prototype-financial-factors.app.cloud.gov/calculate?state_or_territory=IL&monthly_job_income=4000&monthly_non_job_income=1000&household_size=3&resources=1400&pretty_print=true)
+
+# Table of Contents
+
 + [Inputs (summary)](#inputs-summary)
 + [Inputs (detail)](#inputs-detail)
 + [Outputs (example output)](#outputs-example-output)
 + [Outputs (summary)](#outputs-summary)
 + [Outputs (details)](#outputs-details)
 
-
-### Example requests
-
-Please reach out to eligibility-apis-initiative at gsa.gov to request the username/password for this prototype API.
-
-[Valid input data; eligible household in IL.](https://snap-prototype-financial-factors.app.cloud.gov/calculate?state_or_territory=IL&monthly_job_income=0&monthly_non_job_income=1000&household_includes_elderly_or_disabled=false&household_size=3&resources=1400&pretty_print=true)
-
-[Valid input data; ineligible household in IL.](https://snap-prototype-financial-factors.app.cloud.gov/calculate?state_or_territory=IL&monthly_job_income=4000&monthly_non_job_income=1000&household_includes_elderly_or_disabled=false&household_size=3&resources=1400&pretty_print=true)
-
-[Invalid input data.](https://snap-prototype-financial-factors.app.cloud.gov/calculate?state_or_territory=IL&monthly_job_income=4000&monthly_non_job_income=1000&household_size=3&resources=1400&pretty_print=true)
 ### Inputs (summary):
 
-* [household_size (int, required)](#household_size-int-required)
-* [state_or_territory (str, required)](#state_or_territory-str-required)
-* [household_includes_elderly_or_disabled (bool, required)](#household_includes_elderly_or_disabled-bool-required)
-* [monthly_job_income (int, required)](#monthly_job_income-int-required)
-* [monthly_non_job_income (int, required)](#monthly_non_job_income-int-required)
-* [resources (int, required)](#resources-int-required)
-* [dependent_care_costs (int, optional)](#dependent_care_costs-int-optional)
-* [medical_expenses_for_elderly_or_disabled (int, optional)](#medical_expenses_for_elderly_or_disabled-int-optional)
-* [court_ordered_child_support_payments (int, optional)](#court_ordered_child_support_payments-int-optional)
-* [rent_or_mortgage (int, optional)](#rent_or_mortgage-int-optional)
-* [homeowners_insurance_and_taxes (int, optional)](#homeowners_insurance_and_taxes-int-optional)
-* [utility_costs (int, optional)](#utility_costs-int-optional)
-* [utility_allowance (str, optional)](#utility_allowance-str-optional)
-* [use_emergency_allotment (bool, optional)](#use_emergency_allotment-bool-optional)
+* [household_size (integer, required)](#household_size-int-required)
+* [state_or_territory (string, required)](#state_or_territory-str-required)
+* [household_includes_elderly_or_disabled (boolean, required)](#household_includes_elderly_or_disabled-bool-required)
+* [monthly_job_income (integer, required)](#monthly_job_income-int-required)
+* [monthly_non_job_income (integer, required)](#monthly_non_job_income-int-required)
+* [resources (integer, required)](#resources-int-required)
+* [dependent_care_costs (integer, optional)](#dependent_care_costs-int-optional)
+* [medical_expenses_for_elderly_or_disabled (integer, optional)](#medical_expenses_for_elderly_or_disabled-int-optional)
+* [court_ordered_child_support_payments (integer, optional)](#court_ordered_child_support_payments-int-optional)
+* [rent_or_mortgage (integer, optional)](#rent_or_mortgage-int-optional)
+* [homeowners_insurance_and_taxes (integer, optional)](#homeowners_insurance_and_taxes-int-optional)
+* [utility_costs (integer, optional)](#utility_costs-int-optional)
+* [utility_allowance (string, optional)](#utility_allowance-str-optional)
+* [use_emergency_allotment (boolean, optional)](#use_emergency_allotment-bool-optional)
 
 ### Inputs (detail):
 
-#### `household_size (int, required)`
+#### `household_size (integer, required)`
 The number of people in the household.
 
-#### `state_or_territory (str, required)`
+#### `state_or_territory (string, required)`
 
 The [U.S. Postal Abbreviation](https//pe.usps.com/text/pub28/28apb.htm) of the household's state or U.S. territory.
 
 *DEV NOTE:* Handling of codes for territories is currently inconsistent and needs to be fixed.
 
-#### `household_includes_elderly_or_disabled (bool, required)`
+#### `household_includes_elderly_or_disabled (boolean, required)`
 
 Does the household include any household members who are 60 years of age or over, or who meet the [SNAP criteria for disability](https//www.fns.usda.gov/snap/eligibility/elderly-disabled-special-rules#Who%20is%20elderly?)?
 
 Boolean values can be sent in as strings in the following format: `"true", "false"`.
 
-#### `monthly_job_income (int, required)`
+#### `monthly_job_income (integer, required)`
 
 Monthly earned income in dollars from sources such as a job or self-employment.
 
-#### `monthly_non_job_income (int, required)`
+#### `monthly_non_job_income (integer, required)`
 
 Monthly income in dollars from sources non-job sources as Social Security, disability, Child Support, Worker's Comp, Unemployment, Pension Income, or other sources.
 
-#### `resources (int, required)`
+#### `resources (integer, required)`
 
 Total household assets in dollars.
 
 *DEV NOTE:* Some states have no asset limit. For other states, asset amounts are an important component of eligibility determination. This field may move from required to required-on-a-per-state-basis in the near future.
 
-#### `dependent_care_costs (int, optional)`
+#### `dependent_care_costs (integer, optional)`
 
 Monthly dependent care costs in dollars.
 
-#### `medical_expenses_for_elderly_or_disabled (int, optional)`
+#### `medical_expenses_for_elderly_or_disabled (integer, optional)`
 
 Monthly cost of medical expenses for elderly or disabled household members in dollars.
 
 Send `0` or do not send any value for this field if `household_includes_elderly_or_disabled == False`.
 
-#### `court_ordered_child_support_payments (int, optional)`
+#### `court_ordered_child_support_payments (integer, optional)`
 
 Monthly cost of court-ordered child support payments in dollars.
 
-#### `rent_or_mortgage (int, optional)`
+#### `rent_or_mortgage (integer, optional)`
 
 Monthly rent or mortgage payment costs in dollars.
 
-#### `homeowners_insurance_and_taxes (int, optional)`
+#### `homeowners_insurance_and_taxes (integer, optional)`
 
 Monthly costs of homeowners insurance and property taxes, in dollars.
 
-#### `utility_costs (int, optional)`
+#### `utility_costs (integer, optional)`
 
 The monthly utility costs of the household in dollars, if the household is in a state or territory that does not use mandatory Standard Utility Allowances.
 
 Send `0` or do not send any value for this field if you send a value for `utility_allowance` (see below).
 
-#### `utility_allowance (str, optional)`
+#### `utility_allowance (string, optional)`
 
 The utility allowance claimed by the household, if the household is in a state or territory that uses mandatory Standard Utility Allowances.
 
@@ -131,7 +130,7 @@ Sending an explicit value of `'NONE'` is treated the same as sending no value fo
 
 See ["Standard Utility Allowances"](https//www.fns.usda.gov/snap/eligibility/deduction/standard-utility-allowances) from USDA for more information.
 
-#### `use_emergency_allotment (bool, optional)`
+#### `use_emergency_allotment (boolean, optional)`
 
 Is the household in a state or territory that is currently using SNAP Emergency Allotment amounts?
 
