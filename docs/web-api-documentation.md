@@ -24,21 +24,11 @@ Note that not all U.S. states are supported by the prototype API at this stage.
 + [Outputs (summary)](#outputs-summary)
 + [Outputs (details)](#outputs-details)
 
-### Inputs (example valid request):
+### Example requests
 
-```
-{
-    'state_or_territory': 'IL',
-    'monthly_job_income': 2100,
-    'monthly_non_job_income': 0,
-    'household_size': 4,
-    'household_includes_elderly_or_disabled': 'false',
-    'resources': 1500,
-    'rent_or_mortgage': 1300,
-    'utility_allowance': 'HEATING_AND_COOLING',
-    'use_emergency_allotment': 'true'
-}
-```
+Please reach out to eligibility-apis-initiative at gsa.gov to request the username/password for this prototype API.
+
+[Valid input data; eligible household in IL.]()
 
 ### Inputs (summary):
 
