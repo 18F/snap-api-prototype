@@ -1,5 +1,6 @@
 import os
-from flask import Flask, jsonify, request
+import json
+from flask import Flask, request, Response
 from flask_httpauth import HTTPBasicAuth
 from flask_cors import CORS
 from os import path
@@ -39,28 +40,54 @@ def create_app():
     @app.route('/')
     @auth.login_required
     def get_root():
-        return jsonify('welcome'), 300
+        return Response(
+            response='welcome',
+            status=300,
+            mimetype='application/json'
+        )
 
     @app.route('/calculate', methods=['POST', 'GET'])
     @auth.login_required
     def calculate_from_json():
-        raw_input_data = request.get_json()
+        json_data = request.get_json()
+        args_data = request.args
+
+        if json_data:
+            raw_input_data = json_data
+        elif args_data:
+            raw_input_data = args_data.to_dict()
+        else:
+            raise ValueError('No input data received.')
 
         # Handle invalid input case; return error
         parsed_input_data = ParseInputData(raw_input_data).parse()
         if parsed_input_data.valid is False:
-            return jsonify({
-                'status': 'ERROR',
-                'errors': parsed_input_data.errors,
-            }), 400
+            return Response(
+                response=json.dumps({
+                    'errors': parsed_input_data.errors,
+                    'status': 'ERROR',
+                }),
+                status=400,
+                mimetype='application/json'
+            )
 
         # Handle valid input case; return data
         input_data = parsed_input_data.result
         benefit_estimate = BenefitEstimate(input_data).calculate()
 
-        return jsonify({
-            **benefit_estimate,
-            'status': 'OK',
-        }), 200
+        use_pretty_print = raw_input_data.get('pretty_print', None)
+        if use_pretty_print:
+            pretty_print_kwargs = {'indent': 4}
+        else:
+            pretty_print_kwargs = {}
+
+        return Response(
+            response=json.dumps({
+                **benefit_estimate,
+                'status': 'OK',
+            }, **pretty_print_kwargs),
+            status=200,
+            mimetype='application/json'
+        )
 
     return app
