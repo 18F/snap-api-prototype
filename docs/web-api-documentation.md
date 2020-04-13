@@ -1,12 +1,19 @@
-# Python API
-
-This prototype does not yet have a Python API.
-
-We are planning to package and distribute as a downloadable and import-able library for users who would rather call the API locally, as opposed to over the network. Please reach out if this matches your use case.
-
 # Web API
 
-The web API has one endpoint:
+The web API has one endpoint. The `calculate` end point accepts inputs about a household (such as state or territory, household size, income information and deductible costs information) and returns an estimate for that household's SNAP eligibility, an estimated benefit amount, and explanation of all the logic behind the API's decision-making, plus a link to a state website where a household could apply for SNAP.
+
+Note that not all U.S. states are supported by the prototype API at this stage.
+
+| State | Notes |
+| ------|-------|
+| CA    | State options data plugged into API; more verification and consultation with local subject matter experts needed. TODO: Add Standard Utility Allowance data. |
+| ID    | State options data plugged into API; more verification and consultation with local subject matter experts needed. TODO: Add Standard Utility Allowance data. |
+| IL    | State with the highest quality data and info so far. Regular checks against [IL's pre-screener](http://fscalc.dhs.illinois.gov/FSCalc/returnToInput.do) and consultation with local subject matter experts. Standard Utility Allowance data included. |
+| MA    | State options data plugged into API; more verification and consultation with local subject matter experts needed. TODO: Add Standard Utility Allowance data. |
+| MI    | State options data plugged into API; more verification and consultation with local subject matter experts needed. Standard Utility Allowance data included. |
+| MN    | State options data plugged into API; more verification and consultation with local subject matter experts needed. Standard Utility Allowance data included. |
+| VT    | State options data plugged into API; more verification and consultation with local subject matter experts needed. |
+| UT    | State options data plugged into API; more verification and consultation with local subject matter experts needed. Standard Utility Allowance data included. |
 
 ## `/calculate`
 
