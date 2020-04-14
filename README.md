@@ -38,18 +38,10 @@ An [API instance](https://snap-prototype-financial-factors.app.cloud.gov/) is de
 
 Please reach out via [email](mailto:eligibility-apis-initiative@gsa.gov) if you are a Federal employee and would like a demonstration of the web API and pre-screener.
 
-## Test the Web API locally
+## API documentation
 
-```sh
-# IL, 1 person, no income or savings:
-
-curl -X POST \
-  -H "Content-Type: application/json" \
-  -u username:password \
-  -d @./sample_input_data/il-1-person-no-income-or-savings.json \
-  http://127.0.0.1:8000/calculate
-```
++ See [docs/web_api_documentation.md](/docs/web_api_documentation.md).
 
 # Modeling notes
 
-+ See [notes/modeling_progress.md](/notes/modeling_progress.md).
++ See [docs/modeling_progress.md](/docs/modeling_progress.md).
