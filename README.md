@@ -30,6 +30,12 @@ make check-all
 make serve
 ```
 
+## Documentation
+
++ API documentation: [docs/web_api_documentation.md](/docs/web_api_documentation.md).
++ SNAP modeling progress: [docs/modeling_progress.md](/docs/modeling_progress.md).
++ State-by-state API coverage: [docs/states_progress.md](/docs/states_progress.md)
+
 ## Deploy
 
 This app includes a `manifest.yml` file with deploy configuration for [Cloud.gov](https://cloud.gov/) or another [Cloud Foundry](https://www.cloudfoundry.org/) system.
@@ -37,11 +43,3 @@ This app includes a `manifest.yml` file with deploy configuration for [Cloud.gov
 An [API instance](https://snap-prototype-financial-factors.app.cloud.gov/) is deployed to Cloud.gov. Since this application falls under [ATO pre-assessment](https://before-you-ship.18f.gov/ato/types/#conditions-for-pre-assessment), it is password-protected and only available to Federal staff.
 
 Please reach out via [email](mailto:eligibility-apis-initiative@gsa.gov) if you are a Federal employee and would like a demonstration of the web API and pre-screener.
-
-## API documentation
-
-+ See [docs/web_api_documentation.md](/docs/web_api_documentation.md).
-
-# Modeling notes
-
-+ See [docs/modeling_progress.md](/docs/modeling_progress.md).

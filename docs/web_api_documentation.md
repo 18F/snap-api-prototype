@@ -1,8 +1,8 @@
 # Web API
 
-The web API has one endpoint. The `calculate` end point accepts inputs about a household (such as state or territory, household size, income information and deductible costs information) and returns an estimate for that household's SNAP eligibility, an estimated benefit amount, and explanation of all the logic behind the API's decision-making, plus a link to a state website where a household could apply for SNAP.
+The web API has one endpoint. The `calculate` end point accepts inputs about a household and returns an estimate of that household's SNAP eligibility, an estimated benefit amount, and explanation of the logic behind the API's decision-making, plus a link to a state website where a household could apply for SNAP.
 
-Note that not all U.S. states are well-supported by the prototype API at this stage. States are being added one by one based on partnership interest and other factors. See [docs/states_progress.md](/docs/states_progress.md) for more information about state-by-state API coverage.
+Note that not all U.S. states are well-supported by the prototype API at this stage. States are being added one-by-one, based on partnership interest and other factors. See [docs/states_progress.md](/docs/states_progress.md) for information about state-by-state API coverage.
 
 ## `/calculate`
 
