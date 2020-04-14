@@ -46,7 +46,7 @@ def create_app():
             mimetype='application/json'
         )
 
-    @app.route('/calculate', methods=['POST', 'GET'])
+    @app.route('/v0/calculate', methods=['POST', 'GET'])
     @auth.login_required
     def calculate_from_json():
         json_data = request.get_json()
