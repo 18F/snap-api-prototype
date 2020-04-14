@@ -1,15 +1,17 @@
 # Web API
 
-The web API has one endpoint. The `/calculate` endpoint calculates a household's estimated eligibility for the SNAP program. The endpoint accepts inputs about a household and returns:
+This prototype SNAP API calculates a household's estimated eligibility for the SNAP program. The API accepts inputs about a household and returns:
 
 + an estimate of that household's SNAP eligibility
 + an estimated benefit amount
 + an explanation of the logic behind the API's decision-making
 + a link to a state website where a household could apply for SNAP
 
+At this time, the web API has one endpoint, `/v0/calculate`. The `/v0` version indicates that the API is in prototype or alpha phase, and is likely to change frequently without warning. (See [GSA API Standards on versioning](https://github.com/GSA/api-standards#prototype-or-alpha-versions).)
+
 Note that not all U.S. states are well-supported by the prototype API at this stage. States are being added one-by-one, based on partnership interest and other factors. See [docs/states_progress.md](/docs/states_progress.md) for information about state-by-state API coverage.
 
-## `/calculate`
+## `/v0/calculate`
 
 ### Example requests
 

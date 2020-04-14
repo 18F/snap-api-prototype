@@ -11,7 +11,7 @@ from snap_financial_factors.input_data.parse_input_data import ParseInputData
 
 def create_app():
     app = Flask(__name__)
-    CORS(app, resources={r"/calculate": {"origins": "*"}})
+    CORS(app, resources={r"/v0/calculate": {"origins": "*"}})
     auth = HTTPBasicAuth()
 
     if path.exists(".env"):
