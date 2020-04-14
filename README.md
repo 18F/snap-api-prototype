@@ -32,9 +32,9 @@ make serve
 
 ## Documentation
 
-+ API documentation: [docs/web_api_documentation.md](/docs/web_api_documentation.md).
-+ SNAP modeling progress: [docs/modeling_progress.md](/docs/modeling_progress.md).
-+ State-by-state API coverage: [docs/states_progress.md](/docs/states_progress.md)
++ [API documentation](/docs/web_api_documentation.md)
++ [SNAP modeling progress](/docs/modeling_progress.md)
++ [State-by-state API coverage](/docs/states_progress.md)
 
 ## Deploy
 
