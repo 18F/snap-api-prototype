@@ -1,21 +1,23 @@
 # Web API
 
-The web API has one endpoint. The `/calculate` endpoint calculates a household's estimated eligibility for the SNAP program. The endpoint accepts inputs about a household and returns:
+This prototype SNAP API calculates a household's estimated eligibility for the SNAP program. The API accepts inputs about a household and returns:
 
 + an estimate of that household's SNAP eligibility
 + an estimated benefit amount
 + an explanation of the logic behind the API's decision-making
 + a link to a state website where a household could apply for SNAP
 
+At this time, the web API has one endpoint, `/v0/calculate`. The `/v0` version indicates that the API is in prototype or alpha phase, and is likely to change frequently without warning. (See [GSA API Standards on versioning](https://github.com/GSA/api-standards#prototype-or-alpha-versions).)
+
 Note that not all U.S. states are well-supported by the prototype API at this stage. States are being added one-by-one, based on partnership interest and other factors. See [docs/states_progress.md](/docs/states_progress.md) for information about state-by-state API coverage.
 
-## `/calculate`
+## `/v0/calculate`
 
 ### Example requests
 
-+ [Try the API! -- Valid input data, eligible household in IL](https://snap-prototype-financial-factors.app.cloud.gov/calculate?state_or_territory=IL&monthly_job_income=0&monthly_non_job_income=1000&household_includes_elderly_or_disabled=false&household_size=3&resources=1400&pretty_print=true)
-+ [Try the API! -- Valid input data, ineligible household in IL](https://snap-prototype-financial-factors.app.cloud.gov/calculate?state_or_territory=IL&monthly_job_income=4000&monthly_non_job_income=1000&household_includes_elderly_or_disabled=false&household_size=3&resources=1400&pretty_print=true)
-+ [Try the API! -- Invalid input data](https://snap-prototype-financial-factors.app.cloud.gov/calculate?state_or_territory=IL&monthly_job_income=4000&monthly_non_job_income=1000&household_size=3&resources=1400&pretty_print=true)
++ [Try the API! -- Valid input data, eligible household in IL](https://snap-prototype-financial-factors.app.cloud.gov/v0/calculate?state_or_territory=IL&monthly_job_income=0&monthly_non_job_income=1000&household_includes_elderly_or_disabled=false&household_size=3&resources=1400&pretty_print=true)
++ [Try the API! -- Valid input data, ineligible household in IL](https://snap-prototype-financial-factors.app.cloud.gov/v0/calculate?state_or_territory=IL&monthly_job_income=4000&monthly_non_job_income=1000&household_includes_elderly_or_disabled=false&household_size=3&resources=1400&pretty_print=true)
++ [Try the API! -- Invalid input data](https://snap-prototype-financial-factors.app.cloud.gov/v0/calculate?state_or_territory=IL&monthly_job_income=4000&monthly_non_job_income=1000&household_size=3&resources=1400&pretty_print=true)
 
 Note that these API endpoints are password-protected for now due to agency compliance rules. Please reach out to eligibility-apis-initiative at gsa.gov to request the username/password for this prototype API.
 
