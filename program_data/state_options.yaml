@@ -137,7 +137,7 @@ UT:
         uses_bbce: False
         child_support_payments_treatment: DEDUCT  # According to USDA State Options Report. Options as of October 1, 2017.
         website: https://jobs.utah.gov/assistance/index.html
-        mandatory_standard_utility_allowances: True
+        mandatory_standard_utility_allowances: False
 
 VT:
     2020:
