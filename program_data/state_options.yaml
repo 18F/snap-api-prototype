@@ -40,7 +40,7 @@ CA:
         resource_limit_elderly_or_disabled_income_twice_fpl: NULL
         resource_limit_non_elderly_or_disabled: NULL
         child_support_payments_treatment: EXCLUDE  # According to USDA State Options Report. Options as of October 1, 2017.
-        mandatory_standard_utility_allowances: True
+        # mandatory_standard_utility_allowances: True
 
 ID:
     2020:
@@ -51,7 +51,7 @@ ID:
         resource_limit_elderly_or_disabled_income_twice_fpl: 5000
         resource_limit_non_elderly_or_disabled: 5000
         child_support_payments_treatment: DEDUCT  # According to USDA State Options Report. Options as of October 1, 2017.
-        mandatory_standard_utility_allowances: True
+        # mandatory_standard_utility_allowances: True
 
 IL:
     2020:
@@ -87,7 +87,7 @@ MA:
         resource_limit_elderly_or_disabled_income_twice_fpl: 3500
         resource_limit_non_elderly_or_disabled: NULL
         child_support_payments_treatment: DEDUCT  # According to USDA State Options Report. Options as of October 1, 2017.
-        mandatory_standard_utility_allowances: True
+        # mandatory_standard_utility_allowances: True
 
 MI:
     2020:
@@ -137,7 +137,7 @@ UT:
         uses_bbce: False
         child_support_payments_treatment: DEDUCT  # According to USDA State Options Report. Options as of October 1, 2017.
         website: https://jobs.utah.gov/assistance/index.html
-        mandatory_standard_utility_allowances: True
+        mandatory_standard_utility_allowances: False
 
 VT:
     2020:

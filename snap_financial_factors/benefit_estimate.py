@@ -14,6 +14,7 @@ from snap_financial_factors.calculations.benefit_amount_estimate import BenefitA
 from snap_financial_factors.calculations.benefit_amount_result import BenefitAmountResult
 
 from snap_financial_factors.program_data_api.fetch_income_limits import FetchIncomeLimits
+from snap_financial_factors.program_data_api.validate_state_options import ValidateStateOptions
 
 
 class BenefitEstimate:
@@ -31,6 +32,7 @@ class BenefitEstimate:
 
         # Load SNAP program data as YAML
         self.state_options_data = yaml.safe_load(open('./program_data/state_options.yaml', 'r'))
+        ValidateStateOptions(self.state_options_data).validate()
         self.income_limit_data = yaml.safe_load(open('./program_data/income_limits.yaml', 'r'))
         self.standard_deductions = yaml.safe_load(open('./program_data/standard_deductions.yaml', 'r'))
         self.max_shelter_deductions = yaml.safe_load(open('./program_data/max_shelter_deductions.yaml', 'r'))
