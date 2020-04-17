@@ -1,4 +1,5 @@
 # Prototype: SNAP Financial Factors
+[![CircleCI Build Status](https://circleci.com/gh/18F/snap-api-prototype.svg?style=shield)](https://circleci.com/gh/18F/snap-api-prototype)
 
 This is a sketchpad prototyping repo being used by 18F's [Eligibility APIs Initiative](https://github.com/18F/eligibility-rules-service/blob/master/README.md) to explore the financial factors of SNAP eligibility.
 
