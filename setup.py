@@ -21,14 +21,5 @@ setuptools.setup(
     install_requires=[
         'PyYAML >= 5.3'
     ],
-    exclude_package_data={
-        "": [
-            "README.md",
-            "app.py",
-            "requirements.txt",
-            "conftest.py",
-            "manifest.yml",
-            "Pipfile*"
-        ]
-    }
+    include_package_data=True,  # Checks MANIFEST.in for explicit rules
 )
