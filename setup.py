@@ -12,7 +12,8 @@ setuptools.setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/18F/snap-api-prototype",
-    packages=setuptools.find_packages(),
+    package_dir={'': 'snap_financial_factors'},
+    py_modules=['benefit_estimate'],
     classifiers=[
         "Programming Language :: Python :: 3",
         "Operating System :: OS Independent",
