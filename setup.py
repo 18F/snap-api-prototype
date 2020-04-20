@@ -20,5 +20,6 @@ setuptools.setup(
     python_requires='>=3.8.1',
     install_requires=[
         'PyYAML >= 5.3'
-    ]
+    ],
+    include_package_data=True,  # Checks MANIFEST.in for explicit rules
 )
