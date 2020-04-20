@@ -17,5 +17,8 @@ setuptools.setup(
         "Programming Language :: Python :: 3",
         "Operating System :: OS Independent",
     ],
-    python_requires='>=3.6',
+    python_requires='>=3.8.1',
+    install_requires=[
+        'PyYAML >= 5.3'
+    ]
 )
