@@ -1,0 +1,6 @@
+exclude app.py
+exclude conftest.py
+exclude Makefile
+exclude Pipfile*
+exclude requirements.txt
+exclude set_app_name.sh

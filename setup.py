@@ -20,5 +20,6 @@ setuptools.setup(
     python_requires='>=3.8.1',
     install_requires=[
         'PyYAML >= 5.3'
-    ]
+    ],
+    exclude_package_data=True # Will read Manifest.in
 )
