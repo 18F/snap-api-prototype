@@ -1,7 +1,7 @@
 # flake8: noqa
 import json
 from behave import given, when, then, step
-from snap_financial_factors.benefit_estimate import BenefitEstimate
+from snap_financial_factors.benefit_estimate.benefit_estimate import BenefitEstimate
 from snap_financial_factors.input_data.parse_input_data import ParseInputData
 
 

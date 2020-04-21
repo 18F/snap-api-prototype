@@ -12,10 +12,13 @@ setuptools.setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/18F/snap-api-prototype",
-    packages=setuptools.find_packages(),
+    packages=['snap_financial_factors'],
     classifiers=[
         "Programming Language :: Python :: 3",
         "Operating System :: OS Independent",
     ],
-    python_requires='>=3.6',
+    python_requires='>=3.8.1',
+    install_requires=[
+        'PyYAML >= 5.3'
+    ]
 )

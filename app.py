@@ -5,7 +5,7 @@ from flask_httpauth import HTTPBasicAuth
 from flask_cors import CORS
 from os import path
 
-from snap_financial_factors.benefit_estimate import BenefitEstimate
+from snap_financial_factors.benefit_estimate.benefit_estimate import BenefitEstimate
 from snap_financial_factors.input_data.parse_input_data import ParseInputData
 
 
