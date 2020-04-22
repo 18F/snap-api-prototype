@@ -41,6 +41,7 @@ class SnapEstimateEntrypoint:
         result = BenefitEstimate(input_data).calculate()
 
         return {
+            'lets_see_if_tests_go': 'red',
             'status': 'OK',
             'eligible': result['eligible'],
             'estimated_monthly_benefit': result['estimated_monthly_benefit'],
