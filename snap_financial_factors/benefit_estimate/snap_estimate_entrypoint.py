@@ -8,7 +8,7 @@ class SnapEstimateEntrypoint:
     '''
     Entrypoint to the Python API.
 
-    Accepts input arguments. Passes to SnapBenefitEstimate if valid; otherwise, surfaces errors.
+    Passes to SnapBenefitEstimate if inputs are valid; otherwise, surfaces errors.
 
     Returns a dict with a 'status' key which will be either 'OK' or 'ERROR'.
     '''
