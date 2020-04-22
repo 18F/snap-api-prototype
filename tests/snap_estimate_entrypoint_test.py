@@ -1,4 +1,3 @@
-import pytest
 from snap_financial_factors.benefit_estimate.snap_estimate_entrypoint import SnapEstimateEntrypoint
 
 
@@ -18,7 +17,7 @@ def test_no_input_data():
     assert result['status'] == 'ERROR'
     assert result['errors'] == ['No input data received.']
 
-#
+
 def test_valid_input_data():
     result = send_data_to_entrypoint({
         'state_or_territory': 'IL',
@@ -29,7 +28,7 @@ def test_valid_input_data():
         'resources': 0
     })
     assert result['status'] == 'OK'
-    assert result['eligible'] == True
+    assert result['eligible'] is True
 
 
 def test_missing_required_integer():
