@@ -23,6 +23,10 @@ See below for API documentation:
 + [Web API documentation](/docs/web_api_documentation.md)
 + [Python API documentation](/docs/python_api_documentation.md)
 
+An [Web API instance](https://snap-prototype-financial-factors.app.cloud.gov/) is deployed to Cloud.gov. Since this application falls under [ATO pre-assessment](https://before-you-ship.18f.gov/ato/types/#conditions-for-pre-assessment), it is password-protected and only available to Federal staff.
+
+Please reach out via [email](mailto:eligibility-apis-initiative@gsa.gov) if you are a Federal employee and would like a demonstration of the web API and pre-screener.
+
 The API does not cover every state and every facet of SNAP eligibility at this time.
 
 See below for more detail on state coverage and SNAP modeling progress:
@@ -61,7 +65,3 @@ make serve
 ## Deploy
 
 This app includes a `manifest.yml` file with deploy configuration for [Cloud.gov](https://cloud.gov/) or another [Cloud Foundry](https://www.cloudfoundry.org/) system.
-
-An [API instance](https://snap-prototype-financial-factors.app.cloud.gov/) is deployed to Cloud.gov. Since this application falls under [ATO pre-assessment](https://before-you-ship.18f.gov/ato/types/#conditions-for-pre-assessment), it is password-protected and only available to Federal staff.
-
-Please reach out via [email](mailto:eligibility-apis-initiative@gsa.gov) if you are a Federal employee and would like a demonstration of the web API and pre-screener.
