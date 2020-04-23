@@ -7,7 +7,7 @@ This is a sketchpad prototyping repo being used by 18F's [Eligibility APIs Initi
 
 # What does this do?
 
-This prototype SNAP API calculates a household's estimated eligibility for the SNAP program. The API accepts inputs about a household and returns:
+This prototype SNAP API calculates a household's estimated eligibility for the SNAP program. The API accepts inputs about a household and returns the following:
 
 + an estimate of that household's SNAP eligibility
 + an estimated benefit amount
@@ -16,12 +16,13 @@ This prototype SNAP API calculates a household's estimated eligibility for the S
 
 # Using the API
 
-Our goal is to make this prototype available both as a downloadable Python package and as a web API.
-
-## Documentation
+Our goal is to make this prototype available both as a downloadable Python package and as a web API. See below for API documentation:
 
 + [Web API documentation](/docs/web_api_documentation.md)
 + [Python API documentation](/docs/python_api_documentation.md)
+
+The API does not cover every state and every facet of SNAP eligibility at this time, see the below for more detail on state coverage and SNAP modeling progress:
+
 + [SNAP modeling progress](/docs/modeling_progress.md)
 + [State-by-state API coverage](/docs/states_progress.md)
 
