@@ -5,8 +5,7 @@ from flask_httpauth import HTTPBasicAuth
 from flask_cors import CORS
 from os import path
 
-from snap_financial_factors.benefit_estimate.benefit_estimate import BenefitEstimate
-from snap_financial_factors.input_data.parse_input_data import ParseInputData
+from snap_financial_factors.benefit_estimate.snap_estimate_entrypoint import SnapEstimateEntrypoint
 
 
 def create_app():
@@ -59,21 +58,17 @@ def create_app():
         else:
             raise ValueError('No input data received.')
 
-        # Handle invalid input case; return error
-        parsed_input_data = ParseInputData(raw_input_data).parse()
-        if parsed_input_data.valid is False:
+        result = SnapEstimateEntrypoint(raw_input_data).calculate()
+
+        if result['status'] == 'ERROR':
             return Response(
                 response=json.dumps({
-                    'errors': parsed_input_data.errors,
-                    'status': 'ERROR',
+                    'errors': result['errors'],
+                    'status': result['status'],
                 }),
                 status=400,
                 mimetype='application/json'
             )
-
-        # Handle valid input case; return data
-        input_data = parsed_input_data.result
-        benefit_estimate = BenefitEstimate(input_data).calculate()
 
         use_pretty_print = raw_input_data.get('pretty_print', None)
         if use_pretty_print:
@@ -82,10 +77,7 @@ def create_app():
             pretty_print_kwargs = {}
 
         return Response(
-            response=json.dumps({
-                **benefit_estimate,
-                'status': 'OK',
-            }, **pretty_print_kwargs),
+            response=json.dumps(result, **pretty_print_kwargs),
             status=200,
             mimetype='application/json'
         )
