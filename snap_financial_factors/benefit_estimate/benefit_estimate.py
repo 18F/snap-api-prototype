@@ -2,6 +2,7 @@ from typing import Dict
 from snap_financial_factors.input_data.input_data import InputData
 
 import yaml
+import pkgutil
 
 from snap_financial_factors.income.net_income import NetIncome
 from snap_financial_factors.income.gross_income import GrossIncome
@@ -31,7 +32,7 @@ class BenefitEstimate:
         self.use_emergency_allotment = self.input_data.use_emergency_allotment
 
         # Load SNAP state options as YAML and validate
-        self.state_options_data = yaml.safe_load(open('./snap_financial_factors/program_data/state_options.yaml', 'r'))
+        self.state_options_data = yaml.safe_load(pkgutil.get_data("snap_financial_factors.program_data", "state_options.yaml"))
         ValidateStateOptions(self.state_options_data).validate()
 
         # Load SNAP program data as YAML
