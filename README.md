@@ -14,15 +14,18 @@ This prototype SNAP API calculates a household's estimated eligibility for the S
 + an explanation of the logic behind the API's decision-making
 + a link to a state website where a household could apply for SNAP
 
-# Python API and Web API
+# Using the API
 
 Our goal is to make this prototype available both as a downloadable Python package and as a web API.
 
 ## Documentation
 
 + [Web API documentation](/docs/web_api_documentation.md)
++ [Python API documentation](/docs/python_api_documentation.md)
 + [SNAP modeling progress](/docs/modeling_progress.md)
 + [State-by-state API coverage](/docs/states_progress.md)
+
+# Developing the API
 
 ## Environment
 

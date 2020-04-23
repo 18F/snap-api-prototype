@@ -1,5 +1,11 @@
 # Python API
 
-This prototype does not yet have a Python API.
+We are testing out making this prototype available as a Python API.
 
-We are planning to package and distribute as a downloadable and import-able library for users who would rather call the API locally, as opposed to over the network. Please reach out if this matches your use case.
+Since the API is pre-alpha, it is not yet hosted on the Python Package Index (PyPI), but can be downloaded as a dependency via GitHub.
+
+The entrypoint to the API is the `SnapEstimateEntrypoint` class. See:
+
+```
+snap_financial_factors/benefit_estimate/snap_estimate_entrypoint.py
+```
