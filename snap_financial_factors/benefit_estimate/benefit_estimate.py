@@ -30,14 +30,16 @@ class BenefitEstimate:
 
         self.use_emergency_allotment = self.input_data.use_emergency_allotment
 
-        # Load SNAP program data as YAML
-        self.state_options_data = yaml.safe_load(open('./program_data/state_options.yaml', 'r'))
+        # Load SNAP state options as YAML and validate
+        self.state_options_data = yaml.safe_load(open('./snap_financial_factors/program_data/state_options.yaml', 'r'))
         ValidateStateOptions(self.state_options_data).validate()
-        self.income_limit_data = yaml.safe_load(open('./program_data/income_limits.yaml', 'r'))
-        self.standard_deductions = yaml.safe_load(open('./program_data/standard_deductions.yaml', 'r'))
-        self.max_shelter_deductions = yaml.safe_load(open('./program_data/max_shelter_deductions.yaml', 'r'))
-        self.max_allotments = yaml.safe_load(open('./program_data/max_allotments.yaml', 'r'))
-        self.min_allotments = yaml.safe_load(open('./program_data/min_allotments.yaml', 'r'))
+
+        # Load SNAP program data as YAML
+        self.income_limit_data = yaml.safe_load(open('./snap_financial_factors/program_data/income_limits.yaml', 'r'))
+        self.standard_deductions = yaml.safe_load(open('./snap_financial_factors/program_data/standard_deductions.yaml', 'r'))
+        self.max_shelter_deductions = yaml.safe_load(open('./snap_financial_factors/program_data/max_shelter_deductions.yaml', 'r'))
+        self.max_allotments = yaml.safe_load(open('./snap_financial_factors/program_data/max_allotments.yaml', 'r'))
+        self.min_allotments = yaml.safe_load(open('./snap_financial_factors/program_data/min_allotments.yaml', 'r'))
 
     def calculate(self) -> Dict:
         """
