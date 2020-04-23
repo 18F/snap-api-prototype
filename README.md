@@ -16,6 +16,8 @@ This prototype SNAP API calculates a household's estimated eligibility for the S
 
 # Using the API
 
+## Web and Python APIs
+
 Our goal is to make this prototype available both as a downloadable Python package and as a web API.
 
 See below for API documentation:
@@ -23,9 +25,9 @@ See below for API documentation:
 + [Web API documentation](/docs/web_api_documentation.md)
 + [Python API documentation](/docs/python_api_documentation.md)
 
-An [Web API instance](https://snap-prototype-financial-factors.app.cloud.gov/) is deployed to Cloud.gov. Since this application falls under [ATO pre-assessment](https://before-you-ship.18f.gov/ato/types/#conditions-for-pre-assessment), it is password-protected and only available to Federal staff.
+An [Web API instance](https://snap-prototype-financial-factors.app.cloud.gov/) is deployed to Cloud.gov. Since this application falls under [ATO pre-assessment](https://before-you-ship.18f.gov/ato/types/#conditions-for-pre-assessment), it is password-protected and only available to Federal staff. Please reach out via [email](mailto:eligibility-apis-initiative@gsa.gov) if you are a Federal employee and would like a demonstration of the web API and pre-screener.
 
-Please reach out via [email](mailto:eligibility-apis-initiative@gsa.gov) if you are a Federal employee and would like a demonstration of the web API and pre-screener.
+## State coverage and modeling progress
 
 The API does not cover every state and every facet of SNAP eligibility at this time.
 
