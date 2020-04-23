@@ -1,8 +1,6 @@
 from typing import Dict
 from snap_financial_factors.input_data.input_data import InputData
 
-import yaml
-
 from snap_financial_factors.income.net_income import NetIncome
 from snap_financial_factors.income.gross_income import GrossIncome
 
@@ -13,6 +11,7 @@ from snap_financial_factors.tests.net_income_test import NetIncomeTest
 from snap_financial_factors.calculations.benefit_amount_estimate import BenefitAmountEstimate
 from snap_financial_factors.calculations.benefit_amount_result import BenefitAmountResult
 
+from snap_financial_factors.program_data_api.fetch_program_data import FetchProgramData
 from snap_financial_factors.program_data_api.fetch_income_limits import FetchIncomeLimits
 from snap_financial_factors.program_data_api.validate_state_options import ValidateStateOptions
 
@@ -27,17 +26,18 @@ class BenefitEstimate:
         self.household_includes_elderly_or_disabled = self.input_data.household_includes_elderly_or_disabled
         self.resources = self.input_data.resources
         self.dependent_care_costs = self.input_data.dependent_care_costs
-
         self.use_emergency_allotment = self.input_data.use_emergency_allotment
 
-        # Load SNAP program data as YAML
-        self.state_options_data = yaml.safe_load(open('./program_data/state_options.yaml', 'r'))
+        # Load SNAP state options as YAML and validate
+        self.state_options_data = FetchProgramData('state_options.yaml').parse_data()
         ValidateStateOptions(self.state_options_data).validate()
-        self.income_limit_data = yaml.safe_load(open('./program_data/income_limits.yaml', 'r'))
-        self.standard_deductions = yaml.safe_load(open('./program_data/standard_deductions.yaml', 'r'))
-        self.max_shelter_deductions = yaml.safe_load(open('./program_data/max_shelter_deductions.yaml', 'r'))
-        self.max_allotments = yaml.safe_load(open('./program_data/max_allotments.yaml', 'r'))
-        self.min_allotments = yaml.safe_load(open('./program_data/min_allotments.yaml', 'r'))
+
+        # Load SNAP program data as YAML
+        self.income_limit_data = FetchProgramData('income_limits.yaml').parse_data()
+        self.standard_deductions = FetchProgramData('standard_deductions.yaml').parse_data()
+        self.max_shelter_deductions = FetchProgramData('max_shelter_deductions.yaml').parse_data()
+        self.max_allotments = FetchProgramData('max_allotments.yaml').parse_data()
+        self.min_allotments = FetchProgramData('min_allotments.yaml').parse_data()
 
     def calculate(self) -> Dict:
         """
