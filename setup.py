@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="snap-api-prototype",
-    version="0.0.2",
+    version="0.0.3",
     author="Alex Soble",
     author_email="alex.soble@gsa.gov",
     description="A prototype web API that calculates SNAP eligibility",
