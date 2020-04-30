@@ -137,7 +137,24 @@ UT:
         uses_bbce: False
         child_support_payments_treatment: DEDUCT  # According to USDA State Options Report. Options as of October 1, 2017.
         website: https://jobs.utah.gov/assistance/index.html
-        mandatory_standard_utility_allowances: False
+        mandatory_standard_utility_allowances: True
+        standard_utility_allowances:
+            HEATING_AND_COOLING: 360
+            BASIC_LIMITED_ALLOWANCE: 283
+            ELECTRICITY: 0
+            GAS_AND_FUEL: 0
+            PHONE: 64
+            SEWAGE: 0
+            TRASH: 0
+            WATER: 0
+
+VA:
+    2020:
+        use_emergency_allotment: True  # As of 4/30/2020
+        uses_bbce: False
+        child_support_payments_treatment: DEDUCT  # According to USDA State Options Report. Options as of October 1, 2017.
+        website: https://commonhelp.virginia.gov/
+        mandatory_standard_utility_allowances: False  # One of 5 states/territories
 
 VT:
     2020:
