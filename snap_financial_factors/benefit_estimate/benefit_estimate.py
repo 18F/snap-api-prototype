@@ -83,6 +83,7 @@ class BenefitEstimate:
 
         state_uses_bbce = state_options['uses_bbce']
         mandatory_standard_utility_allowances = state_options['mandatory_standard_utility_allowances']
+        standard_medical_deduction = state_options['standard_medical_deduction']
 
         if state_uses_bbce:
             eligibility_args = [
@@ -117,6 +118,17 @@ class BenefitEstimate:
                 None
             ])
 
+        if standard_medical_deduction:
+            eligibility_args.extend([
+                True,
+                state_options.get('standard_medical_deduction_amount', None)
+            ])
+        else:
+            eligibility_args.extend([
+                False,
+                None
+            ])
+
         return self.__eligibility_calculation_with_params(*eligibility_args)
 
     def __eligibility_calculation_with_params(self,
@@ -126,7 +138,9 @@ class BenefitEstimate:
                                               resource_limit_non_elderly_or_disabled,
                                               child_support_payments_treatment,
                                               mandatory_standard_utility_allowances,
-                                              standard_utility_allowances):
+                                              standard_utility_allowances,
+                                              standard_medical_deduction,
+                                              standard_medical_deduction_amount):
         """
         Private method. Breaks eligibility determiniation into component
         classes; asks each of those classes to run calculations and return
@@ -150,7 +164,9 @@ class BenefitEstimate:
                                           self.max_shelter_deductions,
                                           child_support_payments_treatment,
                                           mandatory_standard_utility_allowances,
-                                          standard_utility_allowances)
+                                          standard_utility_allowances,
+                                          standard_medical_deduction,
+                                          standard_medical_deduction_amount)
 
         net_income_calculation = net_income_calculator.calculate()
         net_income = net_income_calculation.result

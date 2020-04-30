@@ -9,9 +9,13 @@ class MedicalExpensesDeduction:
 
     def __init__(self,
                  household_includes_elderly_or_disabled: bool,
-                 medical_expenses_for_elderly_or_disabled: int) -> None:
+                 medical_expenses_for_elderly_or_disabled: int,
+                 standard_medical_deduction: bool,
+                 standard_medical_deduction_amount: int) -> None:
         self.household_includes_elderly_or_disabled = household_includes_elderly_or_disabled
         self.medical_expenses_for_elderly_or_disabled = medical_expenses_for_elderly_or_disabled
+        self.standard_medical_deduction = standard_medical_deduction
+        self.standard_medical_deduction_amount = standard_medical_deduction_amount
 
     def calculate(self) -> DeductionResult:
         explanation = [

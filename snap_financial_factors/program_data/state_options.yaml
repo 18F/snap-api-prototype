@@ -80,6 +80,7 @@ IL:
               SINGLE_UTILITY_ALLOWANCE: 74
               PHONE: 30
         standard_medical_deduction: True
+        standard_medical_deduction_amount: 165  # SOURCE: Legal Aid Chicago
 
 MA:
     2020:
