@@ -43,7 +43,7 @@ class MedicalExpensesDeduction:
                 explanation=explanation
             )
 
-        if 35 > self.medical_expenses_for_elderly_or_disabled:
+        if 35 >= self.medical_expenses_for_elderly_or_disabled:
             explanation.append(
                 "In this case, medical expenses are below the $35 monthly threshold for deduction. "
             )
