@@ -55,15 +55,30 @@ class MedicalExpensesDeduction:
 
         if self.standard_medical_deduction is True:
             standard_medical_deduction_amount = self.standard_medical_deduction_amount
+            medical_expenses = self.medical_expenses_for_elderly_or_disabled
 
-            explanation.append(
-                f"This state has a Standard Medical Deduction amount of ${standard_medical_deduction_amount}. "
-            )
+            expenses_above_standard = medical_expenses > (standard_medical_deduction_amount + 35)
 
-            return DeductionResult(
-                result=standard_medical_deduction_amount,
-                explanation=explanation
-            )
+            if expenses_above_standard:
+                medical_expenses_deduction = medical_expenses - 35
+
+                explanation.append(
+                    f"Medical expenses are greater than the Standard Medical Deduction amount of ${standard_medical_deduction_amount}. In this case, the full medical expense amount less $35 can be deducted, which comes to ${medical_expenses_deduction}."
+                )
+
+                return DeductionResult(
+                    result=medical_expenses_deduction,
+                    explanation=explanation
+                )
+            else:
+                explanation.append(
+                    f"This state has a Standard Medical Deduction amount of ${standard_medical_deduction_amount}. "
+                )
+
+                return DeductionResult(
+                    result=standard_medical_deduction_amount,
+                    explanation=explanation
+                )
 
         medical_expenses_deduction = self.medical_expenses_for_elderly_or_disabled - 35
         explanation.append(
