@@ -53,11 +53,24 @@ class MedicalExpensesDeduction:
                 explanation=explanation
             )
 
+        if self.standard_medical_deduction is True:
+            standard_medical_deduction_amount = self.standard_medical_deduction_amount
+
+            explanation.append(
+                f"This state has a Standard Medical Deduction amount of ${standard_medical_deduction_amount}. "
+            )
+
+            return DeductionResult(
+                result=standard_medical_deduction_amount,
+                explanation=explanation
+            )
+
         medical_expenses_deduction = self.medical_expenses_for_elderly_or_disabled - 35
         explanation.append(
             "The medical expenses deduction is equal to monthly medical expenses " +
             "beyond $35."
         )
+
         explanation.append('')
         explanation.append(
             f"${self.medical_expenses_for_elderly_or_disabled} - $35 = " +
