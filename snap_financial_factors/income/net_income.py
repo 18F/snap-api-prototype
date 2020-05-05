@@ -21,7 +21,9 @@ class NetIncome:
                  max_shelter_deductions: Dict,
                  child_support_payments_treatment: str,
                  mandatory_standard_utility_allowances: bool,
-                 standard_utility_allowances: Dict) -> None:
+                 standard_utility_allowances: Dict,
+                 standard_medical_deduction: bool,
+                 standard_medical_deduction_amount: int) -> None:
         # Load user input data
         self.input_data = input_data
         self.monthly_job_income = input_data.monthly_job_income
@@ -45,6 +47,8 @@ class NetIncome:
         self.child_support_payments_treatment = child_support_payments_treatment
         self.mandatory_standard_utility_allowances = mandatory_standard_utility_allowances
         self.standard_utility_allowances = standard_utility_allowances
+        self.standard_medical_deduction = standard_medical_deduction
+        self.standard_medical_deduction_amount = standard_medical_deduction_amount
 
     def calculate(self):
         explanation = []
@@ -73,7 +77,9 @@ class NetIncome:
             DependentCareDeduction(dependent_care_costs=self.dependent_care_costs),
             MedicalExpensesDeduction(
                 household_includes_elderly_or_disabled=self.household_includes_elderly_or_disabled,
-                medical_expenses_for_elderly_or_disabled=self.medical_expenses_for_elderly_or_disabled
+                medical_expenses_for_elderly_or_disabled=self.medical_expenses_for_elderly_or_disabled,
+                standard_medical_deduction=self.standard_medical_deduction,
+                standard_medical_deduction_amount=self.standard_medical_deduction_amount
             ),
             ChildSupportPaymentsDeduction(
                 child_support_payments_treatment=self.child_support_payments_treatment,

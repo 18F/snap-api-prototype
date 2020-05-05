@@ -41,6 +41,7 @@ CA:
         resource_limit_non_elderly_or_disabled: NULL
         child_support_payments_treatment: EXCLUDE  # According to USDA State Options Report. Options as of October 1, 2017.
         # mandatory_standard_utility_allowances: True
+        standard_medical_deduction: True
 
 ID:
     2020:
@@ -52,6 +53,7 @@ ID:
         resource_limit_non_elderly_or_disabled: 5000
         child_support_payments_treatment: DEDUCT  # According to USDA State Options Report. Options as of October 1, 2017.
         # mandatory_standard_utility_allowances: True
+        standard_medical_deduction: True
 
 IL:
     2020:
@@ -77,6 +79,8 @@ IL:
               BASIC_LIMITED_ALLOWANCE: 328
               SINGLE_UTILITY_ALLOWANCE: 74
               PHONE: 30
+        standard_medical_deduction: True
+        standard_medical_deduction_amount: 165  # SOURCE: Legal Aid Chicago
 
 MA:
     2020:
@@ -88,6 +92,7 @@ MA:
         resource_limit_non_elderly_or_disabled: NULL
         child_support_payments_treatment: DEDUCT  # According to USDA State Options Report. Options as of October 1, 2017.
         # mandatory_standard_utility_allowances: True
+        standard_medical_deduction: True
 
 MI:
     2020:
@@ -109,6 +114,7 @@ MI:
               SEWAGE: 91
               TRASH: 19
               WATER: 91
+        standard_medical_deduction: False
 
 MN:
     2020:
@@ -130,6 +136,7 @@ MN:
             SEWAGE: 0
             TRASH: 0
             WATER: 0
+        standard_medical_deduction: False
 
 UT:
     2020:
@@ -147,6 +154,7 @@ UT:
             SEWAGE: 0
             TRASH: 0
             WATER: 0
+        standard_medical_deduction: False
 
 VA:
     2020:
@@ -155,6 +163,7 @@ VA:
         child_support_payments_treatment: DEDUCT  # According to USDA State Options Report. Options as of October 1, 2017.
         website: https://commonhelp.virginia.gov/
         mandatory_standard_utility_allowances: False  # One of 5 states/territories
+        standard_medical_deduction: True
 
 VT:
     2020:
@@ -176,3 +185,4 @@ VT:
             SEWAGE: 0
             TRASH: 0
             WATER: 0
+        standard_medical_deduction: False
