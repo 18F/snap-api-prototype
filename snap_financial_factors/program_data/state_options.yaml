@@ -164,6 +164,7 @@ VA:
         website: https://commonhelp.virginia.gov/
         mandatory_standard_utility_allowances: False  # One of 5 states/territories
         standard_medical_deduction: True
+        standard_medical_deduction_amount: 140  # Source: CBPP, "SNAP's Excess Medical Expense Deduction," https://www.cbpp.org/sites/default/files/atoms/files/8-20-14fa.pdf
 
 VT:
     2020:
