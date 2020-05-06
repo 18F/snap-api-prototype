@@ -64,7 +64,7 @@ class MedicalExpensesDeduction:
 
                 explanation.append(
                     f"Medical expenses are greater than the Standard Medical Deduction amount of ${standard_medical_deduction_amount}. " +
-                    "In this case, the full medical expense amount less $35 can be deducted, which comes to ${medical_expenses_deduction}. "
+                    f"In this case, the full medical expense amount less $35 can be deducted, which comes to ${medical_expenses_deduction}. "
                 )
 
                 return DeductionResult(
