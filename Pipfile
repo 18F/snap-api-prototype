@@ -6,7 +6,7 @@ verify_ssl = true
 [dev-packages]
 python-dotenv = "~=0.11.0"
 behave = "~=1.2.6"
-flake8 = "~=3.7.9"
+flake8 = "~=3.8.1"
 bandit = "~=1.6.2"
 pytest = "~=5.4.2"
 
