@@ -14,7 +14,7 @@ class EarnedIncomeDeduction:
         explanation = [
             (
                 "Next, we add the earned income deduction. " +
-                f"This is equal to 20% of income from jobs or self-employment: "
+                "This is equal to 20% of income from jobs or self-employment: "
             ),
             (''),
             (
