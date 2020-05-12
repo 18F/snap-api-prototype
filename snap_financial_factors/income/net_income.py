@@ -130,7 +130,7 @@ class NetIncome:
             explanation.append(deduction_explanation)
 
         total_deductions_explanation = (
-            f"Next, we add all applicable deductions together: "
+            "Next, we add all applicable deductions together: "
         )
         explanation.append(total_deductions_explanation)
         explanation.append('')
